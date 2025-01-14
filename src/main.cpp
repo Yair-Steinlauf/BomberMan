@@ -1,7 +1,7 @@
 #include "GameObject.h"
-//#include ""
+#include "GameManager.h"
 int main()
 {
-	auto window = sf::RenderWindow(sf::VideoMode(500, 500), "BomberMan");
-	
+	auto game = GameManager();
+	game.run();
 }

@@ -3,10 +3,15 @@
 #include "DataLoader.h"
 class GameObject {
 public:
-	GameObject(enum ObjectType type, sf::Vector2f& location);
+	GameObject(enum ObjectType type, const sf::Vector2f& location);
 	sf::Vector2f getLocation() const;
 	void setLocation(sf::Vector2f& location);
 	void draw(sf::RenderWindow& window) const;
+	virtual sf::Vector2f move(sf::Time deltaTime, const sf::Event& type) = 0;
+	virtual ~GameObject() = default;
 protected:
+	unsigned int m_health = 1;
 	sf::Sprite m_sprite;
+	virtual void decreaseHealth() =0;
+	virtual void increaseHealth() = 0;
 };

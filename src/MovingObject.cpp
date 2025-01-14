@@ -1,29 +1,32 @@
 #include "MovingObject.h"
 
-sf::Vector2f MovingObject::move(float deltaTime, sf::Event type)
+MovingObject::MovingObject(enum ObjectType type, const sf::Vector2f& location)
+	:GameObject(type, location), m_speed(DefaultSpeed)
+{}
+
+
+sf::Vector2f MovingObject::diffMove(sf::Time deltaTime) const
 {
-	sf::Vector2f diff(0.0f, 0.0f);
-	sf::Vector2f newLocation = m_sprite.getPosition();
-	switch (type.key.code)
-	{
-	case sf::Keyboard::Up:
-		newLocation.y += deltaTime * m_speed.y;
-		break;
-	case sf::Keyboard::Down:
-		newLocation.y -= deltaTime * m_speed.y;
-		break;
-	case sf::Keyboard::Left:
-		newLocation.x -= deltaTime * m_speed.x;
-		break;
-	case sf::Keyboard::Right:
-		newLocation.x += deltaTime * m_speed.x;
-		break;
-	}
-	this->setLocation(newLocation);
-	return newLocation;
+    float moveX = deltaTime.asSeconds() * m_speed;
+    float moveY = deltaTime.asSeconds() * m_speed; 
+    return sf::Vector2f(moveX, moveY);
 }
 
-void MovingObject::setSpeed(const sf::Vector2f newSpeed)
+void MovingObject::increaseHealth()
+{
+    m_health++;
+}
+
+void MovingObject::decreaseHealth()
+{
+    m_health--;
+    if (m_health == 0)
+    {
+        delete this;
+    }
+}
+
+void MovingObject::setSpeed(const float newSpeed)
 {
 	m_speed = newSpeed;
 }

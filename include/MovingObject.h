@@ -3,9 +3,15 @@
 
 class MovingObject : public GameObject {
 public:
-	virtual sf::Vector2f move(float deltaTime, sf::Event type);
-	void setSpeed(const sf::Vector2f newSpeed);
+	MovingObject(enum ObjectType type, const sf::Vector2f& location);
+	virtual sf::Vector2f move(sf::Time deltaTime, const sf::Event& type) = 0;
+	void setSpeed(const float newSpeed);
+
 protected:
-	sf::Vector2f m_speed = { 1.0f,1.0f };
+	sf::Vector2f diffMove(sf::Time deltaTime) const;
+	float m_speed = DefaultSpeed;
+
+	void increaseHealth() override;
+	void decreaseHealth() override;
 
 };

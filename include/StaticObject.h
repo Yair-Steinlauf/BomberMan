@@ -3,5 +3,6 @@
 #include "Types.h"
 class StaticObject : public GameObject {
 public:
-	StaticObject(enum ObjectType type, sf::Vector2f& location);
+	
+	sf::Vector2f move(sf::Time deltaTime, const sf::Event& type) override;
 };

@@ -1,7 +1,8 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject(enum ObjectType type, sf::Vector2f& location)
+GameObject::GameObject(enum ObjectType type, const sf::Vector2f& location)
+	:m_health(1)
 {
 	m_sprite.setPosition(location);
 	m_sprite.setTexture(DataLoader::getP2Texture(type));
