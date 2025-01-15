@@ -1,13 +1,54 @@
 #include "Guard.h"
+Guard::Guard()
+{
+	m_sprite.setTexture(DataLoader::getP2Texture(GUARD));
+	m_speed = 1.0f;
+}
 
 Guard::Guard(const sf::Vector2f& location)
-    :MovingObject(GUARD, location)
+	:Guard()
 {
-    m_health = 1;
+	this->setLocation(location);
 }
 
-sf::Vector2f Guard::move(sf::Time deltaTime, const sf::Event& type)
+void Guard::move()
 {
-    //TODO: add logic
-    return sf::Vector2f();
+	int peeker = rand() % 2;
+	//if (rand == 0)
+		//setLocation(smartMove());
+	//else
+		setLocation(randMove());
 }
+
+sf::Vector2f Guard::smartMove()
+{
+    //TODO: smart move logic
+	return this->getLocation();
+}
+
+sf::Vector2f Guard::randMove()
+{
+
+    int randomDirection = rand() % 4; 
+    sf::Vector2f moveDirection;
+
+    switch (randomDirection)
+    {
+    case UP: 
+        moveDirection = sf::Vector2f(0, -m_speed);
+        break;
+    case DOWN:
+        moveDirection = sf::Vector2f(0, m_speed);
+        break;
+    case LEFT: 
+        moveDirection = sf::Vector2f(-m_speed, 0);
+        break;
+    case RIGHT: 
+        moveDirection = sf::Vector2f(m_speed, 0);
+        break;
+    }
+
+    return getLocation() + moveDirection;
+}
+
+

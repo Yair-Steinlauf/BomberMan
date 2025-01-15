@@ -9,10 +9,6 @@ enum ObjectType {
 	GIFT
 };
 
-enum Direction {
-	UP, DOWN, RIGHT, LEFT
-};
-
 enum GameState {
 	MENU,
 	PLAYING,
@@ -20,6 +16,5 @@ enum GameState {
 };
 
 static const float DefaultSpeed = 1.0f;
-static const float ImageScale = 0.125;
 
-static const sf::Vector2f ImageDimension = sf::Vector2f(256.0f *ImageScale, 256.0f *ImageScale);
+static const sf::Vector2f ImageDimension = sf::Vector2f(256.0f, 256.0f);

@@ -1,98 +1,78 @@
 #include "Board.h"
 
-Board::Board(std::string& fileName)
+Board::Board()
 {
-	auto level = std::ifstream(fileName);
-	auto board = fileToString(level);
-	m_dimension.x = ImageDimension.x * board[0].length();
-	m_dimension.y = ImageDimension.y * board.size();
-	sf::Vector2f location;
-	for (int rowIndex = 0; rowIndex < board.size(); rowIndex++)
-	{
-		for (int colIndex = 0; colIndex < board[0].length(); colIndex++)
-		{
-			//if (board[rowIndex][colIndex] == PLAYER)
-			//{
-			//	m_player = Player(location);
-			//}
-			if (board[rowIndex][colIndex] != ' ')
-			{
-				location = rowColToLocation(rowIndex, colIndex);
-				addObject(charToObjectType(board[rowIndex][colIndex]), location);
-			}
-		}
-	}
+	//addObject(PLAYER, sf::Vector2f(50, 200));
 }
 
-void Board::draw(sf::RenderWindow& window) const
+Board::Board(std::ifstream& file) {
+	loadFromFile(file);
+}
+
+void Board::draw(sf::RenderWindow& window)
 {
-	for (const auto& object : m_objects)
+	m_player.draw(window);
+	for (auto& object : m_board)
 	{
 		object->draw(window);
 	}
 }
 
-void Board::update(const sf::Event& event, const sf::Time& deltaTime)
+void Board::update()
 {
-	for (const auto& object : m_objects)
+	for (auto& object : m_board)
 	{
-		object->move(deltaTime, event);
+		if (auto movingObject = dynamic_cast<MovingObject*>(object.get()))
+		{
+			movingObject->move();
+		}
 	}
 }
 
-
-ObjectType Board::charToObjectType(const char& a) const
+Player& Board::getPlayer()
 {
-	return ObjectType(a);
+	return m_player;
 }
 
-std::vector<std::string> Board::fileToString(std::ifstream& file)const
+void Board::addObject(ObjectType type, sf::Vector2f location)
+{
+	switch (type)
+	{
+	case PLAYER:
+		m_player = Player(location);
+		break;
+	case GUARD:
+		m_board.push_back(std::make_unique <Guard>(location));
+
+		break;
+	}
+}
+
+std::vector<std::string> Board::fileTo2DString(std::ifstream& file)
 {
 	std::string line;
 	std::vector<std::string> board;
 	while (std::getline(file, line)) {
 		board.push_back(line);
 	}
+	file.close();
 	return board;
 }
 
-sf::Vector2f Board::getDimension() const
+void Board::loadFromFile(std::ifstream& file)
 {
-	return m_dimension;
+	std::vector<std::string> lines = fileTo2DString(file);
+	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
+	{
+		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
+		{
+			auto location = rowColToLocation(rowIndex, colIndex);
+			addObject(ObjectType(lines[rowIndex][colIndex]), location);
+		}
+	}
 }
 
 sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const
 {
 	return sf::Vector2f(col * ImageDimension.x, row * ImageDimension.y);
-}
-
-void Board::addObject(ObjectType type, sf::Vector2f location)
-{
-	std::unique_ptr<GameObject> object;
-	switch (type)
-	{
-	case PLAYER:
-		object = std::make_unique<Player>(location);
-		break;
-	case GUARD:
-		object = std::make_unique<Guard>(location);
-		break;
-		//TODO: add case for other objects
-	//case DOOR:
-	//	object = std::make_unique<Door>(location);
-	//	break;
-	//case WALL:
-	//	object = std::make_unique<Player>(location);
-	//	break;
-	//case STONE:
-	//	object = std::make_unique<Player>(location);
-	//	break;
-	//case GIFT:
-	//	object = std::make_unique<Player>(location);
-	//	break;
-	default:
-		break;
-	}
-	m_objects.push_back(object);
-
 }

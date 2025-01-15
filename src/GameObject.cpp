@@ -1,11 +1,18 @@
 #include "GameObject.h"
 
-
-GameObject::GameObject(enum ObjectType type, const sf::Vector2f& location)
-	:m_health(1)
+GameObject::GameObject()
+{
+	m_sprite.setScale(ImageScale, ImageScale);
+}
+GameObject::GameObject(const sf::Vector2f& location)
 {
 	m_sprite.setPosition(location);
-	m_sprite.setTexture(DataLoader::getP2Texture(type));
+	
+}
+
+void GameObject::draw(sf::RenderWindow& window)
+{
+	window.draw(m_sprite);
 }
 
 sf::Vector2f GameObject::getLocation() const
@@ -13,12 +20,11 @@ sf::Vector2f GameObject::getLocation() const
 	return m_sprite.getPosition();
 }
 
-void GameObject::setLocation(sf::Vector2f& location)
+GameObject::~GameObject()
 {
-	m_sprite.setPosition(location);//TODO: bounds check
 }
 
-void GameObject::draw(sf::RenderWindow& window) const
+void GameObject::setLocation(const sf::Vector2f& newLocation)
 {
-	window.draw(m_sprite);
+	m_sprite.setPosition(newLocation); //TODO: bound check
 }

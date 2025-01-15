@@ -1,4 +1,5 @@
 #include "DataLoader.h"
+
 DataLoader& DataLoader::getInstance()
 {
 	static DataLoader instance;
@@ -19,15 +20,15 @@ sf::Texture& DataLoader::getP2Texture(const enum ObjectType type)
 DataLoader::DataLoader()
 {
 	const std::vector<std::pair<enum ObjectType, std::string>> objectNames =
-	{	{ PLAYER, "PLAYER" } ,
-		{ GUARD, "GUARD" },
-		{ DOOR, "DOOR" },
-		{ WALL, "WALL" },
-		{ STONE, "STONE" } };
+	{ { PLAYER, "PLAYER" },
+	{ GUARD, "GUARD" },
+	{ DOOR, "DOOR" },
+	{ WALL, "WALL" },
+	{ STONE, "STONE" } };
 	for (const auto& object : objectNames)
 	{
 		std::pair<enum ObjectType, sf::Texture> texture;
-		texture.first = object.first;
+		texture.first = object.first ;
 		texture.second.loadFromFile(object.second + ".png");
 		m_textures.push_back(texture);
 	}

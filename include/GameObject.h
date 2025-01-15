@@ -1,17 +1,18 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "Types.h"
 #include "DataLoader.h"
+
 class GameObject {
 public:
-	GameObject(enum ObjectType type, const sf::Vector2f& location);
-	sf::Vector2f getLocation() const;
-	void setLocation(sf::Vector2f& location);
-	void draw(sf::RenderWindow& window) const;
-	virtual sf::Vector2f move(sf::Time deltaTime, const sf::Event& type) = 0;
-	virtual ~GameObject() = default;
+	virtual void draw(sf::RenderWindow& window);
+	sf::Vector2f getLocation()const;
+
+	virtual ~GameObject();
 protected:
-	unsigned int m_health = 1;
+	GameObject();
+	GameObject(const sf::Vector2f& location);
+	void setLocation(const sf::Vector2f& newLocation);
 	sf::Sprite m_sprite;
-	virtual void decreaseHealth() =0;
-	virtual void increaseHealth() = 0;
+
 };

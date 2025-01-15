@@ -1,8 +1,12 @@
 #pragma once
 #include "MovingObject.h"
 
-class Guard : public MovingObject {
+class Guard :public MovingObject {
 public:
+	Guard();
 	Guard(const sf::Vector2f& location);
-	sf::Vector2f move(sf::Time deltaTime, const sf::Event& type)override;
+	void move()override;
+private:
+	sf::Vector2f smartMove();
+	sf::Vector2f randMove();
 };

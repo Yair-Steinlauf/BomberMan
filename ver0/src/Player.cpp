@@ -1,27 +1,21 @@
 #include "Player.h"
 
-Player::Player()
-{
-	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));
-	m_speed = 50.0f;
-}
-
 Player::Player(const sf::Vector2f& location)
-	:Player()
+	:MovingObject(PLAYER, location)
 {
-	this->setLocation(location);
+	m_health = 3;
 }
 
-void Player::move(const sf::Time& deltaTime, const sf::Event& type)
+sf::Vector2f Player::move(sf::Time deltaTime, const sf::Event& type)
 {
 	sf::Vector2f newLocation = this->getLocation();
 	switch (type.key.code)
 	{
 	case sf::Keyboard::Up:
-		newLocation.y -= diffMove(deltaTime).y;
+		newLocation.y += diffMove(deltaTime).y;
 		break;
 	case sf::Keyboard::Down:
-		newLocation.y += diffMove(deltaTime).y;
+		newLocation.y -= diffMove(deltaTime).y;
 		break;
 	case sf::Keyboard::Left:
 		newLocation.x -= diffMove(deltaTime).x;
@@ -31,5 +25,5 @@ void Player::move(const sf::Time& deltaTime, const sf::Event& type)
 		break;
 	}
 	this->setLocation(newLocation);
+	return newLocation;
 }
-
