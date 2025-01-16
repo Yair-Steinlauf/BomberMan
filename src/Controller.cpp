@@ -18,21 +18,22 @@ std::vector<std::string> Controller::getLevels()
 }
 void Controller::run()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "BomberMan");
+	sf::RenderWindow window(sf::VideoMode(1, 1), "Init Window");
 	for (const auto& level : m_levels)
 	{
 		auto board = loadNewLevel(level);
-		window.create(sf::VideoMode(board.getDimension().x, board.getDimension().y) , "BomberMan");// TODO: change window size to board dimension
+		window.create(sf::VideoMode(board.getDimension().x,
+			board.getDimension().y), "BomberMan");
 		window.setFramerateLimit(60u);
 		Player* player = &board.getPlayer();
 		sf::Clock clock;
-
-		while (window.isOpen())
+		bool endLevel = false; //TODO: it for load next level
+		while (window.isOpen() && !endLevel)
 		{
 			window.clear();
 			board.draw(window);
 			window.display();
-			sf::Event event;			
+			sf::Event event;
 			while (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
@@ -42,7 +43,13 @@ void Controller::run()
 				}
 				if (event.type == sf::Event::KeyReleased) {
 					player->setDirection(DEFAULT);
+					if (event.key.code == sf::Keyboard::P)
+					{
+						endLevel = true;//TODO: you can choose here to load next level
+						break;
+					}
 				}
+
 			}
 			sf::Time deltaTime = clock.restart();
 			board.update(deltaTime);
@@ -60,7 +67,7 @@ Board Controller::loadNewLevel(const std::string& levelName)
 	return Board(level);
 }
 
-Direction Controller::eventToDirection(sf::Event& event) 
+Direction Controller::eventToDirection(sf::Event& event)
 {
 	switch (event.key.code)
 	{
