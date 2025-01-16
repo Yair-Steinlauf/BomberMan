@@ -10,7 +10,7 @@ enum ObjectType {
 };
 
 enum Direction {
-	UP, DOWN, RIGHT, LEFT
+	UP, DOWN, RIGHT, LEFT, DEFAULT
 };
 
 enum GameState {

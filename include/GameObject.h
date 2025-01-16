@@ -10,6 +10,8 @@ public:
 
 	virtual ~GameObject();
 protected:
+	GameObject(const GameObject&) = default;
+	GameObject& operator=(const GameObject&) = default;
 	GameObject();
 	GameObject(const sf::Vector2f& location);
 	void setLocation(const sf::Vector2f& newLocation);

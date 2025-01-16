@@ -9,6 +9,7 @@ public:
 	void run();
 private:
 	Board loadNewLevel(const std::string& levelName);
+	Direction eventToDirection(sf::Event& event);
 	//Board m_board;
 	std::vector<std::string> m_levels;
 	std::vector<std::string> getLevels();

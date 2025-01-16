@@ -3,10 +3,11 @@
 
 class MovingObject : public GameObject {
 public:
-	virtual void move() =0;
+	virtual void update(const sf::Time& deltaTime) =0;
+	void setDirection(Direction direction);
 protected:
 	MovingObject();
 	MovingObject(const sf::Vector2f& location);
-	float m_speed;
-	sf::Vector2f diffMove(sf::Time deltaTime) const;
+	float m_speed = 0;
+	sf::Vector2f m_direction = sf::Vector2f(0, 0);
 };
