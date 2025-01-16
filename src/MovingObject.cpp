@@ -23,7 +23,7 @@ void MovingObject::setDirection(Direction direction)
 }
 
 MovingObject::MovingObject()
-	:GameObject()
+	:MovingObject(sf::Vector2f(0,0))
 {
 }
 

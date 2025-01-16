@@ -5,4 +5,5 @@ class Wall: public StaticObject {
 public:
 	Wall();
 	Wall(const sf::Vector2f& location);
+	virtual void collide(GameObject& other) override;
 };

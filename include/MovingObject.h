@@ -9,5 +9,6 @@ protected:
 	MovingObject();
 	MovingObject(const sf::Vector2f& location);
 	float m_speed = 0;
+	unsigned int m_life = 1;
 	sf::Vector2f m_direction = sf::Vector2f(0, 0);
 };

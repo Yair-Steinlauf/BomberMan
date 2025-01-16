@@ -3,10 +3,23 @@
 #include "Types.h"
 #include "DataLoader.h"
 
+//----Forward decleration----
+class Player;
+class Guard;
+class Wall;
+class Stone;
+class Door;
+
 class GameObject {
 public:
 	virtual void draw(sf::RenderWindow& window);
 	sf::Vector2f getLocation()const;
+	virtual void collide(GameObject& other) =0;
+	virtual void collideWithPlayer(Player& player) {};
+	virtual void collideWithGuard(Guard& guard) {};
+	virtual void collideWithStone(Stone& stone) {};
+	virtual void collideWithWall(Wall& Wall) {};
+	virtual void collideWithDoor(Door& ddor) {};
 
 	virtual ~GameObject();
 protected:
