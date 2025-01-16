@@ -11,3 +11,5 @@ Wall::Wall(const sf::Vector2f& location)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(WALL));
 }
+
+

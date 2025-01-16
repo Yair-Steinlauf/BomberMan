@@ -5,4 +5,5 @@ class Door : public StaticObject {
 public:
 	Door();
 	Door(const sf::Vector2f& location);
+	void collide(GameObject& other) override;
 };

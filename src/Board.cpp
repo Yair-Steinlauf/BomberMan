@@ -10,28 +10,50 @@ Board::Board(std::ifstream& file) {
 
 void Board::draw(sf::RenderWindow& window)
 {
-	m_player.draw(window);
 	for (auto& object : m_board)
 	{
 		object->draw(window);
 	}
 }
+void Board::setDirection(const sf::Time& deltaTime)
+{
+	for (const auto& object : m_board)
+	{
+		object->act(deltaTime);
+	}
+}
+void Board::collideHandler()
+{
+	for (auto& object : m_board)
+	{
+		for (auto& other : m_board)
+		{
+			if (object == other) continue;
+			if (object->intersect(*other.get()))
+			{
+				object->collide(*other.get());
+			}
+		}
+	}
+}
 
 void Board::update(const sf::Time& deltaTime)
 {
-	m_player.update(deltaTime);
 	for (auto& object : m_board)
 	{
-		if (auto movingObject = dynamic_cast<MovingObject*>(object.get()))
-		{
-			movingObject->update(deltaTime);
-		}
+		object->update(deltaTime);
 	}
 }
 
 Player& Board::getPlayer()
 {
-	return m_player;
+	for (const auto& object : m_board)
+	{
+		if (auto* player = dynamic_cast<Player*>(object.get()))
+		{
+			return *player;
+		}
+	}
 }
 
 void Board::addObject(ObjectType type, sf::Vector2f location)
@@ -39,7 +61,7 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 	switch (type)
 	{
 	case PLAYER:
-		m_player = Player(location);
+		m_board.push_back(std::make_unique <Player>(location));
 		break;
 	case GUARD:
 		m_board.push_back(std::make_unique <Guard>(location));
