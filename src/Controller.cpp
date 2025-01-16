@@ -30,9 +30,6 @@ void Controller::run()
 		bool endLevel = false; //TODO: it for load next level
 		while (window.isOpen() && !endLevel)
 		{
-			window.clear();
-			board.draw(window);
-			window.display();
 			sf::Event event;
 			while (window.pollEvent(event))
 			{
@@ -52,7 +49,12 @@ void Controller::run()
 
 			}
 			sf::Time deltaTime = clock.restart();
+			board.setDirection(deltaTime);
+			board.collideHandler();
 			board.update(deltaTime);
+			window.clear();
+			board.draw(window);
+			window.display();
 		}
 	}
 }

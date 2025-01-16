@@ -1,7 +1,12 @@
 #include "StaticObject.h"
 
+void StaticObject::collide(GameObject& other)
+{
+	other.collideWithStatic(*this);
+}
+
 StaticObject::StaticObject()
-	:GameObject()
+	:StaticObject(sf::Vector2f(0, 0))
 {
 }
 

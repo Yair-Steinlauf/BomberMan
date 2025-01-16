@@ -23,6 +23,10 @@ void Player::update(const sf::Time& deltaTime)
 
 void Player::collide(GameObject& other)
 {
-	other.collideWithPlayer(*this);
+	other.collideWithPlayer(*this); //TODO: after set all classes
+}
+
+void Player::act( const sf::Time& deltaTime)
+{
 }
 

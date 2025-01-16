@@ -10,3 +10,7 @@ Door::Door(const sf::Vector2f& location)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(DOOR));
 }
+
+void Door::collide(GameObject& other)
+{
+}

@@ -6,8 +6,9 @@ public:
 	Guard();
 	Guard(const sf::Vector2f& location);
 	void update(const sf::Time& deltaTime) override;
-	//void move()override;//TODO: add deeltaTime
+	void collide(GameObject& other) override;
+	void act(const sf::Time& deltaTime);
 private:
 	sf::Vector2f smartMove();
-	sf::Vector2f randMove();
+	Direction randMove();
 };

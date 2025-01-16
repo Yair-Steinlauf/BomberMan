@@ -8,7 +8,7 @@ Guard::Guard(const sf::Vector2f& location)
 	:MovingObject(location)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(GUARD));
-	m_speed = 10.0f;
+	m_speed = 5.0f;
 }
 
 void Guard::update(const sf::Time& deltaTime)
@@ -18,7 +18,17 @@ void Guard::update(const sf::Time& deltaTime)
 	//if (rand == 0)
 		//setLocation(smartMove());
 	//else
-		setLocation(randMove());
+		setLocation(getLocation() + m_direction);
+}
+
+void Guard::collide(GameObject& other)
+{
+	other.collideWithGuard(*this);
+}
+
+void Guard::act(const sf::Time& deltaTime)
+{
+	setDirection(randMove());
 }
 
 sf::Vector2f Guard::smartMove()
@@ -27,11 +37,10 @@ sf::Vector2f Guard::smartMove()
 	return this->getLocation();
 }
 
-sf::Vector2f Guard::randMove()
+Direction Guard::randMove()
 {
     int randomDirection = rand() % 4; 
-    setDirection(Direction(randomDirection));
-    return getLocation() + m_direction;
+    return Direction(randomDirection);
 }
 
 
