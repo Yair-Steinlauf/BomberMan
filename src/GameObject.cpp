@@ -25,42 +25,42 @@ bool GameObject::intersect(GameObject& other)
 
 	//TODO: decied wich method to use
 
-		//// מקבלים את גבולות האובייקטים
-		//sf::FloatRect bounds1 = m_sprite.getGlobalBounds();
-		//sf::FloatRect bounds2 = other.m_sprite.getGlobalBounds();
+		// מקבלים את גבולות האובייקטים
+		sf::FloatRect bounds1 = m_sprite.getGlobalBounds();
+		sf::FloatRect bounds2 = other.m_sprite.getGlobalBounds();
 
-		//// בדיקה אם יש חפיפה בין הגבולות
-		//return bounds1.intersects(bounds2);
+		// בדיקה אם יש חפיפה בין הגבולות
+		return bounds1.intersects(bounds2);
 
 
-	sf::FloatRect myBounds = m_sprite.getGlobalBounds();
-	sf::FloatRect otherBounds = other.m_sprite.getGlobalBounds();
-	sf::FloatRect sharedArea;
-	if (myBounds.intersects(otherBounds, sharedArea))
-	{
-		sf::Vector2f topLeft = sf::Vector2f(sharedArea.getPosition());//the topLeft of rec
-		auto transformA = m_sprite.getInverseTransform();
-		auto transformB = other.m_sprite.getInverseTransform();
-		for (unsigned int x = topLeft.x; x < topLeft.x + sharedArea.width; x++)
-		{
-			for (unsigned int y = topLeft.y; y < topLeft.y + sharedArea.height; y++)
-			{
-				sf::Vector2f posA = transformA.transformPoint(x, y);
-				sf::Vector2f posB = transformB.transformPoint(x, y);
-				sf::Vector2u sizeA = m_sprite.getTexture()->getSize();
-				sf::Vector2u sizeB = other.m_sprite.getTexture()->getSize();
+	//sf::FloatRect myBounds = m_sprite.getGlobalBounds();
+	//sf::FloatRect otherBounds = other.m_sprite.getGlobalBounds();
+	//sf::FloatRect sharedArea;
+	//if (myBounds.intersects(otherBounds, sharedArea))
+	//{
+	//	sf::Vector2f topLeft = sf::Vector2f(sharedArea.getPosition());//the topLeft of rec
+	//	auto transformA = m_sprite.getInverseTransform();
+	//	auto transformB = other.m_sprite.getInverseTransform();
+	//	for (unsigned int x = topLeft.x; x < topLeft.x + sharedArea.width; x++)
+	//	{
+	//		for (unsigned int y = topLeft.y; y < topLeft.y + sharedArea.height; y++)
+	//		{
+	//			sf::Vector2f posA = transformA.transformPoint(x, y);
+	//			sf::Vector2f posB = transformB.transformPoint(x, y);
+	//			sf::Vector2u sizeA = m_sprite.getTexture()->getSize();
+	//			sf::Vector2u sizeB = other.m_sprite.getTexture()->getSize();
 
-				// Check bounds
-				if (posA.x >= 0 && posA.y >= 0 && posB.x >= 0 && posB.y >= 0 &&
-					posA.x < sizeA.x && posA.y < sizeA.y &&
-					posB.x < sizeB.x && posB.y < sizeB.y) {
-					// If both pixels are within bounds, we have a collision
-					return true;
-				}
-			}
-		}
-	}
-	return false;
+	//			// Check bounds
+	//			if (posA.x >= 0 && posA.y >= 0 && posB.x >= 0 && posB.y >= 0 &&
+	//				posA.x < sizeA.x && posA.y < sizeA.y &&
+	//				posB.x < sizeB.x && posB.y < sizeB.y) {
+	//				// If both pixels are within bounds, we have a collision
+	//				return true;
+	//			}
+	//		}
+	//	}
+	//}
+	//return false;
 }
 
 
