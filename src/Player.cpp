@@ -1,15 +1,15 @@
 #include "Player.h"
 
 Player::Player()
+	:MovingObject()
 {
-	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));
-	m_speed = 50.0f;
 }
 
 Player::Player(const sf::Vector2f& location)
-	:Player()
+	:MovingObject(location)
 {
-	this->setLocation(location);
+	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));
+	m_speed = 5000.0f;
 }
 
 void Player::move(const sf::Time& deltaTime, const sf::Event& type)

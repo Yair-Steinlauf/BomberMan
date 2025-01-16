@@ -6,6 +6,11 @@
 #include "vector"
 #include "Player.h"
 #include "Guard.h"
+#include "Door.h"
+#include "Stone.h"
+#include "Wall.h"
+
+
 class Board {
 public:
 	Board();

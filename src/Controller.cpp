@@ -33,12 +33,12 @@ void Controller::run()
 			board.draw(window);
 			window.display();
 			sf::Event event;
+					sf::Time deltaTime = clock.restart();
 			while (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
 					window.close();
 				if (event.type == sf::Event::KeyPressed) {
-					sf::Time deltaTime = clock.restart();
 					player->move(deltaTime, event);
 				}
 			}

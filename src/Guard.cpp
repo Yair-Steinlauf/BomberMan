@@ -1,14 +1,14 @@
 #include "Guard.h"
 Guard::Guard()
+    :MovingObject()
 {
-	m_sprite.setTexture(DataLoader::getP2Texture(GUARD));
-	m_speed = 1.0f;
 }
 
 Guard::Guard(const sf::Vector2f& location)
-	:Guard()
+	:MovingObject(location)
 {
-	this->setLocation(location);
+	m_sprite.setTexture(DataLoader::getP2Texture(GUARD));
+	m_speed = 1.0f;
 }
 
 void Guard::move()

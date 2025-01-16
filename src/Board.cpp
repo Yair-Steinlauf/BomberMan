@@ -43,7 +43,15 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		break;
 	case GUARD:
 		m_board.push_back(std::make_unique <Guard>(location));
-
+		break;
+	case DOOR: 
+		m_board.push_back(std::make_unique<Door>(location));
+		break;
+	case STONE:
+		m_board.push_back(std::make_unique<Stone>(location));
+		break;
+	case WALL:
+		m_board.push_back(std::make_unique<Wall>(location));
 		break;
 	}
 }
