@@ -23,7 +23,7 @@ void Controller::run()
 	{
 		auto board = loadNewLevel(level);
 		window.create(sf::VideoMode(board.getDimension().x,
-					  board.getDimension().y), "BomberMan");
+			board.getDimension().y), "BomberMan");
 		window.setFramerateLimit(60u);
 		Player* player = &board.getPlayer();
 		sf::Clock clock;
