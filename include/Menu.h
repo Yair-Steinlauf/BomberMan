@@ -15,6 +15,7 @@ public:
 	Menu();
 	void run(sf::RenderWindow& window);
 private:
+	void eventHandler(sf::Event& event, sf::RenderWindow& window);
 	void handleClick(sf::Vector2f& mousePos);
 	std::vector<std::pair<BUTTOM , sf::Text>> m_Buttoms;
 	void drawNDisplay(sf::RenderWindow& window);

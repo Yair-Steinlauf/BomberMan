@@ -25,12 +25,16 @@ Menu::Menu()
 void Menu::run(sf::RenderWindow& window)
 {
     window.create(sf::VideoMode(800, 800), "Menu");
-
-
-    // לולאת התוכנית
     while (window.isOpen() && !m_startGame) {
+        drawNDisplay(window);
         sf::Event event;
         while (window.pollEvent(event)) {
+            eventHandler(event, window);
+        }
+    }
+}
+void Menu::eventHandler(sf::Event& event ,sf::RenderWindow& window)
+{
             if (event.type == sf::Event::Closed)
                 window.close();
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -39,12 +43,8 @@ void Menu::run(sf::RenderWindow& window)
                         sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
                     handleClick(mousePosition);
                 }
-
-
             }
-            drawNDisplay(window);
-        }
-    }
+
 }
 
 void Menu::handleClick(sf::Vector2f& mousePos)
@@ -59,6 +59,7 @@ void Menu::handleClick(sf::Vector2f& mousePos)
                 m_startGame = true;
                 break;
             case EXIT:
+                exit(EXIT_SUCCESS);
                 //TODO: maybe delete this feture
                 break;
             case SOUND:
