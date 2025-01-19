@@ -67,6 +67,11 @@ void MovingObject::collideWithStatic(StaticObject& wall)
     m_direction = sf::Vector2f(0, 0);
 }
 
+unsigned int MovingObject::getLife() const
+{
+    return m_life;
+}
+
 MovingObject::MovingObject()
 	:MovingObject(sf::Vector2f(0,0))
 {
@@ -79,5 +84,5 @@ MovingObject::MovingObject(const sf::Vector2f& location)
 
 void MovingObject::moveToStartPos()
 {
-    //setLocation(m_startPos)
+    setLocation(m_startPos);
 }

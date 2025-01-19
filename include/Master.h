@@ -10,7 +10,7 @@ public:
 	void run();
 
 private:
-	void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime ,GameState& status);
+	void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime);
 	Controller m_game;
 	Menu m_menu;
 	GameState m_status = MENU;

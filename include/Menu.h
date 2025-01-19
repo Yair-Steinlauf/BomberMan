@@ -16,9 +16,10 @@ public:
 	void drawNDisplay(sf::RenderWindow& window);
 	void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status);
 private:
+	sf::Text createButtom(std::string text, sf::Vector2f location);
+	void loadButtomsVector();
 	void handleClick(sf::Vector2f& mousePos, GameState& status);
 	std::vector<std::pair<BUTTOM , sf::Text>> m_Buttoms;
-	sf::Font m_font;
 	bool m_startGame;
 
 };

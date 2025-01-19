@@ -31,12 +31,27 @@ void Board::collideHandler()
 			if (object == other) continue;
 			if (object->intersect(*other.get()))
 			{
+				if ((typeid (*object) == typeid(Player) && typeid(*other.get()) == typeid(Guard))
+					|| (typeid (*other) == typeid(Player) && typeid(*object.get()) == typeid(Guard)))
+				{
+					tryAgain();
+					return;
+				}
 				object->collide(*other.get());
 			}
 		}
 	}
 }
-
+void Board::tryAgain()
+{
+	for (auto& object : m_board)
+	{
+		if (MovingObject* current = dynamic_cast<MovingObject*>(object.get()))
+		{
+			current->moveToStartPos();
+		}
+	}
+}
 void Board::update(const sf::Time& deltaTime)
 {
 	for (auto& object : m_board)

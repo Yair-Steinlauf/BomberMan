@@ -1,9 +1,11 @@
 #include "GameManager.h"
+const sf::Vector2f PADDING(0,30);
 
 Controller::Controller()
 	:m_levels(getLevels()), m_currLevel(0)
 {
 	m_board = loadNewLevel(m_levels[m_currLevel]);
+
 }
 
 bool Controller::loadNextLevel()
@@ -11,6 +13,7 @@ bool Controller::loadNextLevel()
 	m_currLevel++;
 	if (m_currLevel < m_levels.size())
 	{
+		m_scoreDetail.clear();
 		m_board = loadNewLevel(m_levels[m_currLevel]);
 		return true;
 	}
@@ -30,7 +33,7 @@ std::vector<std::string> Controller::getLevels()
 }
 
 void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& status) {
-		//player won-> load next level
+	//player won-> load next level
 	if (m_player->won())
 	{
 		//if it last level- gameOver
@@ -49,7 +52,7 @@ void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& s
 			status = GAMEOVER;
 	}
 	update(deltaTime);
-	
+
 }
 
 
@@ -60,14 +63,25 @@ void Controller::update(sf::Time& deltaTime)
 	m_board.update(deltaTime);
 }
 
+sf::Text Controller::createScoreText(std::string text, sf::Vector2f location)
+{
+	sf::Text sfText(text, DataLoader::getP2Font(), 40);
+	sfText.setPosition(location);
+	return sfText;
+}
+
 
 void Controller::screenDrawNDisplay(sf::RenderWindow& window)
 {
-	window.setSize((sf::Vector2u)m_board.getDimension());
-	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x, 
-		m_board.getDimension().y)));
+	window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
+	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
+		m_board.getDimension().y + scoreDetailsSize.y)));
 
 	window.clear();
+	for (const auto& detail : m_scoreDetail)
+	{
+		window.draw(detail);
+	}
 	m_board.draw(window);
 	window.display();
 
@@ -81,7 +95,9 @@ Board Controller::loadNewLevel(const std::string& levelName)
 	}
 	Board newBoard(level);
 	m_player = &newBoard.getPlayer();
-
+	sf::Vector2f startScoreText(0, newBoard.getDimension().y);
+	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
+	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
 	return newBoard;
 }
 

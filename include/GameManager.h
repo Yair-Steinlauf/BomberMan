@@ -13,10 +13,14 @@ public:
 private:
 	Board m_board;
 	Player* m_player;
-	sf::RenderWindow m_window;
 	int m_currLevel = 0;
-	Board loadNewLevel(const std::string& levelName);
-	Direction eventToDirection(sf::Event& event);
 	std::vector<std::string> m_levels;
 	std::vector<std::string> getLevels();
+	std::vector<sf::Text> m_scoreDetail;
+	Board loadNewLevel(const std::string& levelName);
+	Direction eventToDirection(sf::Event& event);
+	sf::Text createScoreText(std::string text, sf::Vector2f location);
+	
 };
+
+const sf::Vector2f scoreDetailsSize(0, 100.0f);

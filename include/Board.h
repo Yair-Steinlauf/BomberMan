@@ -16,16 +16,17 @@ public:
 	Board();
 	Board(std::ifstream& file);
 	void draw(sf::RenderWindow& window);
+	void update(const sf::Time& deltaTime);
+	sf::Vector2f getDimension()const;
 	void setDirection(const sf::Time& deltaTime);
 	void collideHandler();
-	void update(const sf::Time& deltaTime);
 	Player& getPlayer();
-	void addObject(ObjectType type, sf::Vector2f location);
-	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
-	void loadFromFile(std::ifstream& file);
-	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
-	sf::Vector2f getDimension()const;
 private:
+	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
+	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
+	void addObject(ObjectType type, sf::Vector2f location);
+	void loadFromFile(std::ifstream& file);
+	void tryAgain();
 	std::vector<std::unique_ptr<GameObject>> m_board;
 	sf::Vector2f m_dimension;
 

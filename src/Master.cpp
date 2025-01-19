@@ -16,23 +16,24 @@ void Master::run()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if (event.key.code == sf::Keyboard::Escape)
+				m_status = MENU;
 		}
-
-		handelEvent(event, window, deltaTime, m_status);
+		handelEvent(event, window, deltaTime);
 	}
 }
 
-void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime, GameState& status)
+void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime)
 {
 	switch (m_status)
 	{
 	case MENU:
-		m_menu.eventHandler(event, window, status);
+		m_menu.eventHandler(event, window, m_status);
 		m_menu.drawNDisplay(window);
 
 		break;
 	case PLAYING:
-		m_game.handelEvent(event, deltaTime , status);
+		m_game.handelEvent(event, deltaTime , m_status);
 		m_game.screenDrawNDisplay(window);
 		break;
 	case GAMEOVER:

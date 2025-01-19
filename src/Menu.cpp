@@ -4,28 +4,29 @@
 Menu::Menu()
 	:m_startGame(false)
 {
-	m_font = DataLoader::getP2Font();
-	sf::Text startGame("Start Game", m_font, 40);
-	startGame.setPosition(300, 150);
-	m_Buttoms.push_back({ START, startGame });
+	loadButtomsVector();
+}
 
-	sf::Text exitGame("Exit Game", m_font, 40);
-	exitGame.setPosition(300, 250);
-	m_Buttoms.push_back({ EXIT,exitGame });
+void Menu::loadButtomsVector()
+{
+	m_Buttoms.push_back({ START, createButtom("Start Game", sf::Vector2f(300, 150)) });
+	m_Buttoms.push_back({ EXIT, createButtom("Exit Game", sf::Vector2f(300, 250)) });
+	m_Buttoms.push_back({ SOUND, createButtom("Sound", sf::Vector2f(300, 350)) });
+	m_Buttoms.push_back({ MUSIC,createButtom("Music", sf::Vector2f(300, 450)) });
+}
 
-	sf::Text sound("Sound", m_font, 40);
-	sound.setPosition(300, 350);
-	m_Buttoms.push_back({ SOUND,sound });
-
-	sf::Text music("Music", m_font, 40);
-	music.setPosition(300, 450);
-	m_Buttoms.push_back({ MUSIC,music });
+sf::Text Menu::createButtom(std::string text, sf::Vector2f location)
+{
+	sf::Text sfText(text, DataLoader::getP2Font(), 40);
+	sfText.setPosition(location);
+	return sfText;
 }
 
 
 void Menu::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status)
 {
-
+	window.setSize(sf::Vector2u(800,600));
+	window.setView(sf::View(sf::FloatRect(0, 0, 800,600)));
 	if (event.type == sf::Event::Closed)
 		window.close();
 	if (event.type == sf::Event::MouseButtonPressed) {
