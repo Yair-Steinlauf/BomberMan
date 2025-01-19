@@ -8,7 +8,9 @@ public:
 	void update(const sf::Time& deltaTime) override;
 	void collide(GameObject& other) override;
 	void act(const sf::Time& deltaTime) override;
-	//void collideWithDoor(Door& door) override;
+	void collideWithDoor(Door& door) override;
+	bool won()const;
 private:
+	bool m_win = false;
 
 };

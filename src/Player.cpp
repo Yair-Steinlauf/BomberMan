@@ -30,3 +30,13 @@ void Player::act( const sf::Time& deltaTime)
 {
 }
 
+void Player::collideWithDoor(Door& door)
+{
+	m_win = true;
+}
+
+bool Player::won() const
+{
+	return m_win;
+}
+
