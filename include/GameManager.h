@@ -11,6 +11,7 @@ public:
 	void screenDrawNDisplay(sf::RenderWindow& window);
 	void handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& status);
 private:
+	void restartGame();
 	Board m_board;
 	Player* m_player;
 	int m_currLevel = 0;

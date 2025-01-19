@@ -20,7 +20,7 @@ public:
 	bool intersect(GameObject& other);
 	virtual void collide(GameObject& other) =0;
 	virtual void collideWithPlayer(Player& player) {};
-	virtual void collideWithGuard(Guard& guard) {};
+	virtual void collideWithGuard(Guard& guard) = 0;
 	virtual void collideWithStone(Stone& stone) {};
 	virtual void collideWithStatic(StaticObject& wall) {};
 	virtual void collideWithDoor(Door& ddor) {};

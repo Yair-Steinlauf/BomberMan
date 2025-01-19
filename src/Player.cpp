@@ -35,6 +35,13 @@ void Player::collideWithDoor(Door& door)
 	m_win = true;
 }
 
+void Player::collideWithGuard(Guard& guard)
+{
+	m_life--;
+	if (m_life <= 0)
+		m_win = false;
+}
+
 bool Player::won() const
 {
 	return m_win;

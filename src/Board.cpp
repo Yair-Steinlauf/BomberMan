@@ -29,15 +29,14 @@ void Board::collideHandler()
 		for (auto& other : m_board)
 		{
 			if (object == other) continue;
-			if (object->intersect(*other.get()))
+			if (object->intersect(*other))
 			{
-				if ((typeid (*object) == typeid(Player) && typeid(*other.get()) == typeid(Guard))
-					|| (typeid (*other) == typeid(Player) && typeid(*object.get()) == typeid(Guard)))
+					object->collide(*other);
+				if ((typeid (*other) == typeid(Player) && typeid(*object) == typeid(Guard)))
 				{
 					tryAgain();
 					return;
 				}
-				object->collide(*other.get());
 			}
 		}
 	}

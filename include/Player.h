@@ -9,6 +9,7 @@ public:
 	void collide(GameObject& other) override;
 	void act(const sf::Time& deltaTime) override;
 	void collideWithDoor(Door& door) override;
+	void collideWithGuard(Guard& guard) override;
 	bool won()const;
 
 private:

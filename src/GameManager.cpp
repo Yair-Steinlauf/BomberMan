@@ -4,17 +4,25 @@ const sf::Vector2f PADDING(0,30);
 Controller::Controller()
 	:m_levels(getLevels()), m_currLevel(0)
 {
-	m_board = loadNewLevel(m_levels[m_currLevel]);
+	loadNextLevel();
 
+}
+
+void Controller::restartGame()
+{
+	m_currLevel = 0;
+	loadNextLevel();
 }
 
 bool Controller::loadNextLevel()
 {
-	m_currLevel++;
 	if (m_currLevel < m_levels.size())
 	{
 		m_scoreDetail.clear();
 		m_board = loadNewLevel(m_levels[m_currLevel]);
+		m_player = &m_board.getPlayer();
+		m_currLevel++;
+
 		return true;
 	}
 	return false;
@@ -58,6 +66,10 @@ void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& s
 
 void Controller::update(sf::Time& deltaTime)
 {
+	if (m_player->getLife() <= 0)
+	{
+		restartGame();
+	}
 	m_board.setDirection(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
 	m_board.update(deltaTime);
@@ -77,6 +89,7 @@ void Controller::screenDrawNDisplay(sf::RenderWindow& window)
 	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
 		m_board.getDimension().y + scoreDetailsSize.y)));
 
+	m_scoreDetail[0].setString("Player life: " +std::to_string( m_player->getLife()));
 	window.clear();
 	for (const auto& detail : m_scoreDetail)
 	{
@@ -94,7 +107,6 @@ Board Controller::loadNewLevel(const std::string& levelName)
 		//TODO:  mabye offer to create new level via editor?
 	}
 	Board newBoard(level);
-	m_player = &newBoard.getPlayer();
 	sf::Vector2f startScoreText(0, newBoard.getDimension().y);
 	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
 	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
