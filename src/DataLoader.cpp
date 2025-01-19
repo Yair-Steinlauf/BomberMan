@@ -1,5 +1,6 @@
 #include "DataLoader.h"
-DataLoader& DataLoader::getInstance()
+
+DataLoader& DataLoader::Init()
 {
 	static DataLoader instance;
 	return instance;
@@ -7,7 +8,7 @@ DataLoader& DataLoader::getInstance()
 
 sf::Texture& DataLoader::getP2Texture(const enum ObjectType type)
 {
-	auto& instance = getInstance();
+	auto& instance = Init();
 	for (auto& current : instance.m_textures)
 	{
 		if (type == current.first)
@@ -15,9 +16,23 @@ sf::Texture& DataLoader::getP2Texture(const enum ObjectType type)
 	}
 }
 
+sf::Font& DataLoader::getP2Font()
+{
+	auto& instance = Init();
+
+	return m_font;
+}
+
 
 DataLoader::DataLoader()
 {
+	/*m_font.loadFromFile("font.ttf");
+	*/
+	// Load font from file, assuming font.ttf is in the project directory
+	if (!m_font.loadFromFile("font.ttf")) {
+		std::cerr << "Failed to load font!" << std::endl;
+		// Handle error loading font, possibly throw exception or set default font
+	}
 	const std::vector<std::pair<enum ObjectType, std::string>> objectNames =
 	{	{ PLAYER, "PLAYER" } ,
 		{ GUARD, "GUARD" },

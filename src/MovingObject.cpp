@@ -27,7 +27,7 @@ void MovingObject::setDirection(Direction direction)
 void MovingObject::collideWithStatic(StaticObject& wall)
 {
     //TODO: not good, need to improve
-    m_direction = sf::Vector2f(0, 0);  // Reset the direction initially
+    //m_direction = sf::Vector2f(0, 0);  // Reset the direction initially
 
     // Get the top-left and bottom-right coordinates of both the object and the wall
     sf::Vector2f objTopLeft = this->getTopLeft();
@@ -39,29 +39,31 @@ void MovingObject::collideWithStatic(StaticObject& wall)
     if (objBottomRight.y > wallTopLeft.y && objTopLeft.y < wallTopLeft.y)
     {
         m_direction.y = -ImageDimension.y;  // Move the object upwards
-        this->update(sf::milliseconds(5));
+        //this->update(sf::milliseconds(5));
     }
 
     // Check if the object is colliding from the bottom
     if (objTopLeft.y < wallBottomRight.y && objBottomRight.y > wallBottomRight.y)
     {
         m_direction.y = ImageDimension.y;  // Move the object downwards
-        this->update(sf::milliseconds(5));
+        //this->update(sf::milliseconds(5));
     }
 
     // Check if the object is colliding from the left
     if (objBottomRight.x > wallTopLeft.x && objTopLeft.x < wallTopLeft.x)
     {
         m_direction.x = -ImageDimension.x;  // Move the object to the left
-        this->update(sf::milliseconds(5));
+        //this->update(sf::milliseconds(5));
     }
 
     // Check if the object is colliding from the right
     if (objTopLeft.x < wallBottomRight.x && objBottomRight.x > wallBottomRight.x)
     {
         m_direction.x = ImageDimension.x;  // Move the object to the right
-        this->update(sf::milliseconds(5));
+        //this->update(sf::milliseconds(5));
     }
+    this->update(sf::milliseconds(50));
+
     m_direction = sf::Vector2f(0, 0);
 }
 
@@ -71,6 +73,11 @@ MovingObject::MovingObject()
 }
 
 MovingObject::MovingObject(const sf::Vector2f& location)
-	:GameObject(location)
+	:GameObject(location) , m_startPos(location)
 {
+}
+
+void MovingObject::moveToStartPos()
+{
+    //setLocation(m_startPos)
 }

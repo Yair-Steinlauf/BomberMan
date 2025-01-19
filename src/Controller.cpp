@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	:m_levels(getLevels())
+	:m_levels(getLevels()) 
 {
 }
 
@@ -16,16 +16,17 @@ std::vector<std::string> Controller::getLevels()
 	}
 	return levels;
 }
-void Controller::run()
+void Controller::run(sf::RenderWindow& window)
 {
-	sf::RenderWindow window(sf::VideoMode(1, 1), "Init Window");
+	
+	
 	for (const auto& level : m_levels)
 	{
-		auto board = loadNewLevel(level);
-		window.create(sf::VideoMode(board.getDimension().x,
-			board.getDimension().y), "BomberMan");
+		m_board = loadNewLevel(level);
+		window.create(sf::VideoMode(m_board.getDimension().x,
+					  m_board.getDimension().y), "BomberMan");
 		window.setFramerateLimit(60u);
-		Player* player = &board.getPlayer();
+		Player* player = &m_board.getPlayer();
 		sf::Clock clock;
 		bool endLevel = false; //TODO: it for load next level
 		while (window.isOpen() && !endLevel)
@@ -46,19 +47,29 @@ void Controller::run()
 						break;
 					}
 				}
-
 			}
 			sf::Time deltaTime = clock.restart();
-			board.setDirection(deltaTime);
-			board.collideHandler();
-			board.update(deltaTime);
-			window.clear();
-			board.draw(window);
-			window.display();
+			screenHandler(deltaTime, window);
 		}
 	}
 }
 
+void Controller::screenHandler(sf::Time& deltaTime , sf::RenderWindow& window)
+{
+
+	m_board.setDirection(deltaTime);
+	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
+	m_board.update(deltaTime);
+	screenDrawNDisplay(window);
+}
+
+void Controller::screenDrawNDisplay(sf::RenderWindow& window)
+{
+	window.clear();
+	m_board.draw(window);
+	window.display();
+
+}
 Board Controller::loadNewLevel(const std::string& levelName)
 {
 	auto level = std::ifstream(levelName);

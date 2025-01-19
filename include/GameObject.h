@@ -16,6 +16,7 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 	sf::Vector2f getLocation()const;
 	virtual void update(const sf::Time& deltaTime) = 0;
+	virtual void act(const sf::Time& deltaTime) = 0;
 	bool intersect(GameObject& other);
 	virtual void collide(GameObject& other) =0;
 	virtual void collideWithPlayer(Player& player) {};
@@ -25,7 +26,6 @@ public:
 	virtual void collideWithDoor(Door& ddor) {};
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
-	virtual void act(const sf::Time& deltaTime) = 0;
 	virtual ~GameObject();
 protected:
 	GameObject(const GameObject&) = default;

@@ -13,4 +13,5 @@ Door::Door(const sf::Vector2f& location)
 
 void Door::collide(GameObject& other)
 {
+	other.collideWithDoor(*this);
 }

@@ -1,7 +1,6 @@
-#include "Controller.h"
-
+#include "Master.h"
 int main()
 {
-	auto game = Controller();
-	game.run();
+	auto gameManeger = Master();
+	gameManeger.run();
 }

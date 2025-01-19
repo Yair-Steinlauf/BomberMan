@@ -12,4 +12,6 @@ protected:
 	float m_speed = 0;
 	unsigned int m_life = 1;
 	sf::Vector2f m_direction = sf::Vector2f(0, 0);
+	sf::Vector2f m_startPos;
+	void moveToStartPos();
 };
