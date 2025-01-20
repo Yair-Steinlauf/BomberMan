@@ -70,6 +70,7 @@ void Menu::handleClick(sf::Vector2f& mousePos, GameState& status)
 
 void Menu::drawNDisplay(sf::RenderWindow& window)
 {
+
 	window.clear(sf::Color::Black);
 
 	for (auto& buttom : m_Buttoms)

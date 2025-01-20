@@ -2,6 +2,11 @@
 
 
 
+Master::Master()
+{
+	DataLoader::Init();
+}
+
 void Master::run()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 800), "Init Window");
@@ -18,6 +23,7 @@ void Master::run()
 				window.close();
 			if (event.key.code == sf::Keyboard::Escape)
 				m_status = MENU;
+			
 		}
 		handelEvent(event, window, deltaTime);
 	}
@@ -30,6 +36,7 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& d
 	case MENU:
 		m_menu.eventHandler(event, window, m_status);
 		m_menu.drawNDisplay(window);
+
 
 		break;
 	case PLAYING:

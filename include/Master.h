@@ -6,7 +6,7 @@
 #include "Types.h"
 class Master {
 public:
-	Master() = default;
+	Master();
 	void run();
 
 private:
