@@ -9,7 +9,7 @@ Master::Master()
 
 void Master::run()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 800), "Init Window");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGTH), "Init Window");
 	window.setFramerateLimit(60u);
 	m_menu.drawNDisplay(window);
 	sf::Clock clock;

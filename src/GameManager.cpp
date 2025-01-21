@@ -85,6 +85,7 @@ sf::Text Controller::createScoreText(std::string text, sf::Vector2f location)
 
 void Controller::screenDrawNDisplay(sf::RenderWindow& window)
 {
+	//TODO: leonid ask how to do good
 	window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
 	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
 		m_board.getDimension().y + scoreDetailsSize.y)));
