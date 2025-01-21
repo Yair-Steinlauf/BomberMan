@@ -19,6 +19,7 @@ sf::Text Menu::createButtom(std::string text, sf::Vector2f location)
 {
 	sf::Text sfText(text, DataLoader::getP2Font(), 40);
 	sfText.setPosition(location);
+	sfText.setFillColor(sf::Color::White);
 	return sfText;
 }
 
@@ -75,7 +76,6 @@ void Menu::drawNDisplay(sf::RenderWindow& window)
 
 	for (auto& buttom : m_Buttoms)
 	{
-		buttom.second.setFillColor(sf::Color::White);
 		window.draw(buttom.second);
 	}
 	window.display();

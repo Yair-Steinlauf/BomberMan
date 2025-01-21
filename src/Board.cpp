@@ -15,6 +15,14 @@ void Board::draw(sf::RenderWindow& window)
 		object->draw(window);
 	}
 }
+
+void Board::setScale(float scale)
+{
+	for (auto& object : m_board)
+	{
+		//object->setScale(scale);
+	}
+}
 void Board::setDirection(const sf::Time& deltaTime)
 {
 	for (const auto& object : m_board)
@@ -115,6 +123,8 @@ void Board::loadFromFile(std::ifstream& file)
 			addObject(ObjectType(lines[rowIndex][colIndex]), location);
 		}
 	}
+	float scaler =1/ std::min(m_dimension.x/WINDOW_WIDTH, m_dimension.y / WINDOW_HIGTH);
+	setScale(scaler);
 }
 
 sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const

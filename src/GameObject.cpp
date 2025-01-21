@@ -15,6 +15,11 @@ void GameObject::draw(sf::RenderWindow& window)
 	window.draw(m_sprite);
 }
 
+void GameObject::setScale(float scale)
+{
+	m_sprite.scale(scale, scale);
+}
+
 sf::Vector2f GameObject::getLocation() const
 {
 	return m_sprite.getPosition();

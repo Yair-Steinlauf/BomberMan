@@ -18,6 +18,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	void update(const sf::Time& deltaTime);
 	sf::Vector2f getDimension()const;
+	void setScale(float scale);
 	void setDirection(const sf::Time& deltaTime);
 	void collideHandler();
 	Player& getPlayer();

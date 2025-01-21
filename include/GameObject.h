@@ -13,7 +13,8 @@ class StaticObject;
 
 class GameObject {
 public:
-	virtual void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window);
+	void setScale(float scale);
 	sf::Vector2f getLocation()const;
 	virtual void update(const sf::Time& deltaTime) = 0;
 	virtual void act(const sf::Time& deltaTime) = 0;

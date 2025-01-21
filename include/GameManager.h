@@ -24,4 +24,4 @@ private:
 	
 };
 
-const sf::Vector2f scoreDetailsSize(0, 100.0f);
+const sf::Vector2f scoreDetailsSize(WINDOW_WIDTH, 100.0f);
