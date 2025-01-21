@@ -1,5 +1,5 @@
 #include "GameManager.h"
-const sf::Vector2f PADDING(0,30);
+const sf::Vector2f PADDING(0,40);
 
 Controller::Controller()
 	:m_levels(getLevels()), m_currLevel(0)
@@ -70,10 +70,9 @@ void Controller::update(sf::Time& deltaTime)
 	{
 		restartGame();
 	}
-	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
+	m_scoreDetail[0].setString("  " + std::to_string(m_player->getLife()));
 	m_scoreDetail[0].move(m_player->getLocation());
-	auto newLoc = sf::Vector2f(m_player->getLocation().x - WINDOW_WIDTH / 2,
-		m_player->getLocation().y - WINDOW_HIGTH / 2);
+	auto newLoc = sf::Vector2f(m_player->getLocation() - PADDING);
 	m_scoreDetail[0].setPosition(newLoc);
 	m_scoreDetail[1].setPosition(newLoc + PADDING);
 	m_board.setDirection(deltaTime);
