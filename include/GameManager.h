@@ -2,14 +2,15 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "Board.h"
+#include "Screens.h"
 
-class Controller {
+class GameManager : public Screens{
 public:
-	Controller();
+	GameManager();
 	bool loadNextLevel();
 	void update(sf::Time& deltaTime);
-	void screenDrawNDisplay(sf::RenderWindow& window);
-	void handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& status);
+	void drawNDisplay(sf::RenderWindow& window);
+	void eventHandler(sf::Event& event, sf::Time& deltaTime, GameState& status);
 private:
 	void restartGame();
 	Board m_board;

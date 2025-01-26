@@ -57,6 +57,9 @@ void Board::update(const sf::Time& deltaTime)
 	{
 		object->update(deltaTime);
 	}
+	
+	std::erase_if(m_board, [](const std::unique_ptr<GameObject>& current) {
+		return !current->isActive(); });
 }
 
 Player& Board::getPlayer()
@@ -88,6 +91,12 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		break;
 	case WALL:
 		m_board.push_back(std::make_unique<Wall>(location));
+		break;
+	case GIFT:
+		m_board.push_back(std::make_unique<Gift>(location));
+		break;	
+	case KEY:
+		m_board.push_back(std::make_unique<Key>(location));
 		break;
 	}
 }

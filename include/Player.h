@@ -10,9 +10,13 @@ public:
 	void act(const sf::Time& deltaTime) override;
 	void collideWithDoor(Door& door) override;
 	void collideWithGuard(Guard& guard) override;
+	void collideWithKey(Key& key) override;
+	void collideWithGift(Gift& gift) override;
 	bool won()const;
+	bool gotKey()const;
 
 private:
 	bool m_win = false;
+	bool m_Key = false;
 
 };

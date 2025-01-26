@@ -15,12 +15,7 @@ void Menu::loadButtomsVector()
 	m_Buttoms.push_back({ MUSIC,createButtom("Music", sf::Vector2f(300, 450)) });
 }
 
-sf::Text Menu::createButtom(std::string text, sf::Vector2f location)
-{
-	sf::Text sfText(text, DataLoader::getP2Font(), 40);
-	sfText.setPosition(location);
-	return sfText;
-}
+
 
 
 void Menu::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status)
@@ -68,15 +63,3 @@ void Menu::handleClick(sf::Vector2f& mousePos, GameState& status)
 
 }
 
-void Menu::drawNDisplay(sf::RenderWindow& window)
-{
-
-	window.clear(sf::Color::Black);
-
-	for (auto& buttom : m_Buttoms)
-	{
-		buttom.second.setFillColor(sf::Color::White);
-		window.draw(buttom.second);
-	}
-	window.display();
-}

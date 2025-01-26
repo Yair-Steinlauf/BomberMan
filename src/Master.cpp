@@ -40,8 +40,8 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& d
 
 		break;
 	case PLAYING:
-		m_game.handelEvent(event, deltaTime , m_status);
-		m_game.screenDrawNDisplay(window);
+		m_game.eventHandler(event, deltaTime , m_status);
+		m_game.drawNDisplay(window);
 		break;
 	case GAMEOVER:
 		break;

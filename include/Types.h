@@ -6,7 +6,8 @@ enum ObjectType {
 	DOOR = 'D',
 	WALL = '#',
 	STONE = '@',
-	GIFT
+	GIFT = 'G',
+	KEY = 'K'
 };
 
 enum Direction {

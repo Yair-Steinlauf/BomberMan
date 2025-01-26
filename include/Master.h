@@ -11,7 +11,7 @@ public:
 
 private:
 	void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime);
-	Controller m_game;
+	GameManager m_game;
 	Menu m_menu;
 	GameState m_status = MENU;
 

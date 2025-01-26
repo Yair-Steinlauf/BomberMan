@@ -9,6 +9,8 @@
 #include "Door.h"
 #include "Stone.h"
 #include "Wall.h"
+#include "Gift.h"
+#include "Key.h"
 
 
 class Board {

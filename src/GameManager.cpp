@@ -1,20 +1,20 @@
 #include "GameManager.h"
 const sf::Vector2f PADDING(0,30);
 
-Controller::Controller()
+GameManager::GameManager()
 	:m_levels(getLevels()), m_currLevel(0)
 {
 	loadNextLevel();
 
 }
 
-void Controller::restartGame()
+void GameManager::restartGame()
 {
 	m_currLevel = 0;
 	loadNextLevel();
 }
 
-bool Controller::loadNextLevel()
+bool GameManager::loadNextLevel()
 {
 	if (m_currLevel < m_levels.size())
 	{
@@ -28,7 +28,7 @@ bool Controller::loadNextLevel()
 	return false;
 }
 
-std::vector<std::string> Controller::getLevels()
+std::vector<std::string> GameManager::getLevels()
 {
 	std::ifstream file("playlist.txt");
 	std::string line;
@@ -40,7 +40,7 @@ std::vector<std::string> Controller::getLevels()
 	return levels;
 }
 
-void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& status) {
+void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState& status) {
 	//player won-> load next level
 	if (m_player->won())
 	{
@@ -64,7 +64,7 @@ void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& s
 }
 
 
-void Controller::update(sf::Time& deltaTime)
+void GameManager::update(sf::Time& deltaTime)
 {
 	if (m_player->getLife() <= 0)
 	{
@@ -75,22 +75,14 @@ void Controller::update(sf::Time& deltaTime)
 	m_board.update(deltaTime);
 }
 
-sf::Text Controller::createScoreText(std::string text, sf::Vector2f location)
-{
-	sf::Text sfText(text, DataLoader::getP2Font(), 40);
-	sfText.setPosition(location);
-	return sfText;
-}
-
-
-void Controller::screenDrawNDisplay(sf::RenderWindow& window)
+void GameManager::drawNDisplay(sf::RenderWindow& window)
 {
 	//TODO: leonid ask how to do good
 	window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
 	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
 		m_board.getDimension().y + scoreDetailsSize.y)));
 
-	m_scoreDetail[0].setString("Player life: " +std::to_string( m_player->getLife()));
+	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
 	window.clear();
 	for (const auto& detail : m_scoreDetail)
 	{
@@ -98,9 +90,16 @@ void Controller::screenDrawNDisplay(sf::RenderWindow& window)
 	}
 	m_board.draw(window);
 	window.display();
-
 }
-Board Controller::loadNewLevel(const std::string& levelName)
+
+sf::Text GameManager::createScoreText(std::string text, sf::Vector2f location)
+{
+	sf::Text sfText(text, DataLoader::getP2Font(), 40);
+	sfText.setPosition(location);
+	return sfText;
+}
+
+Board GameManager::loadNewLevel(const std::string& levelName)
 {
 	auto level = std::ifstream(levelName);
 	if (!level.is_open())
@@ -114,7 +113,7 @@ Board Controller::loadNewLevel(const std::string& levelName)
 	return newBoard;
 }
 
-Direction Controller::eventToDirection(sf::Event& event)
+Direction GameManager::eventToDirection(sf::Event& event)
 {
 	switch (event.key.code)
 	{

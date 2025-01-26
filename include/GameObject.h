@@ -10,6 +10,9 @@ class Wall;
 class Stone;
 class Door;
 class StaticObject;
+class Gift;
+class Pickables;
+class Key;
 
 class GameObject {
 public:
@@ -24,10 +27,15 @@ public:
 	virtual void collideWithStone(Stone& stone) {};
 	virtual void collideWithStatic(StaticObject& wall) {};
 	virtual void collideWithDoor(Door& ddor) {};
+	virtual void collideWithGift(Gift& gift) {};
+	virtual void collideWithPickable(Pickables& pickable) {};
+	virtual void collideWithKey(Key& key) {};
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
+	bool isActive() const;
 	virtual ~GameObject();
 protected:
+	bool m_isActive = true;
 	GameObject(const GameObject&) = default;
 	GameObject& operator=(const GameObject&) = default;
 	GameObject();

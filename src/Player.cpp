@@ -32,7 +32,10 @@ void Player::act( const sf::Time& deltaTime)
 
 void Player::collideWithDoor(Door& door)
 {
-	m_win = true;
+	if (gotKey())
+	{
+		m_win = true;
+	}
 }
 
 void Player::collideWithGuard(Guard& guard)
@@ -42,8 +45,23 @@ void Player::collideWithGuard(Guard& guard)
 		m_win = false;
 }
 
+void Player::collideWithKey(Key& key)
+{
+	m_Key = true;
+}
+
+void Player::collideWithGift(Gift& gift)
+{
+	m_life++;
+}
+
 bool Player::won() const
 {
 	return m_win;
+}
+
+bool Player::gotKey() const
+{
+	return m_Key;
 }
 

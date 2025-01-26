@@ -77,6 +77,11 @@ sf::Vector2f GameObject::getTopLeft() const
 	return m_sprite.getPosition(); // returns the top-left position
 }
 
+bool GameObject::isActive() const
+{
+	return m_isActive;
+}
+
 sf::Vector2f GameObject::getBottomRight() const
 {
 	auto bottomRight = getTopLeft();
