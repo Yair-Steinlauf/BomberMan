@@ -5,7 +5,6 @@ Controller::Controller()
 	:m_levels(getLevels()), m_currLevel(0)
 {
 	loadNextLevel();
-
 }
 
 void Controller::restartGame()
@@ -42,6 +41,7 @@ std::vector<std::string> Controller::getLevels()
 
 void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& status) {
 	//player won-> load next level
+		auto prev_loc = m_player->getLocation();
 	if (m_player->won())
 	{
 		//if it last level- gameOver
@@ -60,7 +60,7 @@ void Controller::handelEvent(sf::Event& event, sf::Time& deltaTime, GameState& s
 			//status = GAMEOVER;
 	}
 	update(deltaTime);
-
+	m_view.move( m_player->getLocation() - prev_loc);
 }
 
 
@@ -90,8 +90,8 @@ sf::Text Controller::createScoreText(std::string text, sf::Vector2f location)
 
 void Controller::screenDrawNDisplay(sf::RenderWindow& window)
 {
-	sf::View view(m_player->getLocation(), sf::Vector2f(WINDOW_WIDTH, WINDOW_HIGTH));
-	window.setView(view);
+	//sf::View view(m_player->getLocation(), sf::Vector2f(WINDOW_WIDTH, WINDOW_HIGTH));
+	window.setView(m_view);
 
 	window.clear();
 	for (const auto& detail : m_scoreDetail)
