@@ -66,13 +66,14 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 
 void GameManager::update(sf::Time& deltaTime)
 {
-	if (m_player->getLife() <= 0)
+	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
 	{
 		restartGame();
 	}
 	m_board.setDirection(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
 	m_board.update(deltaTime);
+	m_timer -= deltaTime;
 }
 
 void GameManager::drawNDisplay(sf::RenderWindow& window)
@@ -83,6 +84,7 @@ void GameManager::drawNDisplay(sf::RenderWindow& window)
 		m_board.getDimension().y + scoreDetailsSize.y)));
 
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
+	m_scoreDetail[1].setString("Game timer : " + std::to_string(m_timer.asSeconds()));
 	window.clear();
 	for (const auto& detail : m_scoreDetail)
 	{
@@ -110,6 +112,7 @@ Board GameManager::loadNewLevel(const std::string& levelName)
 	sf::Vector2f startScoreText(0, newBoard.getDimension().y);
 	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
 	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
+	m_timer = sf::seconds(5);
 	return newBoard;
 }
 

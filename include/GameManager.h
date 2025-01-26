@@ -22,6 +22,7 @@ private:
 	Board loadNewLevel(const std::string& levelName);
 	Direction eventToDirection(sf::Event& event);
 	sf::Text createScoreText(std::string text, sf::Vector2f location);
+	sf::Time m_timer;
 	
 };
 
