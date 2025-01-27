@@ -28,7 +28,7 @@ bool GameObject::intersect(GameObject& other)
 		// מקבלים את גבולות האובייקטים
 		sf::FloatRect bounds1 = m_sprite.getGlobalBounds();
 		sf::FloatRect bounds2 = other.m_sprite.getGlobalBounds();
-
+		
 		// בדיקה אם יש חפיפה בין הגבולות
 		return bounds1.intersects(bounds2);
 

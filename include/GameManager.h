@@ -7,12 +7,12 @@
 class GameManager : public Screens{
 public:
 	GameManager();
-	bool loadNextLevel();
-	void update(sf::Time& deltaTime);
 	void drawNDisplay(sf::RenderWindow& window);
 	void eventHandler(sf::Event& event, sf::Time& deltaTime, GameState& status);
 private:
+	bool loadNextLevel();
 	void restartGame();
+	void update(sf::Time& deltaTime);
 	Board m_board;
 	Player* m_player;
 	int m_currLevel = 0;

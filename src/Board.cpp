@@ -15,7 +15,7 @@ void Board::draw(sf::RenderWindow& window)
 		object->draw(window);
 	}
 }
-void Board::setDirection(const sf::Time& deltaTime)
+void Board::act(const sf::Time& deltaTime)
 {
 	for (const auto& object : m_board)
 	{

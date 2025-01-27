@@ -13,6 +13,7 @@ private:
 	void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime);
 	GameManager m_game;
 	Menu m_menu;
-	GameState m_status = MENU;
+	WinLoseScreen m_winLose;
+	enum GameState m_status = MENU;
 
 };

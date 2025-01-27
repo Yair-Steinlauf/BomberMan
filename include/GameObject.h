@@ -41,8 +41,8 @@ protected:
 	GameObject();
 	GameObject(const sf::Vector2f& location);
 	void setLocation(const sf::Vector2f& newLocation);
+	sf::Sprite m_sprite;
 	bool isHigherThan(const GameObject& other) const;
 	bool isLeftThan(const GameObject& other) const;
-	sf::Sprite m_sprite;
 
 };

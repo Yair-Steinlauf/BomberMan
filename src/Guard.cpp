@@ -14,7 +14,7 @@ Guard::Guard(const sf::Vector2f& location)
 void Guard::update(const sf::Time& deltaTime)
 {
 
-	int peeker = rand() % 2;
+	//int peeker = rand() % 2;
 	//if (rand == 0)
 		//setLocation(smartMove());
 	//else

@@ -7,7 +7,8 @@ enum ObjectType {
 	WALL = '#',
 	STONE = '@',
 	GIFT = 'G',
-	KEY = 'K'
+	KEY = 'K',
+	SLOWER = 's'
 };
 
 enum Direction {

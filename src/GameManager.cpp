@@ -46,7 +46,7 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 	{
 		//if it last level- gameOver
 		if (!this->loadNextLevel())
-			status = GAMEOVER;
+			status = GAMEOVER;//TODO: winlose screen
 	}
 	if (event.type == sf::Event::KeyPressed) {
 		m_player->setDirection(eventToDirection(event));
@@ -56,7 +56,7 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 	}
 	if (event.key.code == sf::Keyboard::P)
 	{
-		if (!this->loadNextLevel())
+		if (!this->loadNextLevel())//TODO: for debug, delete
 			status = GAMEOVER;
 	}
 	update(deltaTime);
@@ -70,7 +70,7 @@ void GameManager::update(sf::Time& deltaTime)
 	{
 		restartGame();
 	}
-	m_board.setDirection(deltaTime);
+	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
 	m_board.update(deltaTime);
 	m_timer -= deltaTime;

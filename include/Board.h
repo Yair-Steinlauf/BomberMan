@@ -20,7 +20,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	void update(const sf::Time& deltaTime);
 	sf::Vector2f getDimension()const;
-	void setDirection(const sf::Time& deltaTime);
+	void act(const sf::Time& deltaTime);
 	void collideHandler();
 	Player& getPlayer();
 private:

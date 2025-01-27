@@ -44,6 +44,7 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& d
 		m_game.drawNDisplay(window);
 		break;
 	case GAMEOVER:
+		//winLose screen
 		break;
 	default:
 		break;
