@@ -115,13 +115,16 @@ std::vector<std::string> Board::fileTo2DString(std::ifstream& file)
 void Board::loadFromFile(std::ifstream& file)
 {
 	std::vector<std::string> lines = fileTo2DString(file);
-	m_dimension = sf::Vector2f(lines[0].length() * ImageDimension.x, lines.size() * ImageDimension.y);
+	m_dimension = sf::Vector2f(lines[0].length(), lines.size());
+	float factorX = ImageDimension.x / lines.size();
+	float factorY = ImageDimension.y / lines[0].length();
 	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
 	{
 		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
 		{
 			auto location = rowColToLocation(rowIndex, colIndex);
 			addObject(ObjectType(lines[rowIndex][colIndex]), location);
+			m_board.back().get()->scale(1/factorX, 1/factorY);
 		}
 	}
 }

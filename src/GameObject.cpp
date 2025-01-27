@@ -82,6 +82,11 @@ bool GameObject::isActive() const
 	return m_isActive;
 }
 
+void GameObject::scale(float factorX,float factorY)
+{
+	m_sprite.setScale(factorX, factorY);
+}
+
 sf::Vector2f GameObject::getBottomRight() const
 {
 	auto bottomRight = getTopLeft();

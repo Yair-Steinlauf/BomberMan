@@ -30,6 +30,7 @@ public:
 	virtual void collideWithGift(Gift& gift) {};
 	virtual void collideWithPickable(Pickables& pickable) {};
 	virtual void collideWithKey(Key& key) {};
+	void scale(float factorX, float factorY);
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
 	bool isActive() const;

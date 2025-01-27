@@ -79,9 +79,9 @@ void GameManager::update(sf::Time& deltaTime)
 void GameManager::drawNDisplay(sf::RenderWindow& window)
 {
 	//TODO: leonid ask how to do good
-	window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
-	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
-		m_board.getDimension().y + scoreDetailsSize.y)));
+	//window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
+	//window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
+		//m_board.getDimension().y + scoreDetailsSize.y)));
 
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
 	m_scoreDetail[1].setString("Game timer : " + std::to_string(m_timer.asSeconds()));
