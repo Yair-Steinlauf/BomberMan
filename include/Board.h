@@ -26,7 +26,7 @@ public:
 private:
 	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
 	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
-	void addObject(ObjectType type, sf::Vector2f location);
+	bool addObject(ObjectType type, sf::Vector2f location);
 	void loadFromFile(std::ifstream& file);
 	void tryAgain();
 	std::vector<std::unique_ptr<GameObject>> m_board;

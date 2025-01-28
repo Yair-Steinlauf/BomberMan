@@ -73,7 +73,7 @@ Player& Board::getPlayer()
 	}
 }
 
-void Board::addObject(ObjectType type, sf::Vector2f location)
+bool Board::addObject(ObjectType type, sf::Vector2f location)
 {
 	switch (type)
 	{
@@ -98,7 +98,10 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 	case KEY:
 		m_board.push_back(std::make_unique<Key>(location));
 		break;
+	default:
+		return false;
 	}
+	return true;
 }
 
 std::vector<std::string> Board::fileTo2DString(std::ifstream& file)
@@ -114,20 +117,52 @@ std::vector<std::string> Board::fileTo2DString(std::ifstream& file)
 
 void Board::loadFromFile(std::ifstream& file)
 {
-	std::vector<std::string> lines = fileTo2DString(file);
-	m_dimension = sf::Vector2f(lines[0].length(), lines.size());
-	float factorX = ImageDimension.x / lines.size();
-	float factorY = ImageDimension.y / lines[0].length();
-	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
-	{
-		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
-		{
-			auto location = rowColToLocation(rowIndex, colIndex);
-			addObject(ObjectType(lines[rowIndex][colIndex]), location);
-			m_board.back().get()->scale(1/factorX, 1/factorY);
-		}
-	}
+    // קריאת הקובץ לשורות
+    std::vector<std::string> lines = fileTo2DString(file);
+    
+    // הגדרת מימדי הלוח
+    m_dimension = sf::Vector2f(lines[0].length(), lines.size());
+    
+    // חישוב קנה מידה
+    float factorX = WINDOW_WIDTH / m_dimension.x;
+    float factorY = WINDOW_HIGTH / m_dimension.y;
+
+    // מעבר על השורות והעמודות
+    for (size_t rowIndex = 0; rowIndex < lines.size(); ++rowIndex)
+    {
+        for (size_t colIndex = 0; colIndex < lines[rowIndex].length(); ++colIndex)
+        {
+            // חישוב מיקום האובייקט
+            sf::Vector2f location(colIndex * factorX, rowIndex * factorY);
+
+            // הוספת אובייקט ללוח
+			if (addObject(ObjectType(lines[rowIndex][colIndex]), location))
+			{
+				m_board.back()->scale(factorX / 256, factorY / 256);
+
+			}
+
+            // התאמת קנה מידה של האובייקט האחרון
+        }
+    }
 }
+
+//void Board::loadFromFile(std::ifstream& file)
+//{
+//	std::vector<std::string> lines = fileTo2DString(file);
+//	m_dimension = sf::Vector2f(lines[0].length(), lines.size());
+//	float factorX = WINDOW_WIDTH / lines[0].length();
+//	float factorY = WINDOW_HIGTH / lines.size();
+//	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
+//	{
+//		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
+//		{
+//			auto location = sf::Vector2f(colIndex * factorX, rowIndex * factorY);// rowColToLocation(rowIndex, colIndex);
+//			addObject(ObjectType(lines[rowIndex][colIndex]), location);
+//			m_board.back().get()->scale(factorY/256,factorX/256);
+//		}
+//	}
+//}
 
 sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const
 {

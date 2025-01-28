@@ -2,7 +2,7 @@
 
 GameObject::GameObject()
 {
-	m_sprite.setScale(ImageScale, ImageScale);
+	//m_sprite.setScale(ImageScale, ImageScale);
 }
 GameObject::GameObject(const sf::Vector2f& location)
 	:GameObject()
