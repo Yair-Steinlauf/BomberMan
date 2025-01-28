@@ -56,7 +56,6 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 	}
 	if (event.key.code == sf::Keyboard::P)
 	{
-		
 		if (!this->loadNextLevel())
 			status = GAMEOVER;
 	}
