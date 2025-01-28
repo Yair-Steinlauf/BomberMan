@@ -14,5 +14,5 @@ public:
 private:
 	DataLoader();
 	std::vector<std::pair<enum ObjectType, sf::Texture>> m_textures;
+	sf::Font m_font;
 };
-	static sf::Font m_font;

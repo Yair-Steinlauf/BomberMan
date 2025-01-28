@@ -54,8 +54,9 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 	if (event.type == sf::Event::KeyReleased) {
 		m_player->setDirection(DEFAULT);
 	}
-	if (event.KeyReleased == sf::Keyboard::P)
+	if (event.key.code == sf::Keyboard::P)
 	{
+		
 		if (!this->loadNextLevel())
 			status = GAMEOVER;
 	}

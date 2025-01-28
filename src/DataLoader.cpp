@@ -20,7 +20,7 @@ sf::Font& DataLoader::getP2Font()
 {
 	auto& instance = Init();
 
-	return m_font;
+	return instance.m_font;
 }
 
 
