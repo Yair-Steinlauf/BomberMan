@@ -1,7 +1,7 @@
 #pragma once
 #include "GameManager.h"
 #include "Menu.h"
-#include "WinLoseScreen.h"
+#include "GameOverScreen.h"
 #include "DataLoader.h"
 #include "Types.h"
 class Master {
@@ -13,7 +13,7 @@ private:
 	void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime);
 	GameManager m_game;
 	Menu m_menu;
-	WinLoseScreen m_winLose;
+	GameOverScreen m_GameOver;
 	enum GameState m_status = MENU;
 
 };

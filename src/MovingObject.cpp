@@ -72,6 +72,11 @@ unsigned int MovingObject::getLife() const
     return m_life;
 }
 
+void MovingObject::setLife(int life)
+{
+    m_life = life;
+}
+
 MovingObject::MovingObject()
 	:MovingObject(sf::Vector2f(0,0))
 {

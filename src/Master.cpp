@@ -11,7 +11,7 @@ void Master::run()
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGTH), "Init Window");
 	window.setFramerateLimit(60u);
-	m_menu.drawNDisplay(window);
+	
 	sf::Clock clock;
 	while (window.isOpen())
 	{
@@ -35,17 +35,19 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& d
 	{
 	case MENU:
 		m_menu.eventHandler(event, window, m_status);
-		m_menu.drawNDisplay(window);
-
-
-		break;
-	case PLAYING:
-		m_game.eventHandler(event, deltaTime , m_status);
-		m_game.drawNDisplay(window);
+		m_menu.drawNDisplay(window, m_status);
 		break;
 	case GAMEOVER:
-		//winLose screen
+		m_GameOver.setIsVictoryNPoints(m_game.isWon(), m_game.getPlayerScore());
+		m_GameOver.eventHandler(event, window, m_status);
+		m_GameOver.drawNDisplay(window, m_status);
 		break;
+		
+	case PLAYING:
+		m_game.eventHandler(event, deltaTime , m_status);
+		m_game.drawNDisplay(window);		
+		break;
+	
 	default:
 		break;
 	}

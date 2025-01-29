@@ -14,8 +14,14 @@ public:
 	void collideWithGift(Gift& gift) override;
 	bool won()const;
 	bool gotKey()const;
+	int getScore();
+	void addScore(int score);
+	void decreaseScore(int score);
+	void setScore(int score);
+	void resetScore();
 
 private:
+	int m_score = 0;
 	bool m_win = false;
 	bool m_Key = false;
 

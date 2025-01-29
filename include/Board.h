@@ -23,6 +23,8 @@ public:
 	void act(const sf::Time& deltaTime);
 	void collideHandler();
 	Player& getPlayer();
+	int getCountGuards();
+	
 private:
 	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
 	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
@@ -31,5 +33,7 @@ private:
 	void tryAgain();
 	std::vector<std::unique_ptr<GameObject>> m_board;
 	sf::Vector2f m_dimension;
+	
+	
 
 };

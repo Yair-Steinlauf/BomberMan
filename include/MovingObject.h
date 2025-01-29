@@ -7,6 +7,7 @@ public:
 	void setDirection(Direction direction);
 	virtual void collideWithStatic(StaticObject& stat);
 	unsigned int getLife() const;
+	void setLife(int life);
 	void moveToStartPos();
 protected:
 	MovingObject();

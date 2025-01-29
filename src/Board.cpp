@@ -73,6 +73,20 @@ Player& Board::getPlayer()
 	}
 }
 
+int Board::getCountGuards()
+{
+	int countGuards = 0;
+	for (const auto& object : m_board)
+	{
+		if (auto* guard = dynamic_cast<Guard*>(object.get()))
+		{
+			countGuards++;
+		}
+	}
+	return countGuards;
+}
+
+
 void Board::addObject(ObjectType type, sf::Vector2f location)
 {
 	switch (type)
@@ -81,6 +95,7 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		m_board.push_back(std::make_unique <Player>(location));
 		break;
 	case GUARD:
+		
 		m_board.push_back(std::make_unique <Guard>(location));
 		break;
 	case DOOR: 

@@ -1,7 +1,7 @@
 #include "Screens.h"
 
 
-void Screens::drawNDisplay(sf::RenderWindow& window)
+void Screens::drawNDisplay(sf::RenderWindow& window, GameState& status)
 {
 
 	window.clear(sf::Color::Black);
@@ -11,8 +11,14 @@ void Screens::drawNDisplay(sf::RenderWindow& window)
 		buttom.second.setFillColor(sf::Color::White);
 		window.draw(buttom.second);
 	}
+	if (status == GAMEOVER) {
+		
+		window.draw(m_gameOverImage);
+		window.draw(m_sfPoints);
+	}
 	window.display();
 }
+
 
 void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status)
 {

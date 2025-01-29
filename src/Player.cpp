@@ -65,3 +65,28 @@ bool Player::gotKey() const
 	return m_Key;
 }
 
+int Player::getScore()
+{
+	return m_score;
+}
+
+void Player::addScore(int points)
+{
+	m_score += points;
+}
+
+void Player::decreaseScore(int points)
+{
+	m_score -= points;
+}
+
+void Player::setScore(int score)
+{
+	m_score = score;
+}
+
+void Player::resetScore()
+{
+	m_score = 0;
+}
+
