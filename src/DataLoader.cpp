@@ -39,8 +39,13 @@ DataLoader::DataLoader()
 		{ DOOR, "DOOR" },
 		{ WALL, "WALL" },
 		{ STONE, "STONE" },
-		{GIFT , "GIFT"},
-		{KEY, "KEY"}};
+		{GIFT , "GIFT"},		
+		{KEY, "KEY"},
+		{GUARDGIFT , "GUARDGIFT"},
+		{FREEZGIFT , "FREEZGIFT"},
+		{EXTRATIMEGIFT , "EXTRATIMEGIFT"},
+	
+	};
 	for (const auto& object : objectNames)
 	{
 		std::pair<enum ObjectType, sf::Texture> texture;

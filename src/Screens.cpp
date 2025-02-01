@@ -11,16 +11,17 @@ void Screens::drawNDisplay(sf::RenderWindow& window, GameState& status)
 		buttom.second.setFillColor(sf::Color::White);
 		window.draw(buttom.second);
 	}
-	if (status == GAMEOVER) {
-		
-		window.draw(m_gameOverImage);
-		window.draw(m_sfPoints);
+	if (status == GAMEOVER || status == PAUSE) {
+		window.draw(m_sfScore);
+		if (status == GAMEOVER) {
+			window.draw(m_gameOverImage);
+		}
 	}
 	window.display();
 }
 
 
-void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status)
+void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic, bool& isMouseClicked)
 {
 	window.setSize(sf::Vector2u(800, 600));
 	window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
@@ -30,7 +31,7 @@ void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			sf::Vector2f mousePosition = window.mapPixelToCoords(
 				sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			handleClick(mousePosition, status);
+			handleClick(mousePosition, status, backgroundMusic, isMouseClicked);
 		}
 	}
 

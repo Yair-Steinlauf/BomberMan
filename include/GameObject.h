@@ -11,6 +11,9 @@ class Stone;
 class Door;
 class StaticObject;
 class Gift;
+class GuardGift;
+class FreezGift;
+class ExtraTimeGift;
 class Pickables;
 class Key;
 
@@ -28,11 +31,15 @@ public:
 	virtual void collideWithStatic(StaticObject& wall) {};
 	virtual void collideWithDoor(Door& ddor) {};
 	virtual void collideWithGift(Gift& gift) {};
+	virtual void collideWithGuardGift(GuardGift& guardGift) {};
+	virtual void collideWithFreezGift(FreezGift& freezGift) {};
+	virtual void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) {};
 	virtual void collideWithPickable(Pickables& pickable) {};
 	virtual void collideWithKey(Key& key) {};
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
 	bool isActive() const;
+	void setNoActive();
 	virtual ~GameObject();
 protected:
 	bool m_isActive = true;

@@ -11,6 +11,7 @@ Player::Player(const sf::Vector2f& location)
 	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));
 	m_speed = 100.0f;
 	m_life = 3;
+	m_freezGiftTime = sf::seconds(0);
 }
 
 
@@ -53,6 +54,46 @@ void Player::collideWithKey(Key& key)
 void Player::collideWithGift(Gift& gift)
 {
 	m_life++;
+}
+
+void Player::collideWithFreezGift(FreezGift& freezGift)
+{	
+	m_freezGiftTime = sf::seconds(5);	
+}
+
+void Player::collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift)
+{
+	m_isGotExtraTimeGift = true;
+}
+
+void Player::collideWithGuardGift(GuardGift& guardGift)
+{
+	m_score += 5;
+	m_isGotGuardGift = true;
+}
+
+bool Player::gotGuardGift()
+{
+	if (m_isGotGuardGift) {
+		m_isGotGuardGift = false;
+		return true;
+	}
+	return false;
+}
+
+bool Player::gotExtraTimeGift()
+{
+	if (m_isGotExtraTimeGift) {
+		m_isGotExtraTimeGift = false;
+		return true;
+	}
+	return false;
+}
+
+sf::Time Player::gotFreezGift(sf::Time& deltaTime)
+{
+	m_freezGiftTime -= deltaTime;
+	return m_freezGiftTime;
 }
 
 bool Player::won() const

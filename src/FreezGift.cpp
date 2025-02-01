@@ -1,0 +1,17 @@
+#include "FreezGift.h"
+
+FreezGift::FreezGift()
+	:FreezGift(sf::Vector2f(0, 0))
+{
+}
+
+FreezGift::FreezGift(const sf::Vector2f& location)
+	:Pickables(location)
+{
+	m_sprite.setTexture(DataLoader::getP2Texture(FREEZGIFT));
+}
+
+void FreezGift::collide(GameObject& other)
+{
+	other.collideWithFreezGift(*this);
+}

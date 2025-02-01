@@ -8,7 +8,10 @@ enum ObjectType {
 	STONE = '@',
 	GIFT = 'G',
 	KEY = 'K',
-	SLOWER = 's'
+	SLOWER = 's',
+	GUARDGIFT = 'X',
+	FREEZGIFT = 'F',
+	EXTRATIMEGIFT = 'E',
 };
 
 enum Direction {
@@ -18,7 +21,9 @@ enum Direction {
 enum GameState {
 	MENU,
 	PLAYING,
-	GAMEOVER
+	GAMEOVER,
+	REMATCH,
+	PAUSE
 };
 
 static const float DefaultSpeed = 1.0f;

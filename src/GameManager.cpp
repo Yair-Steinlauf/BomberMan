@@ -55,9 +55,6 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 		}		
 		
 		m_player->setScore(score);
-
-		
-		
 	}
 	if (event.type == sf::Event::KeyPressed) {
 		m_player->setDirection(eventToDirection(event));
@@ -65,6 +62,9 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 	if (event.type == sf::Event::KeyReleased) {
 		m_player->setDirection(DEFAULT);
 	}
+	if (event.key.code == sf::Keyboard::Escape)
+
+		status = PAUSE;
 	if (event.key.code == sf::Keyboard::P)
 	{
 		if (!this->loadNextLevel())//TODO: for debug, delete
@@ -85,19 +85,32 @@ bool GameManager::isWon()
 }
 
 
+
+
 void GameManager::update(sf::Time& deltaTime, GameState& status)
 {
 	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
 	{		
 		//restartGame();
-		m_player->setLife(3);
-		m_currLevel = 0;
+		m_player->setLife(3);		
 		status = GAMEOVER;	
 	}
-	m_board.act(deltaTime);
-	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-	m_board.update(deltaTime);
-	m_timer -= deltaTime;
+	if (status == PLAYING) {
+		//std::cout << m_timer.asSeconds() << std::endl;
+		
+		m_board.act(deltaTime);
+		m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
+		if (m_player->gotExtraTimeGift()) {
+			m_timer += sf::seconds(15);
+		}
+		if (m_player->gotGuardGift()) {
+			m_board.eraseGuard();
+		}
+		bool isFreezGuards = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
+		m_board.update(deltaTime, isFreezGuards);
+		
+		m_timer -= deltaTime;
+	}
 }
 
 void GameManager::drawNDisplay(sf::RenderWindow& window)

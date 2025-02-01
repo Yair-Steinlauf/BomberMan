@@ -11,6 +11,7 @@ public:
 	void eventHandler(sf::Event& event, sf::Time& deltaTime, GameState& status);
 	int getPlayerScore() const;
 	bool isWon();
+		
 private:
 	bool loadNextLevel();
 	void restartGame();

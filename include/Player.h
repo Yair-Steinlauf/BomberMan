@@ -12,6 +12,12 @@ public:
 	void collideWithGuard(Guard& guard) override;
 	void collideWithKey(Key& key) override;
 	void collideWithGift(Gift& gift) override;
+	void collideWithGuardGift(GuardGift& guardGift) override;
+	void collideWithFreezGift(FreezGift& freezGift) override;
+	void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) override;
+	bool gotGuardGift();
+	bool gotExtraTimeGift();
+	sf::Time gotFreezGift(sf::Time& deltaTime);
 	bool won()const;
 	bool gotKey()const;
 	int getScore();
@@ -24,5 +30,8 @@ private:
 	int m_score = 0;
 	bool m_win = false;
 	bool m_Key = false;
+	bool m_isGotGuardGift = false;	
+	sf::Time m_freezGiftTime;
+	bool m_isGotExtraTimeGift = false;
 
 };
