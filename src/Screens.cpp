@@ -21,7 +21,7 @@ void Screens::drawNDisplay(sf::RenderWindow& window, GameState& status)
 }
 
 
-void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic, bool& isMouseClicked)
+void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic)
 {
 	window.setSize(sf::Vector2u(800, 600));
 	window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
@@ -31,7 +31,7 @@ void Screens::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			sf::Vector2f mousePosition = window.mapPixelToCoords(
 				sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			handleClick(mousePosition, status, backgroundMusic, isMouseClicked);
+			handleClick(mousePosition, status, backgroundMusic);
 		}
 	}
 

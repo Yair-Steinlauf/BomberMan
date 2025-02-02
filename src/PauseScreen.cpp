@@ -7,7 +7,7 @@ PauseScreen::PauseScreen()
 	// יצירת כפתורים
 	int y = 50;	
 	m_Buttoms.push_back({ RESUME, createButtom("Resume", sf::Vector2f(300, y*4)) });
-	m_Buttoms.push_back({ AGAIN, createButtom("Play Ggain", sf::Vector2f(300, y*5)) });
+	m_Buttoms.push_back({ AGAIN, createButtom("Play Again", sf::Vector2f(300, y*5)) });
 	m_Buttoms.push_back({ EXIT, createButtom("Exit Game", sf::Vector2f(300, y*6)) });
 	m_Buttoms.push_back({ SOUND, createButtom("Sound", sf::Vector2f(300, y*7)) });
 	m_Buttoms.push_back({ MUSIC, createButtom("Music", sf::Vector2f(300, y*8)) });
@@ -21,7 +21,7 @@ void PauseScreen::pauseClicked(int score, sf::Music& backgroundMusic)
 	m_Buttoms[4].second.setString("Music - " + isMusicPlay);
 
 	if (SoundHandle::getInstance().getIsSoundOn()) {
-		m_Buttoms[3].second.setString("Sound - ON");
+		m_Buttoms[3].second.setString("Sound- ON");
 	}
 	else {
 		m_Buttoms[3].second.setString("Sound- OFF");
@@ -33,7 +33,7 @@ void PauseScreen::pauseClicked(int score, sf::Music& backgroundMusic)
 }
 
 
-void PauseScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic, bool& isMouseClicked)
+void PauseScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic)
 {
 	window.setSize(sf::Vector2u(800, 600));
 	window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
@@ -43,14 +43,14 @@ void PauseScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameS
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			sf::Vector2f mousePosition = window.mapPixelToCoords(
 				sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			handleClick(mousePosition, status, backgroundMusic, isMouseClicked);
+			handleClick(mousePosition, status, backgroundMusic);
 		}
 	}
 
 }
 
 
-void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic, bool& isMouseClicked)
+void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic)
 {
 
 	for (const auto& buttom : m_Buttoms)
@@ -72,16 +72,15 @@ void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Mus
 				//TODO: maybe delete this feture
 				break;
 			case SOUND:
-				if (!isMouseClicked) {
-					isMouseClicked = true;
+				
+		
 					SoundHandle::getInstance().changeSoundMode();				
-				}
+				
 				break;
 			case MUSIC:
-				if (!isMouseClicked) {					
-					isMouseClicked = true;
+			
 					backgroundMusic.getStatus() == sf::Music::Status::Playing ? backgroundMusic.stop() : backgroundMusic.play();		
-				}
+				
 				
 				break;
 			default:

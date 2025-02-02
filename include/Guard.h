@@ -9,7 +9,9 @@ public:
 	void collide(GameObject& other) override;
 	void act(const sf::Time& deltaTime);
 	void collideWithGuard(Guard& guard) override {};
+	static unsigned int getNumOfGuard();
 private:
+	static unsigned int m_numOfGuard;
 	sf::Vector2f smartMove();
 	Direction randMove();
 };

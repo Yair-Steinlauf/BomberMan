@@ -20,8 +20,7 @@ void Master::run()
 	m_backgroundMusic.play();
 
 
-	sf::Clock clock;
-	bool isMouseClicked = false;
+	sf::Clock clock;	
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -31,7 +30,7 @@ void Master::run()
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (event.key.code == sf::Keyboard::Escape)
-				m_status = MENU;
+				m_status = PAUSE;
 			handelEvent(event, window);	
 		}
 		drawNdisplay(window, deltaTime);
@@ -74,20 +73,20 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 	{
 		//if (!isMouseClicked) {
 	case MENU:
-		m_menu.eventHandler(event, window, m_status, m_backgroundMusic, isMouseClicked);
+		m_menu.eventHandler(event, window, m_status, m_backgroundMusic);
 		// m_menu.drawNDisplay(window, m_status);//TODO: change stat on handle event
 		break;
 
 	case GAMEOVER:
 		m_GameOver = GameOverScreen();
 		m_GameOver.setIsVictoryNScore(m_game.isWon(), m_game.getPlayerScore(), m_backgroundMusic);
-		m_GameOver.eventHandler(event, window, m_status, m_backgroundMusic, isMouseClicked);
+		m_GameOver.eventHandler(event, window, m_status, m_backgroundMusic);
 		m_GameOver.drawNDisplay(window, m_status);
 		break;
 
 	case PAUSE:
 		m_pauseScreen.pauseClicked(m_game.getPlayerScore(), m_backgroundMusic);
-		m_pauseScreen.eventHandler(event, window, m_status, m_backgroundMusic, isMouseClicked);
+		m_pauseScreen.eventHandler(event, window, m_status, m_backgroundMusic);
 		m_pauseScreen.drawNDisplay(window, m_status);
 		break;
 

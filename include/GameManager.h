@@ -3,16 +3,15 @@
 #include "SFML/Graphics.hpp"
 #include "Board.h"
 #include "Screens.h"
-
-
+#include <bitset>
 
 class GameManager : public Screens{
 public:
 	GameManager();
 	void drawNDisplay(sf::RenderWindow& window, sf::Time& deltaTime);
 	void eventHandler(sf::Event& event, GameState& status);
-	static GameManagerState m_state; //TODO: chek if needed
-
+	static bool m_removeGuardGift;
+	static bool m_guardFreeze;
 	int getPlayerScore() const;
 	bool isWon();
 		

@@ -18,11 +18,11 @@ class Screens {
 public:
 	Screens() = default;
 	virtual void drawNDisplay(sf::RenderWindow& window, GameState& status);
-	virtual void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic, bool& isMouseClicked);
+	virtual void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic);
 protected:
 	virtual void loadButtomsVector() {};
 	sf::Text createButtom(std::string text, sf::Vector2f location);
-	virtual void handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic, bool& isMouseClicked) {};
+	virtual void handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic) {};
 	std::vector<std::pair<BUTTOM, sf::Text>> m_Buttoms;
 	sf::Text m_sfScore;
 	sf::Texture m_texture;

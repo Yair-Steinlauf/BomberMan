@@ -1,6 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
+
+
+
 enum ObjectType {
 	PLAYER = '/',
 	GUARD = '!',
@@ -15,16 +18,6 @@ enum ObjectType {
 	GUARDGIFT = 'X',
 	FREEZGIFT = 'F',
 	EXTRATIMEGIFT = 'E'
-};
-
-enum GameManagerState {
-	ReachDoor,
-	RestartLevel,
-	RestartGame,
-	Playing,
-	PlaceBomb,
-	BombExplosion,
-
 };
 
 enum Direction {

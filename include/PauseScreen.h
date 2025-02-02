@@ -7,8 +7,8 @@ class PauseScreen : public Screens {
 public:
 	PauseScreen();
 	void pauseClicked(int score, sf::Music& backgroundMusic);
-	void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic, bool& isMouseClicked);
+	void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic);
 private:
-	void handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic, bool& isMouseClicked) override;
+	void handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic) override;
 	
 };

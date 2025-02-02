@@ -41,7 +41,7 @@ void GameOverScreen::setIsVictoryNScore(bool isVictory, int score, sf::Music& ba
 }
 
 
-void GameOverScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic, bool &isMouseClicked)
+void GameOverScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic)
 {
 
 	window.setSize(sf::Vector2u(800, 600));
@@ -52,14 +52,14 @@ void GameOverScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, Ga
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			sf::Vector2f mousePosition = window.mapPixelToCoords(
 				sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			handleClick(mousePosition, status, backgroundMusic, isMouseClicked);
+			handleClick(mousePosition, status, backgroundMusic);
 		}
 	}
 
 }
 
 
-void GameOverScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic, bool& isMouseClicked)
+void GameOverScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic)
 {
 
 	for (const auto& buttom : m_Buttoms)
@@ -75,17 +75,11 @@ void GameOverScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::
 				exit(EXIT_SUCCESS);
 				//TODO: maybe delete this feture
 				break;
-			case SOUND:
-				if (!isMouseClicked) {
-					isMouseClicked = true;
-					SoundHandle::getInstance().changeSoundMode();
-				}
+			case SOUND:					
+					SoundHandle::getInstance().changeSoundMode();				
 				break;
-			case MUSIC:
-				if (!isMouseClicked) {
-					isMouseClicked = true;
+			case MUSIC:				
 					backgroundMusic.getStatus() == sf::Music::Status::Playing ? backgroundMusic.stop() : backgroundMusic.play();
-				}
 				break;
 			default:
 				break;

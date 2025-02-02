@@ -31,80 +31,37 @@ void Board::collideHandler()
 			if (object == other) continue;
 			if (object->intersect(*other))
 			{
-					object->collide(*other);
-					//TODO: givve the player the controller by &
-				if ((typeid (*other) == typeid(Player) && typeid(*object) == typeid(Guard)))
-				{
-					tryAgain();
-					return;
-				}
+				object->collide(*other);
 			}
 		}
 	}
+}
+Player& Board::getPlayer()
+{
+	return *m_player;
 }
 void Board::tryAgain()
 {
 	for (auto& object : m_board)
 	{
-		if (MovingObject* current = dynamic_cast<MovingObject*>(object.get()))
-		{
-			current->moveToStartPos();
-		}
+		object->moveToStartPos();
 	}
 }
 void Board::update(const sf::Time& deltaTime)
 {
 	for (auto& object : m_board)
 	{
-		//if (!(isFreezGuards && typeid(*object) == typeid(Guard)))
-		{
-			object->update(deltaTime);
-		}		
-		
+		object->update(deltaTime);
 	}
-	
+
 	std::erase_if(m_board, [](const std::unique_ptr<GameObject>& current) {
-		return !current->isActive(); 
+		return !current->isActive();
 		});
 }
 
-Player& Board::getPlayer()
-{
-	for (const auto& object : m_board)
-	{
-		if (auto* player = dynamic_cast<Player*>(object.get()))
-		{
-			return *player;
-		}
-	}
-}
 
-int Board::getCountGuards()
-{
-	int countGuards = 0;
-	for (const auto& object : m_board)
-	{
-		if (auto* guard = dynamic_cast<Guard*>(object.get()))
-		{
-			countGuards++;
-		}
-	}
-	return countGuards;
-}
 
-void Board::eraseGuard()
-{
-	for (const auto& object : m_board)
-	{
-		if (auto* guard = dynamic_cast<Guard*>(object.get()))
-		{
-			if (guard->isActive()) {
-				guard->setNoActive();
-				break;
-			}
-		}
-	}
-}
+
 
 
 void Board::addObject(ObjectType type, sf::Vector2f location)
@@ -113,12 +70,12 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 	{
 	case PLAYER:
 		m_board.push_back(std::make_unique<Player>(location));
+		m_player = dynamic_cast<Player*>(m_board.back().get());
 		break;
 	case GUARD:
-		
 		m_board.push_back(std::make_unique<Guard>(location));
 		break;
-	case DOOR: 
+	case DOOR:
 		m_board.push_back(std::make_unique<Door>(location));
 		break;
 	case STONE:
@@ -129,19 +86,20 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		break;
 	case LIFEGIFT:
 		m_board.push_back(std::make_unique<LifeGift>(location));
-		break;	
+		break;
 	case KEY:
 		m_board.push_back(std::make_unique<Key>(location));
 		break;
 	case BOMB:
 		m_board.push_back(std::make_unique<Bomb>(location));
+		break;
 	case GUARDGIFT:
 		m_board.push_back(std::make_unique<GuardGift>(location));
-		break;	
+		break;
 	case FREEZGIFT:
 		m_board.push_back(std::make_unique<FreezGift>(location));
-		break;case 
-		EXTRATIMEGIFT:
+		break;
+	case EXTRATIMEGIFT:
 		m_board.push_back(std::make_unique<ExtraTimeGift>(location));
 		break;
 	}

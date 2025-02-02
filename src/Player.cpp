@@ -44,6 +44,7 @@ void Player::collideWithDoor(Door& door)
 void Player::collideWithGuard(Guard& guard)
 {
 	SoundHandle::getInstance().playSound(S_COLLID_GUARD);
+	m_collidWithGuard = true;
 	m_life--;
 }
 
@@ -91,6 +92,15 @@ bool Player::gotExtraTimeGift()
 {
 	if (m_isGotExtraTimeGift) {
 		m_isGotExtraTimeGift = false;
+		return true;
+	}
+	return false;
+}
+
+bool Player::gotCollidWithGuard()
+{
+	if (m_collidWithGuard) {
+		m_collidWithGuard = false;
 		return true;
 	}
 	return false;

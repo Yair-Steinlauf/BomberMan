@@ -17,6 +17,7 @@ public:
 	void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) override;
 	bool gotGuardGift();
 	bool gotExtraTimeGift();
+	bool gotCollidWithGuard();
 	sf::Time gotFreezGift(sf::Time& deltaTime);
 	bool won()const;
 	bool gotKey()const;
@@ -33,5 +34,6 @@ private:
 	bool m_isGotGuardGift = false;	
 	sf::Time m_freezGiftTime;
 	bool m_isGotExtraTimeGift = false;
+	bool m_collidWithGuard = false;
 
 };

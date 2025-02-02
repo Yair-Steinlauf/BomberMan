@@ -26,6 +26,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 	virtual void act(const sf::Time& deltaTime) = 0;
 	bool intersect(GameObject& other);
+	virtual void moveToStartPos() {};
 	virtual void collide(GameObject& other) =0;
 	virtual void collideWithPlayer(Player& player) {};
 	virtual void collideWithGuard(Guard& guard) = 0;

@@ -9,7 +9,7 @@ public:
 	virtual void collideWithBomb(Bomb& bomb);
 	unsigned int getLife() const;
 	void setLife(int life);
-	void moveToStartPos();
+	virtual void moveToStartPos() override;
 protected:
 	MovingObject();
 	MovingObject(const sf::Vector2f& location);

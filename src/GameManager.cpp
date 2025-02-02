@@ -1,11 +1,16 @@
 #include "GameManager.h"
 const sf::Vector2f PADDING(0,30);
-GameManagerState GameManager::m_state = Playing;
+
+
+//----------static init-------------------
+bool GameManager::m_removeGuardGift = false;
+bool GameManager::m_guardFreeze = false;
+
+
 
 GameManager::GameManager()
 	:m_levels(getLevels()), m_currLevel(0)
 {
-	m_state = Playing;
 	loadNextLevel();
 }
 
@@ -48,7 +53,7 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 	{
 		int score = m_player->getScore();
 		score += 25; // for finish level
-		score += 3 * m_board.getCountGuards(); // for every guards in the game
+		score += 3 * Guard::getNumOfGuard(); // for every guards in the game
 		if (!this->loadNextLevel()) { //if it last level- gameOver	
 			SoundHandle::getInstance().playSound(S_VICTORY);
 			status = GAMEOVER;				
@@ -105,25 +110,19 @@ bool GameManager::isWon()
 
 void GameManager::update(sf::Time& deltaTime)
 {
-	//if (status == PLAYING) {
-	//	//std::cout << m_timer.asSeconds() << std::endl;
-	//	
-	//	m_board.act(deltaTime);
-	//	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-	//	if (m_player->gotExtraTimeGift()) {
-	//		m_timer += sf::seconds(15);
-	//	}
-	//	if (m_player->gotGuardGift()) {
-	//		m_board.eraseGuard();
-	//	}
-	//	bool isFreezGuards = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
-	//	//m_board.update(deltaTime, isFreezGuards);
-	//	
-	//	m_timer -= deltaTime;
-	//}
+	if (m_player->gotExtraTimeGift()) {
+		m_timer += sf::seconds(15);
+	}
+	if (m_player->gotCollidWithGuard())
+	{
+		m_board.tryAgain();
+	}
+	m_guardFreeze = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
+
+
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-	m_board.update(deltaTime );
+	m_board.update(deltaTime);
 	//setState(Playing);
 	m_timer -= deltaTime;
 }

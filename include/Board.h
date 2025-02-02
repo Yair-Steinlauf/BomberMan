@@ -28,16 +28,16 @@ public:
 	void addObject(ObjectType type, sf::Vector2f location);
 	void collideHandler();
 	Player& getPlayer();
-	int getCountGuards();
-	void eraseGuard();
+	void tryAgain();
+	
 	
 private:
 	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
 	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
 	void loadFromFile(std::ifstream& file);
-	void tryAgain();
 	std::vector<std::unique_ptr<GameObject>> m_board;
 	sf::Vector2f m_dimension;
+	Player* m_player;
 	
 	
 
