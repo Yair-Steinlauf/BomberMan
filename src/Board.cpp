@@ -52,15 +52,20 @@ void Board::tryAgain()
 		}
 	}
 }
-void Board::update(const sf::Time& deltaTime)
+void Board::update(const sf::Time& deltaTime, bool isFreezGuards)
 {
 	for (auto& object : m_board)
 	{
-		object->update(deltaTime);
+		if (!(isFreezGuards && typeid(*object) == typeid(Guard)))
+		{
+			object->update(deltaTime);
+		}		
+		
 	}
 	
 	std::erase_if(m_board, [](const std::unique_ptr<GameObject>& current) {
-		return !current->isActive(); });
+		return !current->isActive(); 
+		});
 }
 
 Player& Board::getPlayer()
@@ -74,15 +79,44 @@ Player& Board::getPlayer()
 	}
 }
 
+int Board::getCountGuards()
+{
+	int countGuards = 0;
+	for (const auto& object : m_board)
+	{
+		if (auto* guard = dynamic_cast<Guard*>(object.get()))
+		{
+			countGuards++;
+		}
+	}
+	return countGuards;
+}
+
+void Board::eraseGuard()
+{
+	for (const auto& object : m_board)
+	{
+		if (auto* guard = dynamic_cast<Guard*>(object.get()))
+		{
+			if (guard->isActive()) {
+				guard->setNoActive();
+				break;
+			}
+		}
+	}
+}
+
+
 void Board::addObject(ObjectType type, sf::Vector2f location)
 {
 	switch (type)
 	{
 	case PLAYER:
-		m_board.push_back(std::make_unique <Player>(location));
+		m_board.push_back(std::make_unique<Player>(location));
 		break;
 	case GUARD:
-		m_board.push_back(std::make_unique <Guard>(location));
+		
+		m_board.push_back(std::make_unique<Guard>(location));
 		break;
 	case DOOR: 
 		m_board.push_back(std::make_unique<Door>(location));
@@ -93,14 +127,22 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 	case WALL:
 		m_board.push_back(std::make_unique<Wall>(location));
 		break;
-	case GIFT:
-		m_board.push_back(std::make_unique<Gift>(location));
+	case LIFEGIFT:
+		m_board.push_back(std::make_unique<LifeGift>(location));
 		break;	
 	case KEY:
 		m_board.push_back(std::make_unique<Key>(location));
 		break;
 	case BOMB:
 		m_board.push_back(std::make_unique<Bomb>(location));
+	case GUARDGIFT:
+		m_board.push_back(std::make_unique<GuardGift>(location));
+		break;	
+	case FREEZGIFT:
+		m_board.push_back(std::make_unique<FreezGift>(location));
+		break;case 
+		EXTRATIMEGIFT:
+		m_board.push_back(std::make_unique<ExtraTimeGift>(location));
 		break;
 	}
 }

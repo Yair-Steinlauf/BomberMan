@@ -1,7 +1,7 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <map>  // ùéðåé î-vector ì-map
+#include <map>  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½-vector ï¿½-map
 #include <iostream>
 #include <string>
 #include "Types.h"
@@ -15,6 +15,6 @@ public:
     static sf::Font& getP2Font();
 private:
     DataLoader();
-    std::map<ObjectType, sf::Texture> m_textures;  // ùéðåé ìmap
+    std::map<ObjectType, sf::Texture> m_textures;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½map
     sf::Font m_font;
 };

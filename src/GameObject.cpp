@@ -82,6 +82,11 @@ bool GameObject::isActive() const
 	return m_isActive;
 }
 
+void GameObject::setNoActive() 
+{
+	m_isActive = false;
+}
+
 sf::Vector2f GameObject::getBottomRight() const
 {
 	auto bottomRight = getTopLeft();

@@ -1,7 +1,8 @@
 #pragma once
 #include "GameManager.h"
 #include "Menu.h"
-#include "WinLoseScreen.h"
+#include "GameOverScreen.h"
+#include "PauseScreen.h"
 #include "DataLoader.h"
 #include "Types.h"
 class Master {
@@ -12,9 +13,14 @@ public:
 private:
 	void handelEvent(sf::Event& event, sf::RenderWindow& window);
 	void drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime);
+// to update in cpp logic
+	// void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime, bool &isMouseClicked);
+	
+	sf::Music m_backgroundMusic;
 	GameManager m_game;
+	PauseScreen m_pauseScreen;
 	Menu m_menu;
-	WinLoseScreen m_winLose;
+	GameOverScreen m_GameOver;
 	enum GameState m_status = MENU;
 
 };

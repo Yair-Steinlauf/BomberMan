@@ -37,7 +37,11 @@ DataLoader::DataLoader()
         { GIFT, "GIFT" },
         { KEY, "KEY"},
         {BOMB, "BOMB"},
-        {EXPLODE, "EXPLODE"}
+        {EXPLODE, "EXPLODE"},
+        {LIFEGIFT , "LIFEGIFT"},		
+		{GUARDGIFT , "GUARDGIFT"},
+		{FREEZGIFT , "FREEZGIFT"},
+		{EXTRATIMEGIFT , "EXTRATIMEGIFT"},
     };
 
     for (const auto& [type, name] : objectNames) {

@@ -1,17 +1,20 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+
 enum ObjectType {
 	PLAYER = '/',
 	GUARD = '!',
 	DOOR = 'D',
 	WALL = '#',
 	STONE = '@',
-	GIFT = 'G',
-	SLOWER = 'S',
+		LIFEGIFT = 'G',
 	KEY = 'K',
-	BOMB, 
-	EXPLODE
+	SLOWER = 's',
+	GUARDGIFT = 'X',
+	FREEZGIFT = 'F',
+	EXTRATIMEGIFT = 'E'
 };
+
 enum GameManagerState {
 	ReachDoor,
 	RestartLevel,
@@ -19,16 +22,19 @@ enum GameManagerState {
 	Playing,
 	PlaceBomb,
 	BombExplosion,
+
 };
 
 enum Direction {
-	UP, DOWN, RIGHT, LEFT, DEFAULT
+	UP, DOWN, RIGHT, LEFT, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT, DEFAULT
 };
 
 enum GameState {
 	MENU,
 	PLAYING,
-	GAMEOVER
+	GAMEOVER,
+	REMATCH,
+	PAUSE
 };
 
 static const float DefaultSpeed = 1.0f;

@@ -8,6 +8,7 @@ public:
 	virtual void collideWithStatic(StaticObject& stat);
 	virtual void collideWithBomb(Bomb& bomb);
 	unsigned int getLife() const;
+	void setLife(int life);
 	void moveToStartPos();
 protected:
 	MovingObject();

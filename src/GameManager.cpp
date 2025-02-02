@@ -11,17 +11,18 @@ GameManager::GameManager()
 
 void GameManager::restartGame()
 {
-	m_currLevel = 0;
+	m_currLevel = 0;	
 	loadNextLevel();
 }
 
 bool GameManager::loadNextLevel()
-{
+{	
 	if (m_currLevel < m_levels.size())
 	{
-		m_scoreDetail.clear();
+		m_scoreDetail.clear();							
 		m_board = loadNewLevel(m_levels[m_currLevel]);
-		m_player = &m_board.getPlayer();
+		m_player = &m_board.getPlayer();		
+
 		m_currLevel++;
 
 		return true;
@@ -45,9 +46,19 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 	//player won-> load next level
 	if (m_player->won())
 	{
-		//if it last level- gameOver
-		if (!this->loadNextLevel())
-			status = GAMEOVER;//TODO: winlose screen
+		int score = m_player->getScore();
+		score += 25; // for finish level
+		score += 3 * m_board.getCountGuards(); // for every guards in the game
+		if (!this->loadNextLevel()) { //if it last level- gameOver	
+			SoundHandle::getInstance().playSound(S_VICTORY);
+			status = GAMEOVER;				
+			//restartGame();
+		}		
+		else {
+			SoundHandle::getInstance().playSound(S_LEVEL_UP);
+		}
+		
+		m_player->setScore(score);
 	}
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Space) {
@@ -62,27 +73,55 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 			m_player->setDirection(DEFAULT);
 		}
 	}
+	if (event.key.code == sf::Keyboard::Escape)
+
+		status = PAUSE;
 	if (event.key.code == sf::Keyboard::P)
 	{
 		if (!this->loadNextLevel())//TODO: for debug, delete
 			status = GAMEOVER;
 	}
-	
 
 }
 
-//void GameManager::setState(GameManagerState state)
-//{
-//	GameManager::m_state = state;
-//}
+int GameManager::getPlayerScore() const
+{
+	return m_player->getScore();
+}
+
+bool GameManager::isWon()
+{
+	return m_player->won();
+}
 
 
-void GameManager::update(sf::Time& deltaTime)
+
+
+void GameManager::update(sf::Time& deltaTime, GameState& status)
 {
 	m_state = Playing;
 	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
-	{
-		restartGame();
+	{		
+		//restartGame();				
+		SoundHandle::getInstance().playSound(S_DEFEAT);
+		status = GAMEOVER;	
+
+	}
+	if (status == PLAYING) {
+		//std::cout << m_timer.asSeconds() << std::endl;
+		
+		m_board.act(deltaTime);
+		m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
+		if (m_player->gotExtraTimeGift()) {
+			m_timer += sf::seconds(15);
+		}
+		if (m_player->gotGuardGift()) {
+			m_board.eraseGuard();
+		}
+		bool isFreezGuards = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
+		m_board.update(deltaTime, isFreezGuards);
+		
+		m_timer -= deltaTime;
 	}
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
@@ -101,6 +140,7 @@ void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime)
 	
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
 	m_scoreDetail[1].setString("Game timer : " + std::to_string(m_timer.asSeconds()));
+	m_scoreDetail[2].setString("Player points : " + std::to_string(m_player->getScore()));
 	window.clear();
 	
 	for (const auto& detail : m_scoreDetail)
@@ -129,7 +169,8 @@ Board GameManager::loadNewLevel(const std::string& levelName)
 	sf::Vector2f startScoreText(0, newBoard.getDimension().y);
 	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
 	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
-	m_timer = sf::seconds(5);
+	m_scoreDetail.push_back(createScoreText("Player points :", startScoreText));
+	m_timer = sf::seconds(30);
 	return newBoard;
 }
 
@@ -139,7 +180,7 @@ Direction GameManager::eventToDirection(sf::Event& event)
 	{
 	case sf::Keyboard::Up:
 		return UP;
-		break;
+		break;	
 	case sf::Keyboard::Down:
 		return DOWN;
 		break;
@@ -154,3 +195,4 @@ Direction GameManager::eventToDirection(sf::Event& event)
 		break;
 	}
 }
+
