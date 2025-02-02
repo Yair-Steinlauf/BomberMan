@@ -23,8 +23,7 @@ void Master::run()
 				window.close();
 			if (event.key.code == sf::Keyboard::Escape)
 				m_status = MENU;
-			handelEvent(event, window);
-			
+			handelEvent(event, window);	
 		}
 		drawNdisplay(window, deltaTime);
 	}
@@ -37,8 +36,6 @@ void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
 		{
 		case MENU:
 			m_menu.drawNDisplay(window);
-
-
 			break;
 		case PLAYING:
 			m_game.drawNDisplay(window, deltaTime);
