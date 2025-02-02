@@ -35,7 +35,8 @@ private:
 	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
 	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
 	void loadFromFile(std::ifstream& file);
-	void setScale(const sf::Vector2f& scale);
+	float scalerCalc() const;
+	void setScale(float factor);
 	std::vector<std::unique_ptr<GameObject>> m_board;
 	sf::Vector2f m_dimension;
 	Player* m_player;

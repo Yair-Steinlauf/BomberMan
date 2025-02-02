@@ -120,8 +120,7 @@ void Board::loadFromFile(std::ifstream& file)
 {
 	std::vector<std::string> lines = fileTo2DString(file);
 	m_dimension = sf::Vector2f(lines[0].length(), lines.size());
-	float factorX = (WINDOW_WIDTH / m_dimension.x) / ImageDefDimension.x;
-	float factorY = (WINDOW_HIGTH / m_dimension.y )/ ImageDefDimension.y;
+
 	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
 	{
 		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
@@ -130,22 +129,28 @@ void Board::loadFromFile(std::ifstream& file)
 			addObject(ObjectType(lines[rowIndex][colIndex]), location);
 		}
 	}
-	factorX = std::min(factorX, factorY);
-	auto scaler = sf::Vector2f(factorX, factorX);
+	auto scaler = scalerCalc();
 	setScale(scaler);
 }
+float Board::scalerCalc()const
+{
+	float factorX = (WINDOW_WIDTH / m_dimension.x) / ImageDimension.x;
+	float factorY = (WINDOW_HIGTH / m_dimension.y) / ImageDimension.y;
+	return std::min(factorX, factorY);
+}
 
-void Board::setScale(const sf::Vector2f& scale)
+void Board::setScale(float factor)
 {
 	for (auto& object : m_board)
 	{
-		object->setScale(scale);
+		object->setScale(factor);
 	}
 }
 
 sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const
 {
-	return sf::Vector2f(col * ImageDimension.x, row * ImageDimension.y);
+	auto scaler = scalerCalc();
+	return sf::Vector2f(col * ImageDimension.x *scaler, row * ImageDimension.y*scaler);
 }
 
 sf::Vector2f Board::getDimension() const
