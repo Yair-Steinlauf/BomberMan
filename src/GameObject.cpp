@@ -2,7 +2,7 @@
 
 GameObject::GameObject()
 {
-	m_sprite.setScale(ImageScale, ImageScale);
+	//m_sprite.setScale(ImageScale, ImageScale);
 }
 GameObject::GameObject(const sf::Vector2f& location)
 	:GameObject()
@@ -10,9 +10,9 @@ GameObject::GameObject(const sf::Vector2f& location)
 	m_sprite.setPosition(location);
 }
 
-void GameObject::setScale(float scale)
+void GameObject::setScale(const sf::Vector2f& scale)
 {
-	m_sprite.scale(scale, scale);
+	m_sprite.setScale(scale);
 }
 
 void GameObject::draw(sf::RenderWindow& window)

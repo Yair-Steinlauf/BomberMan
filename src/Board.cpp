@@ -119,7 +119,9 @@ std::vector<std::string> Board::fileTo2DString(std::ifstream& file)
 void Board::loadFromFile(std::ifstream& file)
 {
 	std::vector<std::string> lines = fileTo2DString(file);
-	m_dimension = sf::Vector2f(lines[0].length() * ImageDimension.x, lines.size() * ImageDimension.y);
+	m_dimension = sf::Vector2f(lines[0].length(), lines.size());
+	float factorX = (WINDOW_WIDTH / m_dimension.x) / ImageDefDimension.x;
+	float factorY = (WINDOW_HIGTH / m_dimension.y )/ ImageDefDimension.y;
 	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
 	{
 		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
@@ -128,11 +130,12 @@ void Board::loadFromFile(std::ifstream& file)
 			addObject(ObjectType(lines[rowIndex][colIndex]), location);
 		}
 	}
-	float scaler = std::min(WINDOW_WIDTH / m_dimension.x, WINDOW_HIGTH / m_dimension.y);
+	factorX = std::min(factorX, factorY);
+	auto scaler = sf::Vector2f(factorX, factorX);
 	setScale(scaler);
 }
 
-void Board::setScale(float scale)
+void Board::setScale(const sf::Vector2f& scale)
 {
 	for (auto& object : m_board)
 	{
