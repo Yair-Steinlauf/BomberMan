@@ -4,10 +4,6 @@
 
 PauseScreen::PauseScreen()
 {
-	if (!m_font.loadFromFile("font.ttf")) {
-		std::cerr << "Failed to load font!" << std::endl;
-	}
-
 	// יצירת כפתורים
 	int y = 50;	
 	m_Buttoms.push_back({ RESUME, createButtom("Resume", sf::Vector2f(300, y*4)) });

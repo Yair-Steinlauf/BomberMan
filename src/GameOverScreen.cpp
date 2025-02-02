@@ -3,9 +3,6 @@
 
 GameOverScreen::GameOverScreen() 
 {
-	if (!m_font.loadFromFile("font.ttf")) {
-		std::cerr << "Failed to load font!" << std::endl;
-	}
 
 	// יצירת כפתורים
 	m_Buttoms.push_back({ AGAIN, createButtom("Play Again", sf::Vector2f(200, 400)) });

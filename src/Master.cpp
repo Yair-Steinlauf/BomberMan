@@ -69,10 +69,10 @@ void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
 void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 {
 	// TODO: deltaTime limit in gameover,menu,pause to handle problem with click event
-	
+	bool isMouseClicked = false;
 	switch (m_status)
 	{
-		if (!isMouseClicked) {
+		//if (!isMouseClicked) {
 	case MENU:
 		m_menu.eventHandler(event, window, m_status, m_backgroundMusic, isMouseClicked);
 		// m_menu.drawNDisplay(window, m_status);//TODO: change stat on handle event
@@ -91,7 +91,7 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 		m_pauseScreen.drawNDisplay(window, m_status);
 		break;
 
-		}
+		//}
 		
 	
 	case REMATCH:
@@ -99,7 +99,7 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 		m_status = PLAYING;
 
 	case PLAYING:
-		m_game.eventHandler(event, deltaTime, m_status);
+		m_game.eventHandler(event,  m_status);
 		break;
 
 	default:

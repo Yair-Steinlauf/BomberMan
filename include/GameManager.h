@@ -20,7 +20,7 @@ private:
 	//void playerEvent(sf::Event& event, const sf::Time& deltaTime);
 	bool loadNextLevel();
 	void restartGame();
-	void update(sf::Time& deltaTime, GameState& status);
+	void update(sf::Time& deltaTime);
 	Board m_board;
 	Player* m_player;
 	int m_currLevel = 0;

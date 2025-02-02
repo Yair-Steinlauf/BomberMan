@@ -60,6 +60,12 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 		
 		m_player->setScore(score);
 	}
+	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
+	{
+		//restartGame();				
+		SoundHandle::getInstance().playSound(S_DEFEAT);
+		status = GAMEOVER;
+	}
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Space) {
 			m_board.addObject(BOMB, m_player->getLocation());
@@ -99,33 +105,25 @@ bool GameManager::isWon()
 
 void GameManager::update(sf::Time& deltaTime)
 {
-	m_state = Playing;
-	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
-	{		
-		//restartGame();				
-		SoundHandle::getInstance().playSound(S_DEFEAT);
-		status = GAMEOVER;	
-
-	}
-	if (status == PLAYING) {
-		//std::cout << m_timer.asSeconds() << std::endl;
-		
-		m_board.act(deltaTime);
-		m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-		if (m_player->gotExtraTimeGift()) {
-			m_timer += sf::seconds(15);
-		}
-		if (m_player->gotGuardGift()) {
-			m_board.eraseGuard();
-		}
-		bool isFreezGuards = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
-		//m_board.update(deltaTime, isFreezGuards);
-		
-		m_timer -= deltaTime;
-	}
+	//if (status == PLAYING) {
+	//	//std::cout << m_timer.asSeconds() << std::endl;
+	//	
+	//	m_board.act(deltaTime);
+	//	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
+	//	if (m_player->gotExtraTimeGift()) {
+	//		m_timer += sf::seconds(15);
+	//	}
+	//	if (m_player->gotGuardGift()) {
+	//		m_board.eraseGuard();
+	//	}
+	//	bool isFreezGuards = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
+	//	//m_board.update(deltaTime, isFreezGuards);
+	//	
+	//	m_timer -= deltaTime;
+	//}
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-	//m_board.update(deltaTime, false);
+	m_board.update(deltaTime );
 	//setState(Playing);
 	m_timer -= deltaTime;
 }
