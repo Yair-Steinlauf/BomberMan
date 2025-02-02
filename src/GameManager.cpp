@@ -97,7 +97,7 @@ bool GameManager::isWon()
 
 
 
-void GameManager::update(sf::Time& deltaTime, GameState& status)
+void GameManager::update(sf::Time& deltaTime)
 {
 	m_state = Playing;
 	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
@@ -119,13 +119,13 @@ void GameManager::update(sf::Time& deltaTime, GameState& status)
 			m_board.eraseGuard();
 		}
 		bool isFreezGuards = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
-		m_board.update(deltaTime, isFreezGuards);
+		//m_board.update(deltaTime, isFreezGuards);
 		
 		m_timer -= deltaTime;
 	}
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-	m_board.update(deltaTime);
+	//m_board.update(deltaTime, false);
 	//setState(Playing);
 	m_timer -= deltaTime;
 }

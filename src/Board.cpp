@@ -52,11 +52,11 @@ void Board::tryAgain()
 		}
 	}
 }
-void Board::update(const sf::Time& deltaTime, bool isFreezGuards)
+void Board::update(const sf::Time& deltaTime)
 {
 	for (auto& object : m_board)
 	{
-		if (!(isFreezGuards && typeid(*object) == typeid(Guard)))
+		//if (!(isFreezGuards && typeid(*object) == typeid(Guard)))
 		{
 			object->update(deltaTime);
 		}		

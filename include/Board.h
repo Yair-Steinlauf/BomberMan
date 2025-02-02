@@ -22,7 +22,7 @@ public:
 	Board();
 	Board(std::ifstream& file);
 	void draw(sf::RenderWindow& window);
-	void update(const sf::Time& deltaTime, bool isFreezGuards);
+	void update(const sf::Time& deltaTime);
 	sf::Vector2f getDimension()const;
 	void act(const sf::Time& deltaTime);
 	void addObject(ObjectType type, sf::Vector2f location);

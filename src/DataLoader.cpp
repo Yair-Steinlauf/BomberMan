@@ -34,7 +34,6 @@ DataLoader::DataLoader()
         { DOOR, "DOOR" },
         { WALL, "WALL" },
         { STONE, "STONE" },
-        { GIFT, "GIFT" },
         { KEY, "KEY"},
         {BOMB, "BOMB"},
         {EXPLODE, "EXPLODE"},

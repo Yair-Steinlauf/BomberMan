@@ -44,7 +44,7 @@ void Master::run()
 		// } TODO: currect by loop use
 	}
 		
-}
+
 
 void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
 {
