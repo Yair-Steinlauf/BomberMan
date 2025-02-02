@@ -28,6 +28,8 @@ void Player::collide(GameObject& other)
 
 void Player::act( const sf::Time& deltaTime)
 {
+	if (m_life <= 0)
+		m_win = false;
 }
 
 void Player::collideWithDoor(Door& door)
@@ -41,8 +43,6 @@ void Player::collideWithDoor(Door& door)
 void Player::collideWithGuard(Guard& guard)
 {
 	m_life--;
-	if (m_life <= 0)
-		m_win = false;
 }
 
 void Player::collideWithKey(Key& key)
@@ -54,6 +54,7 @@ void Player::collideWithGift(Gift& gift)
 {
 	m_life++;
 }
+
 
 bool Player::won() const
 {

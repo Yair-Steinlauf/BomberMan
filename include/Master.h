@@ -10,7 +10,8 @@ public:
 	void run();
 
 private:
-	void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime);
+	void handelEvent(sf::Event& event, sf::RenderWindow& window);
+	void drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime);
 	GameManager m_game;
 	Menu m_menu;
 	WinLoseScreen m_winLose;

@@ -29,6 +29,8 @@ void Guard::collide(GameObject& other)
 void Guard::act(const sf::Time& deltaTime)
 {
 	setDirection(randMove());
+	if (m_life <= 0)
+		m_isActive = false;
 }
 
 sf::Vector2f Guard::smartMove()

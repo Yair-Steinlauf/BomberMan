@@ -1,6 +1,7 @@
 #include "MovingObject.h"
 #include "Wall.h"
 
+
 void MovingObject::setDirection(Direction direction)
 {
 	switch (direction)
@@ -67,10 +68,16 @@ void MovingObject::collideWithStatic(StaticObject& wall)
     m_direction = sf::Vector2f(0, 0);
 }
 
+void MovingObject::collideWithBomb(Bomb& bomb)
+{
+    m_life--;
+}
+
 unsigned int MovingObject::getLife() const
 {
     return m_life;
 }
+
 
 MovingObject::MovingObject()
 	:MovingObject(sf::Vector2f(0,0))

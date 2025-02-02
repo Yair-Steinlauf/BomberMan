@@ -23,25 +23,44 @@ void Master::run()
 				window.close();
 			if (event.key.code == sf::Keyboard::Escape)
 				m_status = MENU;
+			handelEvent(event, window);
 			
 		}
-		handelEvent(event, window, deltaTime);
+		drawNdisplay(window, deltaTime);
 	}
 }
 
-void Master::handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime)
+void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
+{
+	{
+		switch (m_status)
+		{
+		case MENU:
+			m_menu.drawNDisplay(window);
+
+
+			break;
+		case PLAYING:
+			m_game.drawNDisplay(window, deltaTime);
+			break;
+		case GAMEOVER:
+			//winLose screen
+			break;
+		default:
+			break;
+		}
+
+	}
+}
+void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 {
 	switch (m_status)
 	{
 	case MENU:
 		m_menu.eventHandler(event, window, m_status);
-		m_menu.drawNDisplay(window);
-
-
 		break;
 	case PLAYING:
-		m_game.eventHandler(event, deltaTime , m_status);
-		m_game.drawNDisplay(window);
+		m_game.eventHandler(event, m_status);
 		break;
 	case GAMEOVER:
 		//winLose screen

@@ -32,6 +32,7 @@ void Board::collideHandler()
 			if (object->intersect(*other))
 			{
 					object->collide(*other);
+					//TODO: givve the player the controller by &
 				if ((typeid (*other) == typeid(Player) && typeid(*object) == typeid(Guard)))
 				{
 					tryAgain();
@@ -97,6 +98,9 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		break;	
 	case KEY:
 		m_board.push_back(std::make_unique<Key>(location));
+		break;
+	case BOMB:
+		m_board.push_back(std::make_unique<Bomb>(location));
 		break;
 	}
 }

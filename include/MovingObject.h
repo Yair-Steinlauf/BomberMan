@@ -6,6 +6,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) =0;
 	void setDirection(Direction direction);
 	virtual void collideWithStatic(StaticObject& stat);
+	virtual void collideWithBomb(Bomb& bomb);
 	unsigned int getLife() const;
 	void moveToStartPos();
 protected:

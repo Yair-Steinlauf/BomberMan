@@ -1,11 +1,12 @@
 #include "GameManager.h"
 const sf::Vector2f PADDING(0,30);
+GameManagerState GameManager::m_state = Playing;
 
 GameManager::GameManager()
 	:m_levels(getLevels()), m_currLevel(0)
 {
+	m_state = Playing;
 	loadNextLevel();
-
 }
 
 void GameManager::restartGame()
@@ -40,7 +41,7 @@ std::vector<std::string> GameManager::getLevels()
 	return levels;
 }
 
-void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState& status) {
+void GameManager::eventHandler(sf::Event& event, GameState& status) {
 	//player won-> load next level
 	if (m_player->won())
 	{
@@ -49,23 +50,36 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 			status = GAMEOVER;//TODO: winlose screen
 	}
 	if (event.type == sf::Event::KeyPressed) {
-		m_player->setDirection(eventToDirection(event));
+		if (event.key.code == sf::Keyboard::Space) {
+			m_board.addObject(BOMB, m_player->getLocation());
+		}
+		else {
+			m_player->setDirection(eventToDirection(event)); // Handle other key presses
+		}
 	}
-	if (event.type == sf::Event::KeyReleased) {
-		m_player->setDirection(DEFAULT);
+	else if (event.type == sf::Event::KeyReleased) {
+		if (event.key.code != sf::Keyboard::Space) { // Only reset direction if not space
+			m_player->setDirection(DEFAULT);
+		}
 	}
 	if (event.key.code == sf::Keyboard::P)
 	{
 		if (!this->loadNextLevel())//TODO: for debug, delete
 			status = GAMEOVER;
 	}
-	update(deltaTime);
+	
 
 }
+
+//void GameManager::setState(GameManagerState state)
+//{
+//	GameManager::m_state = state;
+//}
 
 
 void GameManager::update(sf::Time& deltaTime)
 {
+	m_state = Playing;
 	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
 	{
 		restartGame();
@@ -73,19 +87,22 @@ void GameManager::update(sf::Time& deltaTime)
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
 	m_board.update(deltaTime);
+	//setState(Playing);
 	m_timer -= deltaTime;
 }
 
-void GameManager::drawNDisplay(sf::RenderWindow& window)
+void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime)
 {
+	update(deltaTime);
 	//TODO: leonid ask how to do good
 	window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
 	window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
 		m_board.getDimension().y + scoreDetailsSize.y)));
-
+	
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
 	m_scoreDetail[1].setString("Game timer : " + std::to_string(m_timer.asSeconds()));
 	window.clear();
+	
 	for (const auto& detail : m_scoreDetail)
 	{
 		window.draw(detail);

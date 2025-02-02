@@ -13,6 +13,7 @@ class StaticObject;
 class Gift;
 class Pickables;
 class Key;
+class Bomb;
 
 class GameObject {
 public:
@@ -30,6 +31,7 @@ public:
 	virtual void collideWithGift(Gift& gift) {};
 	virtual void collideWithPickable(Pickables& pickable) {};
 	virtual void collideWithKey(Key& key) {};
+	virtual void collideWithBomb(Bomb& key) {};
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
 	bool isActive() const;

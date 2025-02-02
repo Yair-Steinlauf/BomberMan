@@ -4,12 +4,18 @@
 #include "Board.h"
 #include "Screens.h"
 
+
+
 class GameManager : public Screens{
 public:
 	GameManager();
-	void drawNDisplay(sf::RenderWindow& window);
-	void eventHandler(sf::Event& event, sf::Time& deltaTime, GameState& status);
+	void drawNDisplay(sf::RenderWindow& window, sf::Time& deltaTime);
+	void eventHandler(sf::Event& event, GameState& status);
+	static GameManagerState m_state;
+	//static void setState(GameManagerState state);
+	//re
 private:
+	//void playerEvent(sf::Event& event, const sf::Time& deltaTime);
 	bool loadNextLevel();
 	void restartGame();
 	void update(sf::Time& deltaTime);

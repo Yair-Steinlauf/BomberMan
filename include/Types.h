@@ -7,8 +7,18 @@ enum ObjectType {
 	WALL = '#',
 	STONE = '@',
 	GIFT = 'G',
+	SLOWER = 'S',
 	KEY = 'K',
-	SLOWER = 's'
+	BOMB, 
+	EXPLODE
+};
+enum GameManagerState {
+	ReachDoor,
+	RestartLevel,
+	RestartGame,
+	Playing,
+	PlaceBomb,
+	BombExplosion,
 };
 
 enum Direction {
