@@ -45,6 +45,7 @@ public:
 	bool isActive() const;
 	void setNoActive();
 	virtual ~GameObject();
+	void setScale(float scale);
 protected:
 	bool m_isActive = true;
 	GameObject(const GameObject&) = default;

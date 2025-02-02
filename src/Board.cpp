@@ -128,6 +128,16 @@ void Board::loadFromFile(std::ifstream& file)
 			addObject(ObjectType(lines[rowIndex][colIndex]), location);
 		}
 	}
+	float scaler = std::min(WINDOW_WIDTH / m_dimension.x, WINDOW_HIGTH / m_dimension.y);
+	setScale(scaler);
+}
+
+void Board::setScale(float scale)
+{
+	for (auto& object : m_board)
+	{
+		object->setScale(scale);
+	}
 }
 
 sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const
