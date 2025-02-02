@@ -126,8 +126,8 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 	case WALL:
 		m_board.push_back(std::make_unique<Wall>(location));
 		break;
-	case GIFT:
-		m_board.push_back(std::make_unique<Gift>(location));
+	case LIFEGIFT:
+		m_board.push_back(std::make_unique<LifeGift>(location));
 		break;	
 	case KEY:
 		m_board.push_back(std::make_unique<Key>(location));

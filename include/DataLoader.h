@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <iostream>
 #include <string>
+#include <iostream>
 #include "Types.h"
 class DataLoader {
 public:

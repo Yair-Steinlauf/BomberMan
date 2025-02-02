@@ -35,6 +35,12 @@ void GameOverScreen::setIsVictoryNScore(bool isVictory, int score, sf::Music& ba
 	std::string isMusicPlay = isPlaying ? "ON" : "OFF";
 	m_Buttoms[3].second.setString("Music - " + isMusicPlay);
 
+	if (SoundHandle::getInstance().getIsSoundOn()) {
+		m_Buttoms[2].second.setString("Sound - ON");
+	}
+	else {
+		m_Buttoms[2].second.setString("Sound- OFF");
+	}
 }
 
 
@@ -73,7 +79,10 @@ void GameOverScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::
 				//TODO: maybe delete this feture
 				break;
 			case SOUND:
-				//TODO: add music and handel it
+				if (!isMouseClicked) {
+					isMouseClicked = true;
+					SoundHandle::getInstance().changeSoundMode();
+				}
 				break;
 			case MUSIC:
 				if (!isMouseClicked) {

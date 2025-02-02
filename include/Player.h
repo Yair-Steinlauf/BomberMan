@@ -11,7 +11,7 @@ public:
 	void collideWithDoor(Door& door) override;
 	void collideWithGuard(Guard& guard) override;
 	void collideWithKey(Key& key) override;
-	void collideWithGift(Gift& gift) override;
+	void collideWithLifeGift(LifeGift& lifeGift) override;
 	void collideWithGuardGift(GuardGift& guardGift) override;
 	void collideWithFreezGift(FreezGift& freezGift) override;
 	void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) override;

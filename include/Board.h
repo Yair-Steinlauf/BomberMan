@@ -9,7 +9,7 @@
 #include "Door.h"
 #include "Stone.h"
 #include "Wall.h"
-#include "Gift.h"
+#include "LifeGift.h"
 #include "GuardGift.h"
 #include "FreezGift.h"
 #include "ExtraTimeGift.h"

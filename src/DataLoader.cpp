@@ -39,7 +39,7 @@ DataLoader::DataLoader()
 		{ DOOR, "DOOR" },
 		{ WALL, "WALL" },
 		{ STONE, "STONE" },
-		{GIFT , "GIFT"},		
+		{LIFEGIFT , "LIFEGIFT"},		
 		{KEY, "KEY"},
 		{GUARDGIFT , "GUARDGIFT"},
 		{FREEZGIFT , "FREEZGIFT"},

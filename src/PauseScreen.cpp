@@ -23,6 +23,14 @@ void PauseScreen::pauseClicked(int score, sf::Music& backgroundMusic)
 	bool isPlaying = backgroundMusic.getStatus() == sf::Music::Status::Playing;	
 	std::string isMusicPlay = isPlaying ? "ON" : "OFF";
 	m_Buttoms[4].second.setString("Music - " + isMusicPlay);
+
+	if (SoundHandle::getInstance().getIsSoundOn()) {
+		m_Buttoms[3].second.setString("Sound - ON");
+	}
+	else {
+		m_Buttoms[3].second.setString("Sound- OFF");
+	}
+
 	std::string strPoints = "Your score is: " + std::to_string(score);
 	m_sfScore = sf::Text(strPoints, DataLoader::getP2Font(), 40);
 	m_sfScore.setPosition(sf::Vector2f(300, 50));
@@ -68,7 +76,10 @@ void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Mus
 				//TODO: maybe delete this feture
 				break;
 			case SOUND:
-				//TODO: add music and handel it
+				if (!isMouseClicked) {
+					isMouseClicked = true;
+					SoundHandle::getInstance().changeSoundMode();				
+				}
 				break;
 			case MUSIC:
 				if (!isMouseClicked) {					

@@ -1,12 +1,13 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+
 enum ObjectType {
 	PLAYER = '/',
 	GUARD = '!',
 	DOOR = 'D',
 	WALL = '#',
 	STONE = '@',
-	GIFT = 'G',
+	LIFEGIFT = 'G',
 	KEY = 'K',
 	SLOWER = 's',
 	GUARDGIFT = 'X',
@@ -15,7 +16,7 @@ enum ObjectType {
 };
 
 enum Direction {
-	UP, DOWN, RIGHT, LEFT, DEFAULT
+	UP, DOWN, RIGHT, LEFT, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT, DEFAULT
 };
 
 enum GameState {

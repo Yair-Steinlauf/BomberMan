@@ -12,7 +12,7 @@ void Menu::loadButtomsVector()
 {
 	m_Buttoms.push_back({ START, createButtom("Start Game", sf::Vector2f(300, 150)) });
 	m_Buttoms.push_back({ EXIT, createButtom("Exit Game", sf::Vector2f(300, 250)) });
-	m_Buttoms.push_back({ SOUND, createButtom("Sound", sf::Vector2f(300, 350)) });	
+	m_Buttoms.push_back({ SOUND, createButtom("Sound - ON", sf::Vector2f(300, 350)) });	
 	m_Buttoms.push_back({ MUSIC,createButtom("Music - ON", sf::Vector2f(300, 450)) });
 }
 
@@ -46,13 +46,23 @@ void Menu::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& bac
 			{
 			case START:
 				status = PLAYING;
+				SoundHandle::getInstance().playSound(S_START_GAME);
 				break;
 			case EXIT:
 				exit(EXIT_SUCCESS);
 				//TODO: maybe delete this feture
 				break;
 			case SOUND:
-				//TODO: add music and handel it
+				if (!isMouseClicked) {
+					isMouseClicked = true;					
+					if (SoundHandle::getInstance().getIsSoundOn()) {						
+						m_Buttoms[2].second.setString("Sound - OFF");
+					}
+					else {						
+						m_Buttoms[2].second.setString("Sound- ON");
+					}
+					SoundHandle::getInstance().changeSoundMode();
+				}
 				break;
 			case MUSIC:
 				if (!isMouseClicked) {

@@ -48,11 +48,14 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 		int score = m_player->getScore();
 		score += 25; // for finish level
 		score += 3 * m_board.getCountGuards(); // for every guards in the game
-		if (!this->loadNextLevel()) { //if it last level- gameOver			
-			status = GAMEOVER;	
-			m_currLevel = 0;
+		if (!this->loadNextLevel()) { //if it last level- gameOver	
+			SoundHandle::getInstance().playSound(S_VICTORY);
+			status = GAMEOVER;				
 			//restartGame();
 		}		
+		else {
+			SoundHandle::getInstance().playSound(S_LEVEL_UP);
+		}
 		
 		m_player->setScore(score);
 	}
@@ -70,6 +73,7 @@ void GameManager::eventHandler(sf::Event& event, sf::Time& deltaTime, GameState&
 		if (!this->loadNextLevel())//TODO: for debug, delete
 			status = GAMEOVER;
 	}
+
 	update(deltaTime, status);
 
 }
@@ -91,9 +95,10 @@ void GameManager::update(sf::Time& deltaTime, GameState& status)
 {
 	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
 	{		
-		//restartGame();
-		m_player->setLife(3);		
+		//restartGame();				
+		SoundHandle::getInstance().playSound(S_DEFEAT);
 		status = GAMEOVER;	
+
 	}
 	if (status == PLAYING) {
 		//std::cout << m_timer.asSeconds() << std::endl;
@@ -161,7 +166,7 @@ Direction GameManager::eventToDirection(sf::Event& event)
 	{
 	case sf::Keyboard::Up:
 		return UP;
-		break;
+		break;	
 	case sf::Keyboard::Down:
 		return DOWN;
 		break;

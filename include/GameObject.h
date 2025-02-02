@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "Types.h"
 #include "DataLoader.h"
+#include "SoundHandle.h"
 
 //----Forward decleration----
 class Player;
@@ -10,7 +11,7 @@ class Wall;
 class Stone;
 class Door;
 class StaticObject;
-class Gift;
+class LifeGift;
 class GuardGift;
 class FreezGift;
 class ExtraTimeGift;
@@ -30,7 +31,7 @@ public:
 	virtual void collideWithStone(Stone& stone) {};
 	virtual void collideWithStatic(StaticObject& wall) {};
 	virtual void collideWithDoor(Door& ddor) {};
-	virtual void collideWithGift(Gift& gift) {};
+	virtual void collideWithLifeGift(LifeGift& lifeGift) {};
 	virtual void collideWithGuardGift(GuardGift& guardGift) {};
 	virtual void collideWithFreezGift(FreezGift& freezGift) {};
 	virtual void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) {};

@@ -41,6 +41,7 @@ void Player::collideWithDoor(Door& door)
 
 void Player::collideWithGuard(Guard& guard)
 {
+	SoundHandle::getInstance().playSound(S_COLLID_GUARD);
 	m_life--;
 	if (m_life <= 0)
 		m_win = false;
@@ -48,26 +49,31 @@ void Player::collideWithGuard(Guard& guard)
 
 void Player::collideWithKey(Key& key)
 {
+	SoundHandle::getInstance().playSound(S_KEY);
 	m_Key = true;
 }
 
-void Player::collideWithGift(Gift& gift)
+void Player::collideWithLifeGift(LifeGift& lifeGift)
 {
+	SoundHandle::getInstance().playSound(S_GIFT);
 	m_life++;
 }
 
 void Player::collideWithFreezGift(FreezGift& freezGift)
 {	
+	SoundHandle::getInstance().playSound(S_GIFT);
 	m_freezGiftTime = sf::seconds(5);	
 }
 
 void Player::collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift)
 {
+	SoundHandle::getInstance().playSound(S_GIFT);
 	m_isGotExtraTimeGift = true;
 }
 
 void Player::collideWithGuardGift(GuardGift& guardGift)
 {
+	SoundHandle::getInstance().playSound(S_GIFT);
 	m_score += 5;
 	m_isGotGuardGift = true;
 }
