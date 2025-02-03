@@ -7,7 +7,7 @@ Master::Master()
 
 void Master::run()
 {
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGTH + 200), "Init Window");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGTH + scoreBoardPadding), "Init Window");
 	window.setFramerateLimit(60u);
 
 
@@ -25,21 +25,17 @@ void Master::run()
 	{
 		sf::Event event;
 		sf::Time deltaTime = clock.restart();
+		
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 			if (event.key.code == sf::Keyboard::Escape)
 				m_status = PAUSE;
-			//if (m_status != PLAYING) 
 				handelEvent(event, window);	
 			
 		}
-		//if (m_status == PLAYING) {
-		//	m_game.eventHandler(event, m_status);
-		//}
 		drawNdisplay(window, deltaTime);
-
 
 		}
 	}
@@ -56,6 +52,8 @@ void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
 			break;
 		case PLAYING:
 			m_game.drawNDisplay(window, deltaTime);
+		
+
 			break;
 		case GAMEOVER:
 			m_GameOver.drawNDisplay(window, m_status);
@@ -104,7 +102,7 @@ void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 		break;
 	case RETURN:
 		m_status = m_lastStatus;
-		handelEvent(event, window);
+		//handelEvent(event, window);
 		break;
 	case REMATCH:
 		m_game = GameManager();

@@ -74,15 +74,15 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 		if (event.key.code == sf::Keyboard::Space) {
 			m_board.addObject(BOMB, m_player->getLocation());
 		}
-		else {
-			m_player->setDirection(eventToDirection(event)); // Handle other key presses
-		}
+		
+		m_player->setDirection(eventToDirection(event)); // Handle other key presses
+		
 	}
-	else if (event.type == sf::Event::KeyReleased) {
-		if (event.key.code != sf::Keyboard::Space) { // Only reset direction if not space
-			m_player->setDirection(DEFAULT);
-		}
-	}
+	//else if (event.type == sf::Event::KeyReleased) {
+	//	if (event.key.code != sf::Keyboard::Space) { // Only reset direction if not space
+	//		m_player->setDirection(DEFAULT);
+	//	}
+	//}
 	if (event.key.code == sf::Keyboard::Escape)
 		status = PAUSE;
 
@@ -173,9 +173,7 @@ Board GameManager::loadNewLevel(const std::string& levelName)
 		//TODO:  mabye offer to create new level via editor?
 	}
 	Board newBoard(level);
-	sf::Vector2f startScoreText(0, newBoard.getDimension().y);
-	std::cout << newBoard.getDimension().y << std::endl;
-	std::cout << newBoard.getDimension().x << std::endl;
+	sf::Vector2f startScoreText(0, WINDOW_HIGTH);	
 	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
 	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
 	m_scoreDetail.push_back(createScoreText("Player points :", startScoreText));

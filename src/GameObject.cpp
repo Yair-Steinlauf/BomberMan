@@ -70,7 +70,9 @@ GameObject::~GameObject()
 
 void GameObject::setLocation(const sf::Vector2f& newLocation)
 {
-	m_sprite.setPosition(newLocation); //TODO: bound check
+	bool inBounds = newLocation.x > 0 && newLocation.x < WINDOW_WIDTH && newLocation.y > 0 && newLocation.y < WINDOW_HIGTH;
+	if(inBounds)
+		m_sprite.setPosition(newLocation); //TODO: bound check
 }
 sf::Vector2f GameObject::getTopLeft() const
 {

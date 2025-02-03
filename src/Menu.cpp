@@ -26,8 +26,8 @@ void Menu::loadButtomsVector()
 
 void Menu::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music& backgroundMusic)
 {
-	window.setSize(sf::Vector2u(800, 600));
-	window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
+	//window.setSize(sf::Vector2u(800, 600));
+	//window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
 	if (event.type == sf::Event::Closed)
 		window.close();
 	if (event.type == sf::Event::MouseButtonPressed) {
