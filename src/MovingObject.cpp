@@ -38,6 +38,7 @@ void MovingObject::collideWithStatic(StaticObject& wall)
 void MovingObject::collideWithBomb(Bomb& bomb)
 {
     m_life--;
+    
 }
 
 unsigned int MovingObject::getLife() const

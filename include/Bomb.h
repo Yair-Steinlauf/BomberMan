@@ -16,7 +16,7 @@ public:
 	static int counter;
 private:
 	BombState m_stateBomb = SAFE;
-	sf::Time m_timer = sf::seconds(3.0f);
+	sf::Time m_timer = sf::seconds(5.0f);
 	void explode();
 
 };

@@ -5,6 +5,7 @@ const sf::Vector2f PADDING(0,30);
 //----------static init-------------------
 bool GameManager::m_removeGuardGift = false;
 bool GameManager::m_guardFreeze = false;
+bool GameManager::m_guardBombed = false;
 
 
 
@@ -71,8 +72,16 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 		
 	
 	if (event.type == sf::Event::KeyPressed) {
-		if (event.key.code == sf::Keyboard::Space) {
-			m_board.addObject(BOMB, m_player->getLocation());
+		if (event.key.code == sf::Keyboard::Space) {			
+				sf::Vector2f bombUp(m_player->getTopLeft().x, m_player->getTopLeft().y + m_player->getSize().y);
+				sf::Vector2f bombDown(m_player->getTopLeft().x, m_player->getTopLeft().y - m_player->getSize().y);
+				sf::Vector2f bombRight(m_player->getTopLeft().x + m_player->getSize().x, m_player->getTopLeft().y);
+				sf::Vector2f bombLeft(m_player->getTopLeft().x - m_player->getSize().x, m_player->getTopLeft().y);
+				m_board.addObject(BOMB, bombUp); // bomb up						
+				m_board.addObject(BOMB, bombDown);	// bomb down					
+				m_board.addObject(BOMB, bombRight);	// bomb right					
+				m_board.addObject(BOMB, bombLeft);	// bomb left					
+				m_board.addObject(BOMB, m_player->getLocation());	// cur location					
 		}
 		
 		m_player->setDirection(eventToDirection(event)); // Handle other key presses
@@ -132,6 +141,10 @@ void GameManager::update(sf::Time& deltaTime)
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
 	m_board.update(deltaTime);
+	if (m_guardBombed) {
+		m_player->addScore(5);
+		m_guardBombed = false;
+	}
 	//setState(Playing);
 	m_timer -= deltaTime;
 
@@ -177,7 +190,7 @@ Board GameManager::loadNewLevel(const std::string& levelName)
 	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
 	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
 	m_scoreDetail.push_back(createScoreText("Player points :", startScoreText));
-	m_timer = sf::seconds(20);
+	m_timer = sf::seconds(90);
 	return newBoard;
 }
 

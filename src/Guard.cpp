@@ -38,9 +38,14 @@ void Guard::act(const sf::Time& deltaTime)
 	//TODO: func for kill first guard
 	if (m_life <= 0 || GameManager::m_removeGuardGift)
 	{
+
 		m_isActive = false;
+		
 		if (GameManager::m_removeGuardGift) {
 			GameManager::m_removeGuardGift = false;
+		}
+		else {
+			GameManager::m_guardBombed = true;
 		}
 	}
 	m_guardMove -= deltaTime;
@@ -50,9 +55,8 @@ void Guard::act(const sf::Time& deltaTime)
 		m_direction.x = m_direction.x * deltaTime.asSeconds();
 		m_direction.y = m_direction.y * deltaTime.asSeconds();
 	}
-	
-	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x ,
-		getLocation().y + m_direction.y ));
+	if (!GameManager::m_guardFreeze)
+		this->setLocation(sf::Vector2f(getLocation().x + m_direction.x ,getLocation().y + m_direction.y ));
 }
 
 

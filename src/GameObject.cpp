@@ -70,13 +70,29 @@ GameObject::~GameObject()
 
 void GameObject::setLocation(const sf::Vector2f& newLocation)
 {
-	bool inBounds = newLocation.x > 0 && newLocation.x < WINDOW_WIDTH && newLocation.y > 0 && newLocation.y < WINDOW_HIGTH;
-	if(inBounds)
-		m_sprite.setPosition(newLocation); //TODO: bound check
+	sf::FloatRect screenBounds(0, 0, WINDOW_WIDTH, WINDOW_HIGTH);
+
+
+	auto newSprite = m_sprite;
+	newSprite.setPosition(newLocation);
+
+
+	sf::FloatRect newBounds = newSprite.getGlobalBounds();
+	if (screenBounds.contains(newBounds.left, newBounds.top) &&
+		screenBounds.contains(newBounds.left + newBounds.width, newBounds.top + newBounds.height)) {
+		m_sprite.setPosition(newLocation);
+	}
+
+
 }
 sf::Vector2f GameObject::getTopLeft() const
 {
 	return m_sprite.getPosition(); // returns the top-left position
+}
+
+sf::Vector2f GameObject::getSize() const
+{
+	return sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height);
 }
 
 bool GameObject::isActive() const

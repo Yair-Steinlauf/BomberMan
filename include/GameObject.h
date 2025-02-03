@@ -42,6 +42,7 @@ public:
 	virtual void collideWithBomb(Bomb& key) {};
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
+	sf::Vector2f getSize() const;
 	bool isActive() const;
 	void setNoActive();
 	virtual ~GameObject();

@@ -12,6 +12,7 @@ public:
 	void eventHandler(sf::Event& event, GameState& status);
 	static bool m_removeGuardGift;
 	static bool m_guardFreeze;
+	static bool m_guardBombed;
 	int getPlayerScore() const;
 	bool isWon();
 	
