@@ -47,6 +47,10 @@ void Board::tryAgain()
 		object->moveToStartPos();
 	}
 }
+unsigned int Board::getNumOfGuards()
+{
+	return m_numOfGuards;
+}
 void Board::update(const sf::Time& deltaTime)
 {
 	for (auto& object : m_board)
@@ -66,43 +70,47 @@ void Board::update(const sf::Time& deltaTime)
 
 void Board::addObject(ObjectType type, sf::Vector2f location)
 {
+	auto scale = scalerCalc();
 	switch (type)
 	{
 	case PLAYER:
-		m_board.push_back(std::make_unique<Player>(location));
+		m_board.push_back(std::make_unique<Player>(location, scale));
 		m_player = dynamic_cast<Player*>(m_board.back().get());
 		break;
 	case GUARD:
-		m_board.push_back(std::make_unique<Guard>(location));
+		m_numOfGuards++;
+		m_board.push_back(std::make_unique<Guard>(location, scale));
 		break;
 	case DOOR:
-		m_board.push_back(std::make_unique<Door>(location));
+		m_board.push_back(std::make_unique<Door>(location, scale));
 		break;
 	case STONE:
-		m_board.push_back(std::make_unique<Stone>(location));
+		m_board.push_back(std::make_unique<Stone>(location, scale));
 		break;
 	case WALL:
-		m_board.push_back(std::make_unique<Wall>(location));
+		m_board.push_back(std::make_unique<Wall>(location, scale));
 		break;
 	case LIFEGIFT:
-		m_board.push_back(std::make_unique<LifeGift>(location));
+		m_board.push_back(std::make_unique<LifeGift>(location, scale));
 		break;
 	case KEY:
-		m_board.push_back(std::make_unique<Key>(location));
+		m_board.push_back(std::make_unique<Key>(location, scale));
 		break;
-	case BOMB:
-		m_board.push_back(std::make_unique<Bomb>(location));
+	case BOMB:		
+		m_board.push_back(std::make_unique<Bomb>(location, scale));
+		
 		break;
 	case GUARDGIFT:
-		m_board.push_back(std::make_unique<GuardGift>(location));
+		m_board.push_back(std::make_unique<GuardGift>(location, scale));
 		break;
 	case FREEZGIFT:
-		m_board.push_back(std::make_unique<FreezGift>(location));
+		m_board.push_back(std::make_unique<FreezGift>(location, scale));
 		break;
 	case EXTRATIMEGIFT:
-		m_board.push_back(std::make_unique<ExtraTimeGift>(location));
+		m_board.push_back(std::make_unique<ExtraTimeGift>(location, scale));
 		break;
 	}
+	//m_board.back().get()->setScale(scalerCalc());
 }
 
 std::vector<std::string> Board::fileTo2DString(std::ifstream& file)
@@ -120,7 +128,6 @@ void Board::loadFromFile(std::ifstream& file)
 {
 	std::vector<std::string> lines = fileTo2DString(file);
 	m_dimension = sf::Vector2f(lines[0].length(), lines.size());
-
 	for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++)
 	{
 		for (int colIndex = 0; colIndex < lines[rowIndex].length(); colIndex++)
@@ -129,22 +136,12 @@ void Board::loadFromFile(std::ifstream& file)
 			addObject(ObjectType(lines[rowIndex][colIndex]), location);
 		}
 	}
-	auto scaler = scalerCalc();
-	setScale(scaler);
 }
 float Board::scalerCalc()const
 {
 	float factorX = (WINDOW_WIDTH / m_dimension.x) / ImageDimension.x;
 	float factorY = (WINDOW_HIGTH / m_dimension.y) / ImageDimension.y;
 	return std::min(factorX, factorY);
-}
-
-void Board::setScale(float factor)
-{
-	for (auto& object : m_board)
-	{
-		object->setScale(factor);
-	}
 }
 
 sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const
@@ -155,5 +152,6 @@ sf::Vector2f Board::rowColToLocation(unsigned int row, unsigned int col) const
 
 sf::Vector2f Board::getDimension() const
 {
+	//sf::Vector2f boardDim()
 	return m_dimension;
 }

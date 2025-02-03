@@ -9,6 +9,7 @@ GameOverScreen::GameOverScreen()
 	m_Buttoms.push_back({ EXIT, createButtom("Exit Game", sf::Vector2f(200, 500)) });
 	m_Buttoms.push_back({ SOUND, createButtom("Sound", sf::Vector2f(500 , 400))});
 	m_Buttoms.push_back({ MUSIC,createButtom("Music", sf::Vector2f(500 , 500)) });
+	m_Buttoms.push_back({ S_HELP,createButtom("Help", sf::Vector2f(700 , 450)) });
 }
 
 void GameOverScreen::setIsVictoryNScore(bool isVictory, int score, sf::Music& backgroundMusic)
@@ -80,6 +81,9 @@ void GameOverScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::
 				break;
 			case MUSIC:				
 					backgroundMusic.getStatus() == sf::Music::Status::Playing ? backgroundMusic.stop() : backgroundMusic.play();
+				break;
+			case S_HELP:
+				status = HELP;
 				break;
 			default:
 				break;

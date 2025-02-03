@@ -5,8 +5,8 @@ Door::Door()
 {
 }
 
-Door::Door(const sf::Vector2f& location)
-	:StaticObject(location)
+Door::Door(const sf::Vector2f& location, float scaler)
+	:StaticObject(location, scaler)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(DOOR));
 }

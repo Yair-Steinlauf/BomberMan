@@ -2,10 +2,11 @@
 #include "Bomb.h"
 
 
-Bomb::Bomb(const sf::Vector2f& location)
-    : StaticObject(location), m_stateBomb(SAFE) // מוסיפים אתחול למצב
+Bomb::Bomb(const sf::Vector2f& location, float scaler)
+    : StaticObject(location, scaler), m_stateBomb(SAFE) // מוסיפים אתחול למצב
 {
     m_sprite.setTexture(DataLoader::getP2Texture(BOMB));
+    //m_sprite.setScale()
 }
 
 void Bomb::act(const sf::Time& deltaTime)

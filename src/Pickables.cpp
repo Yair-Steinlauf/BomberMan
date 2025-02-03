@@ -11,11 +11,11 @@ void Pickables::collideWithPlayer(Player& player)
 }
 
 Pickables::Pickables()
-	:Pickables(sf::Vector2f(0, 0))
+	:Pickables(sf::Vector2f(0, 0),1)
 {
 }
 
-Pickables::Pickables(const sf::Vector2f& location)
-	:StaticObject(location)
+Pickables::Pickables(const sf::Vector2f& location, float scaler)
+	:StaticObject(location, scaler)
 {
 }

@@ -2,19 +2,17 @@
 #include "GameManager.h"
 
 //----static init--------------
-unsigned int Guard::m_numOfGuard = 0;
 
 Guard::Guard()
     :MovingObject()
 {
 }
 
-Guard::Guard(const sf::Vector2f& location)
-	:MovingObject(location)
+Guard::Guard(const sf::Vector2f& location, float scaler)
+	:MovingObject(location,scaler)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(GUARD));
-	m_speed = 1.0f;
-	m_numOfGuard++;
+	m_speed = 300.0f * scaler;	
 }
 
 void Guard::update(const sf::Time& deltaTime)
@@ -24,8 +22,9 @@ void Guard::update(const sf::Time& deltaTime)
 	//if (rand == 0)
 		//setLocation(smartMove());
 	//else
-	if (!GameManager::m_guardFreeze)
-		setLocation(getLocation() + m_direction);
+	//bool inBounds = getLocation().x > 0 || getLocation().x < WINDOW_WIDTH || getLocation().y > 0 || getLocation().y < WINDOW_HIGTH;
+		//if (!GameManager::m_guardFreeze && inBounds )
+			//setLocation(getLocation() + m_direction);
 }
 
 void Guard::collide(GameObject& other)
@@ -35,7 +34,7 @@ void Guard::collide(GameObject& other)
 
 void Guard::act(const sf::Time& deltaTime)
 {
-
+	//this->MovingObject::act(deltaTime);
 	//TODO: func for kill first guard
 	if (m_life <= 0 || GameManager::m_removeGuardGift)
 	{
@@ -44,14 +43,19 @@ void Guard::act(const sf::Time& deltaTime)
 			GameManager::m_removeGuardGift = false;
 		}
 	}
-
+	m_guardMove -= deltaTime;
+	if (m_guardMove <= sf::seconds(0)) {
 		setDirection(randMove());
+		m_guardMove += sf::seconds(2);
+		m_direction.x = m_direction.x * deltaTime.asSeconds();
+		m_direction.y = m_direction.y * deltaTime.asSeconds();
+	}
+	
+	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x ,
+		getLocation().y + m_direction.y ));
 }
 
-unsigned int Guard::getNumOfGuard() 
-{
-	return m_numOfGuard;
-}
+
 
 sf::Vector2f Guard::smartMove()
 {

@@ -10,10 +10,15 @@ Menu::Menu()
 
 void Menu::loadButtomsVector()
 {
-	m_Buttoms.push_back({ START, createButtom("Start Game", sf::Vector2f(300, 150)) });
+	std::string strWelcome = "Welcome to Bomber Man!!";
+	m_sfScore = sf::Text(strWelcome, DataLoader::getP2Font(), 40);
+	m_sfScore.setPosition(sf::Vector2f(300, 100));
+
+	m_Buttoms.push_back({ START, createButtom("Start Game", sf::Vector2f(300, 200)) });
 	m_Buttoms.push_back({ EXIT, createButtom("Exit Game", sf::Vector2f(300, 250)) });
-	m_Buttoms.push_back({ SOUND, createButtom("Sound - ON", sf::Vector2f(300, 350)) });
-	m_Buttoms.push_back({ MUSIC,createButtom("Music - ON", sf::Vector2f(300, 450)) });
+	m_Buttoms.push_back({ SOUND, createButtom("Sound - ON", sf::Vector2f(300, 300)) });
+	m_Buttoms.push_back({ MUSIC,createButtom("Music - ON", sf::Vector2f(300, 350)) });
+	m_Buttoms.push_back({ S_HELP,createButtom("Help", sf::Vector2f(300, 400)) });
 }
 
 
@@ -70,6 +75,9 @@ void Menu::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& bac
 					backgroundMusic.play();
 					m_Buttoms[3].second.setString("Music - ON");
 				}				
+				break;
+			case S_HELP:
+				status = HELP;
 				break;
 			default:
 				break;

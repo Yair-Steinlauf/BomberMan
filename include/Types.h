@@ -29,7 +29,9 @@ enum GameState {
 	PLAYING,
 	GAMEOVER,
 	REMATCH,
-	PAUSE
+	PAUSE,
+	HELP,
+	RETURN
 };
 
 static const float DefaultSpeed = 1.0f;

@@ -7,7 +7,7 @@ Master::Master()
 
 void Master::run()
 {
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGTH), "Init Window");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HIGTH + 200), "Init Window");
 	window.setFramerateLimit(60u);
 
 
@@ -31,16 +31,17 @@ void Master::run()
 				window.close();
 			if (event.key.code == sf::Keyboard::Escape)
 				m_status = PAUSE;
-			handelEvent(event, window);	
+			//if (m_status != PLAYING) 
+				handelEvent(event, window);	
+			
 		}
+		//if (m_status == PLAYING) {
+		//	m_game.eventHandler(event, m_status);
+		//}
 		drawNdisplay(window, deltaTime);
 
 
 		}
-		// handelEvent(event, window, deltaTime, isMouseClicked);
-		// if (event.type == sf::Event::MouseButtonReleased) {
-		// 	isMouseClicked = false;
-		// } TODO: currect by loop use
 	}
 		
 
@@ -57,7 +58,14 @@ void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
 			m_game.drawNDisplay(window, deltaTime);
 			break;
 		case GAMEOVER:
-			//winLose screen
+			m_GameOver.drawNDisplay(window, m_status);
+			break;
+		case PAUSE:
+			m_pauseScreen.drawNDisplay(window, m_status);
+			break;
+
+		case HELP:
+			m_helpScreen.drawNDisplay(window, m_status);
 			break;
 		default:
 			break;
@@ -68,35 +76,40 @@ void Master::drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime)
 void Master::handelEvent(sf::Event& event, sf::RenderWindow& window)
 {
 	// TODO: deltaTime limit in gameover,menu,pause to handle problem with click event
-	bool isMouseClicked = false;
+	
 	switch (m_status)
 	{
-		//if (!isMouseClicked) {
+		
 	case MENU:
-		m_menu.eventHandler(event, window, m_status, m_backgroundMusic);
-		// m_menu.drawNDisplay(window, m_status);//TODO: change stat on handle event
+		m_lastStatus = MENU;
+		m_menu.eventHandler(event, window, m_status, m_backgroundMusic);		
 		break;
 
 	case GAMEOVER:
+		m_lastStatus = GAMEOVER;
 		m_GameOver = GameOverScreen();
 		m_GameOver.setIsVictoryNScore(m_game.isWon(), m_game.getPlayerScore(), m_backgroundMusic);
 		m_GameOver.eventHandler(event, window, m_status, m_backgroundMusic);
-		m_GameOver.drawNDisplay(window, m_status);
+		
 		break;
 
 	case PAUSE:
+		m_lastStatus = PAUSE;
 		m_pauseScreen.pauseClicked(m_game.getPlayerScore(), m_backgroundMusic);
-		m_pauseScreen.eventHandler(event, window, m_status, m_backgroundMusic);
-		m_pauseScreen.drawNDisplay(window, m_status);
+		m_pauseScreen.eventHandler(event, window, m_status, m_backgroundMusic);		
 		break;
 
-		//}
-		
-	
+	case HELP:	
+		m_helpScreen.eventHandler(event, window, m_status, m_backgroundMusic);
+		break;
+	case RETURN:
+		m_status = m_lastStatus;
+		handelEvent(event, window);
+		break;
 	case REMATCH:
 		m_game = GameManager();
 		m_status = PLAYING;
-
+		break;
 	case PLAYING:
 		m_game.eventHandler(event,  m_status);
 		break;

@@ -29,7 +29,7 @@ public:
 	void collideHandler();
 	Player& getPlayer();
 	void tryAgain();
-	
+	unsigned int getNumOfGuards();
 	
 private:
 	sf::Vector2f rowColToLocation(unsigned int row, unsigned int col) const;
@@ -40,6 +40,7 @@ private:
 	std::vector<std::unique_ptr<GameObject>> m_board;
 	sf::Vector2f m_dimension;
 	Player* m_player;
+	unsigned int m_numOfGuards = 0;
 	
 	
 

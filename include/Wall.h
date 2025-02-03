@@ -4,5 +4,7 @@
 class Wall: public StaticObject {
 public:
 	Wall();
-	Wall(const sf::Vector2f& location);
+	/*void collide(GameObject& other) override;
+	void collideWithWa(Guard& guard) override {};*/
+	Wall(const sf::Vector2f& location, float scaler);
 };

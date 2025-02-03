@@ -14,16 +14,17 @@ public:
 	static bool m_guardFreeze;
 	int getPlayerScore() const;
 	bool isWon();
+	
 		
 private:
 	//void playerEvent(sf::Event& event, const sf::Time& deltaTime);
 	bool loadNextLevel();
-	void restartGame();
+	void restartLevel();
 	void update(sf::Time& deltaTime);
 	Board m_board;
 	Player* m_player;
 	int m_currLevel = 0;
-	
+	int m_startLevelScore = 0;
 	
 	std::vector<std::string> m_levels;
 	std::vector<std::string> getLevels();
@@ -32,6 +33,7 @@ private:
 	Direction eventToDirection(sf::Event& event);
 	sf::Text createScoreText(std::string text, sf::Vector2f location);
 	sf::Time m_timer;
+	
 	
 	
 };

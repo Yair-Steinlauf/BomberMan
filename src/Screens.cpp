@@ -11,12 +11,10 @@ void Screens::drawNDisplay(sf::RenderWindow& window, GameState& status)
 		buttom.second.setFillColor(sf::Color::White);
 		window.draw(buttom.second);
 	}
-	if (status == GAMEOVER || status == PAUSE) {
-		window.draw(m_sfScore);
-		if (status == GAMEOVER) {
-			window.draw(m_gameOverImage);
-		}
-	}
+	window.draw(m_sfScore);
+	if (status == GAMEOVER) {
+		window.draw(m_gameOverImage);
+	}	
 	window.display();
 }
 

@@ -1,5 +1,6 @@
 #pragma once
-#include "GameObject.h"
+#include "GameObject.h".
+
 
 class MovingObject : public GameObject {
 public:
@@ -12,7 +13,7 @@ public:
 	virtual void moveToStartPos() override;
 protected:
 	MovingObject();
-	MovingObject(const sf::Vector2f& location);
+	MovingObject(const sf::Vector2f& location, float scaler);
 	float m_speed = 0;
 	unsigned int m_life = 1;
 	sf::Vector2f m_direction = sf::Vector2f(0, 0);

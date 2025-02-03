@@ -9,6 +9,6 @@ public:
 	void collideWithGuard(Guard& guard) override{};
 protected:
 	StaticObject();
-	StaticObject(const sf::Vector2f& location);
+	StaticObject(const sf::Vector2f& location, float scaler);
 
 };

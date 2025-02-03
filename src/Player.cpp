@@ -1,15 +1,16 @@
 #include "Player.h"
 
 Player::Player()
-	:Player(sf::Vector2f(0,0))
+	:Player(sf::Vector2f(0,0), 1)
 {
 }
 
-Player::Player(const sf::Vector2f& location)
-	:MovingObject(location)
+Player::Player(const sf::Vector2f& location, float scaler)
+	:MovingObject(location, scaler)
 {
-	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));
-	m_speed = 100.0f;
+	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));	
+	m_speed = 500.0f * scaler; 
+
 	m_life = 3;
 	m_freezGiftTime = sf::seconds(0);
 }
@@ -18,8 +19,8 @@ Player::Player(const sf::Vector2f& location)
 
 void Player::update(const sf::Time& deltaTime)
 {
-	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x * deltaTime.asSeconds(),
-		getLocation().y + m_direction.y * deltaTime.asSeconds()));
+	/*this->setLocation(sf::Vector2f(getLocation().x + m_direction.x,
+		getLocation().y + m_direction.y));*/
 }
 
 void Player::collide(GameObject& other)
@@ -29,6 +30,10 @@ void Player::collide(GameObject& other)
 
 void Player::act( const sf::Time& deltaTime)
 {
+	m_direction.x = m_direction.x * deltaTime.asSeconds();
+	m_direction.y = m_direction.y * deltaTime.asSeconds();
+	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x,
+		getLocation().y + m_direction.y));
 	if (m_life <= 0)
 		m_win = false;
 }

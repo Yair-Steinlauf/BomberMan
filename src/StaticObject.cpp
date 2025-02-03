@@ -6,11 +6,11 @@ void StaticObject::collide(GameObject& other)
 }
 
 StaticObject::StaticObject()
-	:StaticObject(sf::Vector2f(0, 0))
+	:StaticObject(sf::Vector2f(0, 0),1)
 {
 }
 
-StaticObject::StaticObject(const sf::Vector2f& location)
-	:GameObject(location)
+StaticObject::StaticObject(const sf::Vector2f& location, float scaler)
+	:GameObject(location, scaler)
 {
 }

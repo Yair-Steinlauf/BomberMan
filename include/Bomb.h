@@ -9,7 +9,7 @@ enum BombState {
 
 class Bomb : public StaticObject{
 public:
-	Bomb(const sf::Vector2f& location);
+	Bomb(const sf::Vector2f& location, float scaler);
 	void act(const sf::Time& deltaTime) override;
 	void collide(GameObject& other) override;
 	void update(const sf::Time& deltaTime) override;

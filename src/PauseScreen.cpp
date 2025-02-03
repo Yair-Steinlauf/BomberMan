@@ -11,6 +11,7 @@ PauseScreen::PauseScreen()
 	m_Buttoms.push_back({ EXIT, createButtom("Exit Game", sf::Vector2f(300, y*6)) });
 	m_Buttoms.push_back({ SOUND, createButtom("Sound", sf::Vector2f(300, y*7)) });
 	m_Buttoms.push_back({ MUSIC, createButtom("Music", sf::Vector2f(300, y*8)) });
+	m_Buttoms.push_back({ S_HELP, createButtom("Help", sf::Vector2f(300, y*9)) });
 	
 }
 
@@ -71,17 +72,13 @@ void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Mus
 				exit(EXIT_SUCCESS);
 				//TODO: maybe delete this feture
 				break;
-			case SOUND:
-				
-		
-					SoundHandle::getInstance().changeSoundMode();				
-				
+			case SOUND:						
+				SoundHandle::getInstance().changeSoundMode();				
 				break;
-			case MUSIC:
-			
-					backgroundMusic.getStatus() == sf::Music::Status::Playing ? backgroundMusic.stop() : backgroundMusic.play();		
-				
-				
+			case MUSIC:		
+			backgroundMusic.getStatus() == sf::Music::Status::Playing ? backgroundMusic.stop() : backgroundMusic.play();						break;
+			case S_HELP:
+				status = HELP;
 				break;
 			default:
 				break;

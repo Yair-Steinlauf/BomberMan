@@ -14,9 +14,9 @@ GameManager::GameManager()
 	loadNextLevel();
 }
 
-void GameManager::restartGame()
+void GameManager::restartLevel()
 {
-	m_currLevel = 0;	
+	m_currLevel--;	
 	loadNextLevel();
 }
 
@@ -53,24 +53,23 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 	{
 		int score = m_player->getScore();
 		score += 25; // for finish level
-		score += 3 * Guard::getNumOfGuard(); // for every guards in the game
+		score += 3 * m_board.getNumOfGuards(); // for every guards in the game
 		if (!this->loadNextLevel()) { //if it last level- gameOver	
 			SoundHandle::getInstance().playSound(S_VICTORY);
-			status = GAMEOVER;				
-			//restartGame();
+			status = GAMEOVER;							
 		}		
 		else {
 			SoundHandle::getInstance().playSound(S_LEVEL_UP);
 		}
-		
 		m_player->setScore(score);
+		m_startLevelScore = score;
 	}
-	if (m_player->getLife() <= 0 || m_timer <= sf::seconds(0))
-	{
-		//restartGame();				
+	if (m_player->getLife() <= 0) {
 		SoundHandle::getInstance().playSound(S_DEFEAT);
 		status = GAMEOVER;
 	}
+		
+	
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Space) {
 			m_board.addObject(BOMB, m_player->getLocation());
@@ -85,8 +84,8 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 		}
 	}
 	if (event.key.code == sf::Keyboard::Escape)
-
 		status = PAUSE;
+
 	if (event.key.code == sf::Keyboard::P)
 	{
 		if (!this->loadNextLevel())//TODO: for debug, delete
@@ -108,8 +107,16 @@ bool GameManager::isWon()
 
 
 
+
+
 void GameManager::update(sf::Time& deltaTime)
 {
+	if (m_timer <= sf::seconds(0))
+	{
+		restartLevel();
+		m_player->setScore(m_startLevelScore);
+	}
+	
 	if (m_player->gotExtraTimeGift()) {
 		m_timer += sf::seconds(15);
 	}
@@ -118,13 +125,16 @@ void GameManager::update(sf::Time& deltaTime)
 		m_board.tryAgain();
 	}
 	m_guardFreeze = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
-
-
+	if (m_player->gotGuardGift()) {
+		m_removeGuardGift = true;
+	}
+	
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
 	m_board.update(deltaTime);
 	//setState(Playing);
 	m_timer -= deltaTime;
+
 }
 
 void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime)
@@ -164,10 +174,12 @@ Board GameManager::loadNewLevel(const std::string& levelName)
 	}
 	Board newBoard(level);
 	sf::Vector2f startScoreText(0, newBoard.getDimension().y);
+	std::cout << newBoard.getDimension().y << std::endl;
+	std::cout << newBoard.getDimension().x << std::endl;
 	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
 	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
 	m_scoreDetail.push_back(createScoreText("Player points :", startScoreText));
-	m_timer = sf::seconds(30);
+	m_timer = sf::seconds(20);
 	return newBoard;
 }
 

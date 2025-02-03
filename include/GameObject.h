@@ -45,13 +45,13 @@ public:
 	bool isActive() const;
 	void setNoActive();
 	virtual ~GameObject();
-	void setScale(float factor);
+	
 protected:
 	bool m_isActive = true;
 	GameObject(const GameObject&) = default;
 	GameObject& operator=(const GameObject&) = default;
 	GameObject();
-	GameObject(const sf::Vector2f& location);
+	GameObject(const sf::Vector2f& location, float scaler);
 	void setLocation(const sf::Vector2f& newLocation);
 	sf::Sprite m_sprite;
 	bool isHigherThan(const GameObject& other) const;

@@ -12,6 +12,8 @@ enum BUTTOM {
 	MUSIC,
 	AGAIN,
 	RESUME,
+	S_HELP,
+	BACK
 };
 
 class Screens {
