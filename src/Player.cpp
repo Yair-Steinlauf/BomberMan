@@ -28,7 +28,7 @@ void Player::collide(GameObject& other)
 	other.collideWithPlayer(*this); //TODO: after set all classes
 }
 
-void Player::act( const sf::Time& deltaTime)
+void Player::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
 	m_direction.x = m_direction.x * deltaTime.asSeconds();
 	m_direction.y = m_direction.y * deltaTime.asSeconds();

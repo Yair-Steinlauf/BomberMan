@@ -18,7 +18,7 @@ Bomb::Bomb(const sf::Vector2f& location, float scaler, bool visible)
     }
 }
 
-void Bomb::act(const sf::Time& deltaTime)
+void Bomb::act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc)
 {
 
     m_timer -= deltaTime;

@@ -4,7 +4,7 @@
 //----static init--------------
 
 Guard::Guard()
-    :MovingObject()
+	:MovingObject()
 {
 }
 
@@ -32,7 +32,7 @@ void Guard::collide(GameObject& other)
 	other.collideWithGuard(*this);
 }
 
-void Guard::act(const sf::Time& deltaTime)
+void Guard::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
 	//this->MovingObject::act(deltaTime);
 	//TODO: func for kill first guard
@@ -51,8 +51,12 @@ void Guard::act(const sf::Time& deltaTime)
 			SoundHandle::getInstance().playSound(S_GUARDBOMBED);
 		}
 	}
-	m_guardMove -= deltaTime;
-	if (m_guardMove <= sf::seconds(0)) {
+
+	//TODO: add in last merge
+	int peeker = rand() % 2;
+	if (peeker == 0)
+		setDirection(smartMove(playerLoc));
+	else
 		setDirection(randMove());
 		m_guardMove += sf::seconds(2);
 		m_direction.x = m_direction.x * deltaTime.asSeconds();
@@ -62,17 +66,38 @@ void Guard::act(const sf::Time& deltaTime)
 		this->setLocation(sf::Vector2f(getLocation().x + m_direction.x ,getLocation().y + m_direction.y ));
 }
 
-
-
-sf::Vector2f Guard::smartMove()
+unsigned int Guard::getNumOfGuard()
 {
-    //TODO: smart move logic
-	return this->getLocation();
+	return m_numOfGuard;
 }
+
+
+Direction Guard::smartMove(const sf::Vector2f& playerLoc)
+{
+	sf::Vector2f direction = playerLoc - getLocation();
+
+	if (fabs(direction.x) > fabs(direction.y)) {
+		if (direction.x > 0) {
+			return RIGHT;
+		}
+		else {
+			return LEFT;
+		}
+	}
+	else {
+		if (direction.y > 0) {
+			return DOWN;
+		}
+		else {
+			return UP;
+		}
+	}
+}
+
 
 Direction Guard::randMove()
 {
-    int randomDirection = rand() % 4; 
+	int randomDirection = rand() % 4;
 	return Direction(randomDirection);
 }
 

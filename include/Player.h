@@ -7,7 +7,7 @@ public:
 	Player(const sf::Vector2f& location, float scaler);
 	void update(const sf::Time& deltaTime) override;
 	void collide(GameObject& other) override;
-	void act(const sf::Time& deltaTime) override;
+	void act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc) override;
 	void collideWithDoor(Door& door) override;
 	void collideWithGuard(Guard& guard) override;
 	void collideWithKey(Key& key) override;

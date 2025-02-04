@@ -11,7 +11,7 @@ class Bomb : public StaticObject{
 public:
 	Bomb(const sf::Vector2f& location, float scaler);
 	Bomb(const sf::Vector2f& location, float scaler, bool visible);
-	void act(const sf::Time& deltaTime) override;
+	void act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc) override;
 	void collide(GameObject& other) override;
 	void update(const sf::Time& deltaTime) override;
 	static int counter;
