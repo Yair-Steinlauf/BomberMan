@@ -15,9 +15,9 @@ PauseScreen::PauseScreen()
 	
 }
 
-void PauseScreen::pauseClicked(int score, sf::Music& backgroundMusic)
+void PauseScreen::pauseClicked(int score)
 {
-	bool isPlaying = backgroundMusic.getStatus() == sf::Music::Status::Playing;	
+	bool isPlaying = SoundHandle::getInstance().m_backgroundMusic.getStatus() == sf::Music::Status::Playing;
 	std::string isMusicPlay = isPlaying ? "ON" : "OFF";
 	m_Buttoms[4].second.setString("Music - " + isMusicPlay);
 
@@ -29,12 +29,12 @@ void PauseScreen::pauseClicked(int score, sf::Music& backgroundMusic)
 	}
 
 	std::string strPoints = "Your score is: " + std::to_string(score);
-	m_sfScore = sf::Text(strPoints, DataLoader::getP2Font(), 40);
-	m_sfScore.setPosition(sf::Vector2f(300, 50));
+	m_sfText = sf::Text(strPoints, DataLoader::getP2Font(), 40);
+	m_sfText.setPosition(sf::Vector2f(300, 50));
 }
 
 
-void PauseScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status, sf::Music &backgroundMusic)
+void PauseScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status)
 {
 	//window.setSize(sf::Vector2u(800, 600));
 	//window.setView(sf::View(sf::FloatRect(0, 0, 800, 600)));
@@ -44,14 +44,14 @@ void PauseScreen::eventHandler(sf::Event& event, sf::RenderWindow& window, GameS
 		if (event.mouseButton.button == sf::Mouse::Left) {
 			sf::Vector2f mousePosition = window.mapPixelToCoords(
 				sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-			handleClick(mousePosition, status, backgroundMusic);
+			handleClick(mousePosition, status);
 		}
 	}
 
 }
 
 
-void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Music& backgroundMusic)
+void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status)
 {
 
 	for (const auto& buttom : m_Buttoms)
@@ -76,7 +76,7 @@ void PauseScreen::handleClick(sf::Vector2f& mousePos, GameState& status, sf::Mus
 				SoundHandle::getInstance().changeSoundMode();				
 				break;
 			case MUSIC:		
-			backgroundMusic.getStatus() == sf::Music::Status::Playing ? backgroundMusic.stop() : backgroundMusic.play();						break;
+				SoundHandle::getInstance().m_backgroundMusic.getStatus() == sf::Music::Status::Playing ? SoundHandle::getInstance().m_backgroundMusic.stop() : SoundHandle::getInstance().m_backgroundMusic.play();						break;
 			case S_HELP:
 				status = HELP;
 				break;

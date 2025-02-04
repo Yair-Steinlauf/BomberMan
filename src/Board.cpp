@@ -97,8 +97,7 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		m_board.push_back(std::make_unique<Key>(location, scale));
 		break;
 	case BOMB:		
-		m_board.push_back(std::make_unique<Bomb>(location, scale));
-		
+		m_board.push_back(std::make_unique<Bomb>(location, scale));		
 		break;
 	case GUARDGIFT:
 		m_board.push_back(std::make_unique<GuardGift>(location, scale));

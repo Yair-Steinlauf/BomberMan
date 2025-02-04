@@ -17,7 +17,7 @@ private:
 // to update in cpp logic
 	// void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime, bool &isMouseClicked);
 	
-	sf::Music m_backgroundMusic;
+	
 	GameManager m_game;
 	PauseScreen m_pauseScreen;
 	Menu m_menu;

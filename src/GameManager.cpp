@@ -49,28 +49,7 @@ std::vector<std::string> GameManager::getLevels()
 }
 
 void GameManager::eventHandler(sf::Event& event, GameState& status) {
-	//player won-> load next level
-	if (m_player->won())
-	{
-		int score = m_player->getScore();
-		score += 25; // for finish level
-		score += 3 * m_board.getNumOfGuards(); // for every guards in the game
-		if (!this->loadNextLevel()) { //if it last level- gameOver	
-			SoundHandle::getInstance().playSound(S_VICTORY);
-			status = GAMEOVER;							
-		}		
-		else {
-			SoundHandle::getInstance().playSound(S_LEVEL_UP);
-		}
-		m_player->setScore(score);
-		m_startLevelScore = score;
-	}
-	if (m_player->getLife() <= 0) {
-		SoundHandle::getInstance().playSound(S_DEFEAT);
-		status = GAMEOVER;
-	}
-		
-	
+
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Space) {			
 				sf::Vector2f bombUp(m_player->getTopLeft().x, m_player->getTopLeft().y + m_player->getSize().y);
@@ -82,16 +61,10 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 				m_board.addObject(BOMB, bombRight);	// bomb right					
 				m_board.addObject(BOMB, bombLeft);	// bomb left					
 				m_board.addObject(BOMB, m_player->getLocation());	// cur location					
-		}
-		
-		m_player->setDirection(eventToDirection(event)); // Handle other key presses
-		
+		}		
+		m_player->setDirection(eventToDirection(event)); // Handle other key presses		
 	}
-	//else if (event.type == sf::Event::KeyReleased) {
-	//	if (event.key.code != sf::Keyboard::Space) { // Only reset direction if not space
-	//		m_player->setDirection(DEFAULT);
-	//	}
-	//}
+
 	if (event.key.code == sf::Keyboard::Escape)
 		status = PAUSE;
 
@@ -118,8 +91,28 @@ bool GameManager::isWon()
 
 
 
-void GameManager::update(sf::Time& deltaTime)
+void GameManager::update(sf::Time& deltaTime, GameState& status)
 {
+	
+	if (m_player->won())
+	{
+		int score = m_player->getScore();
+		score += 25; // for finish level
+		score += 3 * m_board.getNumOfGuards(); // for every guards in the game
+		if (!this->loadNextLevel()) { //if it last level- gameOver	
+			SoundHandle::getInstance().playSound(S_VICTORY);
+			status = GAMEOVER;
+		}
+		else {
+			SoundHandle::getInstance().playSound(S_LEVEL_UP);
+		}
+		m_player->setScore(score);
+		m_startLevelScore = score;
+	}
+	if (m_player->getLife() <= 0) {		
+		SoundHandle::getInstance().playSound(S_DEFEAT);
+		status = GAMEOVER;
+	}
 	if (m_timer <= sf::seconds(0))
 	{
 		restartLevel();
@@ -138,21 +131,23 @@ void GameManager::update(sf::Time& deltaTime)
 		m_removeGuardGift = true;
 	}
 	
-	m_board.act(deltaTime);
-	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
-	m_board.update(deltaTime);
 	if (m_guardBombed) {
 		m_player->addScore(5);
 		m_guardBombed = false;
 	}
+
+	m_board.act(deltaTime);
+	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
+	m_board.update(deltaTime);
+	
 	//setState(Playing);
 	m_timer -= deltaTime;
 
 }
 
-void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime)
+void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime, GameState& status)
 {
-	update(deltaTime);
+	update(deltaTime, status);
 	//TODO: leonid ask how to do good
 	//window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
 	//window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
@@ -160,7 +155,8 @@ void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime)
 	//
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
 	m_scoreDetail[1].setString("Game timer : " + std::to_string(m_timer.asSeconds()));
-	m_scoreDetail[2].setString("Player points : " + std::to_string(m_player->getScore()));
+	m_scoreDetail[2].setString("Player points: " + std::to_string(m_player->getScore()));
+	m_scoreDetail[3].setString("Your in level: " + std::to_string(m_currLevel));
 	window.clear();
 	
 	for (const auto& detail : m_scoreDetail)
@@ -186,10 +182,12 @@ Board GameManager::loadNewLevel(const std::string& levelName)
 		//TODO:  mabye offer to create new level via editor?
 	}
 	Board newBoard(level);
-	sf::Vector2f startScoreText(0, WINDOW_HIGTH);	
-	m_scoreDetail.push_back(createScoreText("Player life:", startScoreText + PADDING));
-	m_scoreDetail.push_back(createScoreText("Game timer :", startScoreText + PADDING + PADDING));
-	m_scoreDetail.push_back(createScoreText("Player points :", startScoreText));
+	sf::Vector2f startScoreTextLeft(0, WINDOW_HIGTH);	
+	sf::Vector2f startScoreTextRight(500, WINDOW_HIGTH);	
+	m_scoreDetail.push_back(createScoreText("Player life:", startScoreTextLeft));
+	m_scoreDetail.push_back(createScoreText("Game timer:", startScoreTextLeft + PADDING));
+	m_scoreDetail.push_back(createScoreText("Player points:", startScoreTextRight));
+	m_scoreDetail.push_back(createScoreText("Level:", startScoreTextRight + PADDING));
 	m_timer = sf::seconds(90);
 	return newBoard;
 }

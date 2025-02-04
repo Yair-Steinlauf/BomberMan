@@ -1,0 +1,21 @@
+#######################
+#  G   X    @    G  X  #
+#  @   @   G    G   F  #
+#  !  F   G   @   @    #
+#  @   G  X  F   G     #
+#  G     X   !     G   #
+#    G  F  @    G   @  #
+#  X   G   @    G  @    #
+#     @    F   G   X   #
+#  G    @    @   G  F   #
+#  @   G   G    !   X   #
+#     G   X  @    G  @  #
+#  G    @  X     F   G  #
+#  X   !  G   G  @   X  #
+#  G     G  X   @    G  #
+#  G   X  G    !  @     #
+#  G   @  @   F  G   G  #
+#  X   F  G     X  G    #
+#  @    G   @  X  F     #
+#  G   G  X  F  G  @    #
+#######################

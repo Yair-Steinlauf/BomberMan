@@ -23,12 +23,14 @@ public:
 	void playSound(Sound_Type soundType);
 	void changeSoundMode();
 	bool getIsSoundOn();
+	sf::Music m_backgroundMusic;
 
 private:
 	SoundHandle();
 	std::vector<sf::SoundBuffer> m_buffers;
 	std::vector<sf::Sound> m_sounds;
 	bool m_isSoundOn = true;
+	
 
 };
 

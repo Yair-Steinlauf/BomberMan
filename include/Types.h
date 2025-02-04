@@ -5,16 +5,18 @@
 
 
 enum ObjectType {
+	BOMB,
+	EXPLODE,
+	VICTORY,
+	DEFEAT,
 	PLAYER = '/',
 	GUARD = '!',
 	DOOR = 'D',
 	WALL = '#',
 	STONE = '@',
 	LIFEGIFT = 'G',
-	BOMB,
-	EXPLODE,
+	
 	KEY = 'K',
-	SLOWER = 's',
 	GUARDGIFT = 'X',
 	FREEZGIFT = 'F',
 	EXTRATIMEGIFT = 'E'

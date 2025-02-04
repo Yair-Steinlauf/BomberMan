@@ -8,7 +8,7 @@
 class GameManager : public Screens{
 public:
 	GameManager();
-	void drawNDisplay(sf::RenderWindow& window, sf::Time& deltaTime);
+	void drawNDisplay(sf::RenderWindow& window, sf::Time& deltaTime, GameState& status);
 	void eventHandler(sf::Event& event, GameState& status);
 	static bool m_removeGuardGift;
 	static bool m_guardFreeze;
@@ -21,7 +21,7 @@ private:
 	//void playerEvent(sf::Event& event, const sf::Time& deltaTime);
 	bool loadNextLevel();
 	void restartLevel();
-	void update(sf::Time& deltaTime);
+	void update(sf::Time& deltaTime, GameState &status);
 	Board m_board;
 	Player* m_player;
 	int m_currLevel = 0;

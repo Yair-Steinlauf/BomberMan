@@ -6,7 +6,7 @@ Bomb::Bomb(const sf::Vector2f& location, float scaler)
     : StaticObject(location, scaler), m_stateBomb(SAFE) // מוסיפים אתחול למצב
 {
     m_sprite.setTexture(DataLoader::getP2Texture(BOMB));
-    //m_sprite.setScale()
+    m_sprite.setScale(scaler, scaler);
 }
 
 void Bomb::act(const sf::Time& deltaTime)
