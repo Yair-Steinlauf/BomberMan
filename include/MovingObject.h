@@ -6,8 +6,8 @@ class MovingObject : public GameObject {
 public:
 	virtual void update(const sf::Time& deltaTime) =0;
 	void setDirection(Direction direction);
-	virtual void collideWithStatic(StaticObject& stat);
-	virtual void collideWithBomb(Bomb& bomb);
+	virtual void collideWithStatic(StaticObject& stat) override;
+
 	unsigned int getLife() const;
 	void setLife(int life);
 	virtual void moveToStartPos() override;

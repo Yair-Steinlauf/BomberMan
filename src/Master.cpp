@@ -28,9 +28,8 @@ void Master::run()
 				m_status = PAUSE;						
 			handelEvent(event, window);				
 		}
-		if (m_status == PLAYING) {
-			handelEvent(event, window);
-		}
+		if (m_status == PLAYING)
+			m_game.updatePlayer(event);
 		drawNdisplay(window, deltaTime);
 
 		}

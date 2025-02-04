@@ -2,6 +2,7 @@
 #include "GameManager.h"
 
 //----static init--------------
+enum Difficulty Guard::m_difficulty = Difficulty::Low;
 
 Guard::Guard()
 	:MovingObject()
@@ -12,35 +13,28 @@ Guard::Guard(const sf::Vector2f& location, float scaler)
 	:MovingObject(location,scaler)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(GUARD));
-	m_speed = 300.0f * scaler;	
+	m_speed = 200.f * scaler;	
 }
 
-void Guard::update(const sf::Time& deltaTime)
+
+void Guard::collideWithBomb(Bomb& bomb)
 {
+	m_life--;
 
-	//int peeker = rand() % 2;
-	//if (rand == 0)
-		//setLocation(smartMove());
-	//else
-	//bool inBounds = getLocation().x > 0 || getLocation().x < WINDOW_WIDTH || getLocation().y > 0 || getLocation().y < WINDOW_HIGTH;
-		//if (!GameManager::m_guardFreeze && inBounds )
-			//setLocation(getLocation() + m_direction);
 }
-
 void Guard::collide(GameObject& other)
 {
 	other.collideWithGuard(*this);
 }
 
-void Guard::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
+void Guard::update(const sf::Time& deltaTime)
 {
-	//this->MovingObject::act(deltaTime);
-	//TODO: func for kill first guard
 	if (m_life <= 0 || GameManager::m_removeGuardGift)
 	{
 
 		m_isActive = false;
-		
+		increaseDifficulty();
+		updateToDiffLevel();
 		if (GameManager::m_removeGuardGift) {
 			GameManager::m_removeGuardGift = false;
 		}
@@ -51,24 +45,62 @@ void Guard::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 			SoundHandle::getInstance().playSound(S_GUARDBOMBED);
 		}
 	}
-
-	//TODO: add in last merge
-	int peeker = rand() % 2;
-	if (peeker == 0)
-		setDirection(smartMove(playerLoc));
-	else
-		setDirection(randMove());
-		m_guardMove += sf::seconds(2);
-		m_direction.x = m_direction.x * deltaTime.asSeconds();
-		m_direction.y = m_direction.y * deltaTime.asSeconds();
-	}
-	if (!GameManager::m_guardFreeze)
-		this->setLocation(sf::Vector2f(getLocation().x + m_direction.x ,getLocation().y + m_direction.y ));
 }
 
-unsigned int Guard::getNumOfGuard()
+void Guard::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
-	return m_numOfGuard;
+	//this->MovingObject::act(deltaTime);
+	//TODO: func for kill first guard
+	updateToDiffLevel();
+	m_guardMove -= deltaTime;
+		int peeker = 0 ;
+	if (m_guardMove <= sf::seconds(0)) {
+		peeker = rand() % Difficulty::Pro;
+		m_guardMove += sf::seconds(1/(float)m_difficulty);
+	}
+		if (peeker <= m_difficulty )
+			setDirection(smartMove(playerLoc));
+		else
+			setDirection(randMove());
+		m_direction.x = m_direction.x * deltaTime.asSeconds();
+		m_direction.y = m_direction.y * deltaTime.asSeconds();
+	if (!GameManager::m_guardFreeze)
+		this->setLocation(sf::Vector2f(getLocation().x + m_direction.x, getLocation().y + m_direction.y));
+
+}
+
+
+void Guard::increaseDifficulty()
+{
+	switch (m_difficulty)
+	{
+	case Low: m_difficulty = Mid;
+		break;
+	case Mid: m_difficulty = High;
+		break;
+	case High: m_difficulty = Pro;
+		break;
+	}
+}
+
+void Guard::updateToDiffLevel()
+{
+	switch (m_difficulty)
+	{
+	case Low:
+		break;
+	case Mid:
+		m_speed += 0.f;
+		break;
+	case High:
+		m_speed += 0.f;
+		break;
+	case Pro:
+		m_speed += 0.f;
+		break;
+	default:
+		break;
+	}
 }
 
 

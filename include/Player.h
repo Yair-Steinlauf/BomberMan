@@ -15,6 +15,7 @@ public:
 	void collideWithGuardGift(GuardGift& guardGift) override;
 	void collideWithFreezGift(FreezGift& freezGift) override;
 	void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) override;
+	void collideWithBomb(Bomb& bomb) override;
 	bool gotGuardGift();
 	bool gotExtraTimeGift();
 	bool gotCollidWithGuard();
@@ -35,5 +36,6 @@ private:
 	sf::Time m_freezGiftTime;
 	bool m_isGotExtraTimeGift = false;
 	bool m_collidWithGuard = false;
+	bool m_collidWithBomb = false;
 
 };

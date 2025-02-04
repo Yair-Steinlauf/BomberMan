@@ -47,7 +47,20 @@ std::vector<std::string> GameManager::getLevels()
 	}
 	return levels;
 }
+void GameManager::updatePlayer(sf::Event& event)
+{
 
+	//if (event.type == sf::Event::KeyPressed) {
+		//if(event.key.code != sf::Keyboard::Space)
+	if (event.type == sf::Event::KeyPressed &&
+		(event.key.code == sf::Keyboard::Up ||
+			event.key.code == sf::Keyboard::Down ||
+			event.key.code == sf::Keyboard::Right ||
+			event.key.code == sf::Keyboard::Left))
+		m_player->setDirection(eventToDirection(event)); // Handle other key presses		
+	//}
+
+}
 void GameManager::eventHandler(sf::Event& event, GameState& status) {
 
 	if (event.type == sf::Event::KeyPressed) {
@@ -60,11 +73,9 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 				m_board.addObject(BOMB, bombDown, false);	// bomb down					
 				m_board.addObject(BOMB, bombRight, false);	// bomb right					
 				m_board.addObject(BOMB, bombLeft , false);	// bomb left					
-				m_board.addObject(BOMB, m_player->getLocation());	// cur location					
+				m_board.addObject(BOMB, m_player->getLocation());	// cur location		
 		}		
-		m_player->setDirection(eventToDirection(event)); // Handle other key presses		
 	}
-
 	if (event.key.code == sf::Keyboard::Escape)
 		status = PAUSE;
 
@@ -135,9 +146,9 @@ void GameManager::update(sf::Time& deltaTime, GameState& status)
 		m_player->addScore(5);
 		m_guardBombed = false;
 	}
-
 	m_board.act(deltaTime);
 	m_board.collideHandler();//TODO: ask leonead if collide handler need to be member of board/controller
+
 	m_board.update(deltaTime);
 	
 	//setState(Playing);

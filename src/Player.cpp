@@ -19,8 +19,12 @@ Player::Player(const sf::Vector2f& location, float scaler)
 
 void Player::update(const sf::Time& deltaTime)
 {
-	/*this->setLocation(sf::Vector2f(getLocation().x + m_direction.x,
-		getLocation().y + m_direction.y));*/
+	if (m_collidWithBomb) {
+		m_life--;
+		m_collidWithBomb = false;
+	}
+	if (m_life <= 0)
+		m_win = false;
 }
 
 void Player::collide(GameObject& other)
@@ -30,12 +34,11 @@ void Player::collide(GameObject& other)
 
 void Player::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
+
 	m_direction.x = m_direction.x * deltaTime.asSeconds();
 	m_direction.y = m_direction.y * deltaTime.asSeconds();
 	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x,
-		getLocation().y + m_direction.y));	
-	if (m_life <= 0)
-		m_win = false;
+		getLocation().y + m_direction.y));
 }
 
 void Player::collideWithDoor(Door& door)
@@ -50,7 +53,6 @@ void Player::collideWithGuard(Guard& guard)
 {
 	SoundHandle::getInstance().playSound(S_COLLID_GUARD);
 	m_collidWithGuard = true;
-	m_life--;
 }
 
 void Player::collideWithKey(Key& key)
@@ -75,6 +77,11 @@ void Player::collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift)
 {
 	SoundHandle::getInstance().playSound(S_GIFT);
 	m_isGotExtraTimeGift = true;
+}
+
+void Player::collideWithBomb(Bomb& bomb)
+{
+	m_collidWithBomb = true;
 }
 
 void Player::collideWithGuardGift(GuardGift& guardGift)

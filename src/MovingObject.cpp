@@ -35,11 +35,7 @@ void MovingObject::collideWithStatic(StaticObject& wall)
         getLocation().y -m_direction.y));
 }
 
-void MovingObject::collideWithBomb(Bomb& bomb)
-{
-    m_life--;
-    
-}
+
 
 unsigned int MovingObject::getLife() const
 {

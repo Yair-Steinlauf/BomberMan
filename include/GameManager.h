@@ -15,6 +15,7 @@ public:
 	static bool m_guardBombed;
 	int getPlayerScore() const;
 	bool isWon();
+	void updatePlayer(sf::Event& event);
 	
 		
 private:
