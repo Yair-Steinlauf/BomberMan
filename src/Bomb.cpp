@@ -8,7 +8,7 @@ Bomb::Bomb(const sf::Vector2f& location)
     m_sprite.setTexture(DataLoader::getP2Texture(BOMB));
 }
 
-void Bomb::act(const sf::Time& deltaTime)
+void Bomb::act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc)
 {
 
     m_timer -= deltaTime;

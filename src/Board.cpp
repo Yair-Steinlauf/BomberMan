@@ -19,8 +19,9 @@ void Board::act(const sf::Time& deltaTime)
 {
 	for (const auto& object : m_board)
 	{
-		object->act(deltaTime);
+		object->act(deltaTime , m_player->getLocation());
 	}
+	
 }
 void Board::collideHandler()
 {

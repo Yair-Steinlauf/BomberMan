@@ -5,7 +5,7 @@
 unsigned int Guard::m_numOfGuard = 0;
 
 Guard::Guard()
-    :MovingObject()
+	:MovingObject()
 {
 }
 
@@ -33,7 +33,7 @@ void Guard::collide(GameObject& other)
 	other.collideWithGuard(*this);
 }
 
-void Guard::act(const sf::Time& deltaTime)
+void Guard::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
 
 	//TODO: func for kill first guard
@@ -45,23 +45,46 @@ void Guard::act(const sf::Time& deltaTime)
 		}
 	}
 
+	//TODO: add in last merge
+	int peeker = rand() % 2;
+	if (peeker == 0)
+		setDirection(smartMove(playerLoc));
+	else
 		setDirection(randMove());
 }
 
-unsigned int Guard::getNumOfGuard() 
+unsigned int Guard::getNumOfGuard()
 {
 	return m_numOfGuard;
 }
 
-sf::Vector2f Guard::smartMove()
+
+Direction Guard::smartMove(const sf::Vector2f& playerLoc)
 {
-    //TODO: smart move logic
-	return this->getLocation();
+	sf::Vector2f direction = playerLoc - getLocation();
+
+	if (fabs(direction.x) > fabs(direction.y)) {
+		if (direction.x > 0) {
+			return RIGHT;
+		}
+		else {
+			return LEFT;
+		}
+	}
+	else {
+		if (direction.y > 0) {
+			return DOWN;
+		}
+		else {
+			return UP;
+		}
+	}
 }
+
 
 Direction Guard::randMove()
 {
-    int randomDirection = rand() % 4; 
+	int randomDirection = rand() % 4;
 	return Direction(randomDirection);
 }
 

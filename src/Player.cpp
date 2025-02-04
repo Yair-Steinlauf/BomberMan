@@ -27,7 +27,7 @@ void Player::collide(GameObject& other)
 	other.collideWithPlayer(*this); //TODO: after set all classes
 }
 
-void Player::act( const sf::Time& deltaTime)
+void Player::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
 	if (m_life <= 0)
 		m_win = false;

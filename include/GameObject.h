@@ -24,7 +24,7 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 	sf::Vector2f getLocation()const;
 	virtual void update(const sf::Time& deltaTime) = 0;
-	virtual void act(const sf::Time& deltaTime) = 0;
+	virtual void act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc) = 0;
 	bool intersect(GameObject& other);
 	virtual void moveToStartPos() {};
 	virtual void collide(GameObject& other) =0;
