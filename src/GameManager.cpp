@@ -56,10 +56,10 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 				sf::Vector2f bombDown(m_player->getTopLeft().x, m_player->getTopLeft().y - m_player->getSize().y);
 				sf::Vector2f bombRight(m_player->getTopLeft().x + m_player->getSize().x, m_player->getTopLeft().y);
 				sf::Vector2f bombLeft(m_player->getTopLeft().x - m_player->getSize().x, m_player->getTopLeft().y);
-				m_board.addObject(BOMB, bombUp); // bomb up						
-				m_board.addObject(BOMB, bombDown);	// bomb down					
-				m_board.addObject(BOMB, bombRight);	// bomb right					
-				m_board.addObject(BOMB, bombLeft);	// bomb left					
+				m_board.addObject(BOMB, bombUp, false); // bomb up						
+				m_board.addObject(BOMB, bombDown, false);	// bomb down					
+				m_board.addObject(BOMB, bombRight, false);	// bomb right					
+				m_board.addObject(BOMB, bombLeft , false);	// bomb left					
 				m_board.addObject(BOMB, m_player->getLocation());	// cur location					
 		}		
 		m_player->setDirection(eventToDirection(event)); // Handle other key presses		
@@ -148,11 +148,7 @@ void GameManager::update(sf::Time& deltaTime, GameState& status)
 void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime, GameState& status)
 {
 	update(deltaTime, status);
-	//TODO: leonid ask how to do good
-	//window.setSize((sf::Vector2u)m_board.getDimension() + (sf::Vector2u)scoreDetailsSize);
-	//window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
-	//	m_board.getDimension().y + scoreDetailsSize.y)));
-	//
+
 	int seconds = static_cast<int>(m_timer.asSeconds());
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
 	m_scoreDetail[1].setString("Game timer : " + std::to_string(seconds));

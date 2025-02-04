@@ -9,6 +9,15 @@ Bomb::Bomb(const sf::Vector2f& location, float scaler)
     //m_sprite.setScale(scaler, scaler);
 }
 
+Bomb::Bomb(const sf::Vector2f& location, float scaler, bool visible)
+    :Bomb(location, scaler)
+{
+    if (!visible)
+    {
+        m_sprite.setColor(sf::Color(255, 255, 255, 0));
+    }
+}
+
 void Bomb::act(const sf::Time& deltaTime)
 {
 
@@ -51,24 +60,8 @@ void Bomb::explode()
 {
     if (m_stateBomb != SAFE) return;
     m_sprite.setTexture(DataLoader::getP2Texture(EXPLODED));
+    m_sprite.setColor(sf::Color(255, 255, 255, 255));
     m_stateBomb = DANGER;    
     SoundHandle::getInstance().playSound(S_EXPLODE);
 }
-
-//void Bomb::updateAnimation(const sf::Time& deltaTime)
-//{
-//    // עדכון אנימציה בהתאם למצב
-//    switch (m_stateBomb)
-//    {
-//    case SAFE:
-//        // אנימציה של פצצה רגילה
-//        break;
-//    case DANGER:
-//        // אנימציה של פיצוץ
-//        break;
-//    case AFTER_EXPLOAD:
-//        // אנימציה של אחרי הפיצוץ
-//        break;
-//    }
-//}
 

@@ -68,7 +68,7 @@ void Board::update(const sf::Time& deltaTime)
 
 
 
-void Board::addObject(ObjectType type, sf::Vector2f location)
+void Board::addObject(ObjectType type, sf::Vector2f location, bool visible)
 {
 	auto scale = scalerCalc();
 	switch (type)
@@ -97,7 +97,7 @@ void Board::addObject(ObjectType type, sf::Vector2f location)
 		m_board.push_back(std::make_unique<Key>(location, scale));
 		break;
 	case BOMB:		
-		m_board.push_back(std::make_unique<Bomb>(location, scale));		
+		m_board.push_back(std::make_unique<Bomb>(location, scale , visible));		
 		break;
 	case GUARDGIFT:
 		m_board.push_back(std::make_unique<GuardGift>(location, scale));

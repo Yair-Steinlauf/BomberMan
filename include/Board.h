@@ -25,7 +25,7 @@ public:
 	void update(const sf::Time& deltaTime);
 	sf::Vector2f getDimension()const;
 	void act(const sf::Time& deltaTime);
-	void addObject(ObjectType type, sf::Vector2f location);
+	void addObject(ObjectType type, sf::Vector2f location, bool visible = true);
 	void collideHandler();
 	Player& getPlayer();
 	void tryAgain();
@@ -36,7 +36,7 @@ private:
 	std::vector<std::string> fileTo2DString(std::ifstream& file) ;
 	void loadFromFile(std::ifstream& file);
 	float scalerCalc() const;
-	void setScale(float factor);
+	//void setScale(float factor);
 	std::vector<std::unique_ptr<GameObject>> m_board;
 	sf::Vector2f m_dimension;
 	Player* m_player;
