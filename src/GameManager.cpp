@@ -50,30 +50,16 @@ std::vector<std::string> GameManager::getLevels()
 void GameManager::updatePlayer(sf::Event& event)
 {
 
-	//if (event.type == sf::Event::KeyPressed) {
-		//if(event.key.code != sf::Keyboard::Space)
-	if (event.type == sf::Event::KeyPressed &&
-		(event.key.code == sf::Keyboard::Up ||
-			event.key.code == sf::Keyboard::Down ||
-			event.key.code == sf::Keyboard::Right ||
-			event.key.code == sf::Keyboard::Left))
+	if (event.type == sf::Event::KeyPressed) {
 		m_player->setDirection(eventToDirection(event)); // Handle other key presses		
-	//}
+	}
 
 }
 void GameManager::eventHandler(sf::Event& event, GameState& status) {
 
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Space) {			
-				sf::Vector2f bombUp(m_player->getTopLeft().x, m_player->getTopLeft().y + m_player->getSize().y);
-				sf::Vector2f bombDown(m_player->getTopLeft().x, m_player->getTopLeft().y - m_player->getSize().y);
-				sf::Vector2f bombRight(m_player->getTopLeft().x + m_player->getSize().x, m_player->getTopLeft().y);
-				sf::Vector2f bombLeft(m_player->getTopLeft().x - m_player->getSize().x, m_player->getTopLeft().y);
-				m_board.addObject(BOMB, bombUp, false); // bomb up						
-				m_board.addObject(BOMB, bombDown, false);	// bomb down					
-				m_board.addObject(BOMB, bombRight, false);	// bomb right					
-				m_board.addObject(BOMB, bombLeft , false);	// bomb left					
-				m_board.addObject(BOMB, m_player->getLocation());	// cur location		
+			placeBomb();
 		}		
 	}
 	if (event.key.code == sf::Keyboard::Escape)
@@ -85,6 +71,17 @@ void GameManager::eventHandler(sf::Event& event, GameState& status) {
 			status = GAMEOVER;
 	}
 
+}
+void GameManager::placeBomb() {
+	sf::Vector2f bombUp(m_player->getTopLeft().x, m_player->getTopLeft().y + m_player->getSize().y);
+	sf::Vector2f bombDown(m_player->getTopLeft().x, m_player->getTopLeft().y - m_player->getSize().y);
+	sf::Vector2f bombRight(m_player->getTopLeft().x + m_player->getSize().x, m_player->getTopLeft().y);
+	sf::Vector2f bombLeft(m_player->getTopLeft().x - m_player->getSize().x, m_player->getTopLeft().y);
+	m_board.addObject(BOMB, bombUp, false); // bomb up						
+	m_board.addObject(BOMB, bombDown, false);	// bomb down					
+	m_board.addObject(BOMB, bombRight, false);	// bomb right					
+	m_board.addObject(BOMB, bombLeft, false);	// bomb left					
+	m_board.addObject(BOMB, m_player->getLocation());	// cur location		
 }
 
 int GameManager::getPlayerScore() const
