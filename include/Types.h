@@ -14,8 +14,7 @@ enum ObjectType {
 	DOOR = 'D',
 	WALL = '#',
 	STONE = '@',
-	LIFEGIFT = 'G',
-	
+	LIFEGIFT = 'G',	
 	KEY = 'K',
 	GUARDGIFT = 'X',
 	FREEZGIFT = 'F',
