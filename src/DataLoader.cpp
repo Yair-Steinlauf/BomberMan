@@ -38,7 +38,7 @@ DataLoader::DataLoader()
         { STONE, "STONE" },
         { KEY, "KEY"},
         {BOMB, "BOMB"},
-        {EXPLODE, "EXPLODE"},
+        {EXPLODED, "EXPLODED"},
         {LIFEGIFT , "LIFEGIFT"},		
 		{GUARDGIFT , "GUARDGIFT"},
 		{FREEZGIFT , "FREEZGIFT"},

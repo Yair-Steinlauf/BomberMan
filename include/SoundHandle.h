@@ -13,7 +13,9 @@ enum Sound_Type {
 	S_GIFT,
 	S_DEFEAT,
 	S_COLLID_GUARD,
-	S_LEVEL_UP
+	S_LEVEL_UP,
+	S_EXPLODE,
+	S_GUARDBOMBED,
 };
 
 class SoundHandle {

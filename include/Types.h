@@ -6,7 +6,7 @@
 
 enum ObjectType {
 	BOMB,
-	EXPLODE,
+	EXPLODED,
 	VICTORY,
 	DEFEAT,
 	PLAYER = '/',

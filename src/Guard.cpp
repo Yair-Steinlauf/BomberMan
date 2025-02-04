@@ -47,6 +47,9 @@ void Guard::act(const sf::Time& deltaTime)
 		else {
 			GameManager::m_guardBombed = true;
 		}
+		if (m_life <= 0) {
+			SoundHandle::getInstance().playSound(S_GUARDBOMBED);
+		}
 	}
 	m_guardMove -= deltaTime;
 	if (m_guardMove <= sf::seconds(0)) {

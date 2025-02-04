@@ -153,8 +153,9 @@ void GameManager::drawNDisplay(sf::RenderWindow& window , sf::Time& deltaTime, G
 	//window.setView(sf::View(sf::FloatRect(0, 0, m_board.getDimension().x,
 	//	m_board.getDimension().y + scoreDetailsSize.y)));
 	//
+	int seconds = static_cast<int>(m_timer.asSeconds());
 	m_scoreDetail[0].setString("Player life: " + std::to_string(m_player->getLife()));
-	m_scoreDetail[1].setString("Game timer : " + std::to_string(m_timer.asSeconds()));
+	m_scoreDetail[1].setString("Game timer : " + std::to_string(seconds));
 	m_scoreDetail[2].setString("Player points: " + std::to_string(m_player->getScore()));
 	m_scoreDetail[3].setString("Your in level: " + std::to_string(m_currLevel));
 	window.clear();
