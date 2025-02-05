@@ -5,8 +5,8 @@
 #include <iostream>
 #include "Types.h"
 
-
-enum Sound_Type {
+enum Sound_Type
+{
 	S_START_GAME,
 	S_VICTORY,
 	S_KEY,
@@ -18,10 +18,11 @@ enum Sound_Type {
 	S_GUARDBOMBED,
 };
 
-class SoundHandle {
+class SoundHandle
+{
 public:
 	~SoundHandle();
-	static SoundHandle& getInstance();
+	static SoundHandle &getInstance();
 	void playSound(Sound_Type soundType);
 	void changeSoundMode();
 	bool getIsSoundOn();
@@ -32,7 +33,4 @@ private:
 	std::vector<sf::SoundBuffer> m_buffers;
 	std::vector<sf::Sound> m_sounds;
 	bool m_isSoundOn = true;
-	
-
 };
-

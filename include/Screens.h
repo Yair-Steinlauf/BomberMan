@@ -22,7 +22,7 @@ class Screens
 public:
 	Screens() = default;
 	virtual void drawNDisplay(sf::RenderWindow &window, GameState &status);
-	virtual void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status);
+	virtual void eventHandler(sf::Event &event, sf::RenderWindow &window, GameState &status);
 
 protected:
 	virtual void loadButtomsVector() {};

@@ -1,28 +1,29 @@
 #pragma once
 #include "MovingObject.h"
 
-class Player : public MovingObject {
+class Player : public MovingObject
+{
 public:
 	Player();
-	Player(const sf::Vector2f& location, float scaler);
-	void update(const sf::Time& deltaTime) override;
-	void collide(GameObject& other) override;
-	void act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc) override;
-	void collideWithDoor(Door& door) override;
-	void collideWithGuard(Guard& guard) override;
-	void collideWithKey(Key& key) override;
-	void collideWithLifeGift(LifeGift& lifeGift) override;
-	void collideWithGuardGift(GuardGift& guardGift) override;
-	void collideWithFreezGift(FreezGift& freezGift) override;
-	void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) override;
-	void collideWithBomb(Bomb& bomb) override;
+	Player(const sf::Vector2f &location, float scaler);
+	void update(const sf::Time &deltaTime) override;
+	void collide(GameObject &other) override;
+	void act(const sf::Time &deltaTime, const sf::Vector2f &playerLoc) override;
+	void collideWithDoor(Door &door) override;
+	void collideWithGuard(Guard &guard) override;
+	void collideWithKey(Key &key) override;
+	void collideWithLifeGift(LifeGift &lifeGift) override;
+	void collideWithGuardGift(GuardGift &guardGift) override;
+	void collideWithFreezGift(FreezGift &freezGift) override;
+	void collideWithExtraTimeGift(ExtraTimeGift &extraTimeGift) override;
+	void collideWithBomb(Bomb &bomb) override;
 	bool gotGuardGift();
 	bool gotExtraTimeGift();
 	bool gotCollidWithGuard();
 	bool gotCollidWithBomb();
-	sf::Time gotFreezGift(sf::Time& deltaTime);
-	bool won()const;
-	bool gotKey()const;
+	sf::Time gotFreezGift(sf::Time &deltaTime);
+	bool won() const;
+	bool gotKey() const;
 	int getScore();
 	void addScore(int score);
 	void decreaseScore(int score);
@@ -33,10 +34,9 @@ private:
 	int m_score = 0;
 	bool m_win = false;
 	bool m_Key = false;
-	bool m_isGotGuardGift = false;	
+	bool m_isGotGuardGift = false;
 	sf::Time m_freezGiftTime;
 	bool m_isGotExtraTimeGift = false;
 	bool m_collidWithGuard = false;
 	bool m_collidWithBomb = false;
-
 };

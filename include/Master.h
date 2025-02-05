@@ -6,18 +6,16 @@
 #include "HelpScreen.h"
 #include "DataLoader.h"
 #include "Types.h"
-class Master {
+class Master
+{
 public:
 	Master();
 	void run();
 
 private:
-	void handelEvent(sf::Event& event, sf::RenderWindow& window);
-	void drawNdisplay(sf::RenderWindow& window, sf::Time& deltaTime);
-// to update in cpp logic
-	// void handelEvent(sf::Event& event, sf::RenderWindow& window, sf::Time& deltaTime, bool &isMouseClicked);
-	
-	
+	void handelEvent(sf::Event &event, sf::RenderWindow &window);
+	void drawNdisplay(sf::RenderWindow &window, sf::Time &deltaTime);
+
 	GameManager m_game;
 	PauseScreen m_pauseScreen;
 	Menu m_menu;
@@ -25,5 +23,4 @@ private:
 	HelpScreen m_helpScreen;
 	enum GameState m_status = MENU;
 	enum GameState m_lastStatus = MENU;
-
 };

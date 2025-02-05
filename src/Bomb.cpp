@@ -1,16 +1,14 @@
 
 #include "Bomb.h"
 
-
-Bomb::Bomb(const sf::Vector2f& location, float scaler)
-    : StaticObject(location, scaler), m_stateBomb(SAFE) // מוסיפים אתחול למצב
+Bomb::Bomb(const sf::Vector2f &location, float scaler)
+    : StaticObject(location, scaler), m_stateBomb(SAFE)
 {
     m_sprite.setTexture(DataLoader::getP2Texture(BOMB));
-    //m_sprite.setScale(scaler, scaler);
 }
 
-Bomb::Bomb(const sf::Vector2f& location, float scaler, bool visible)
-    :Bomb(location, scaler)
+Bomb::Bomb(const sf::Vector2f &location, float scaler, bool visible)
+    : Bomb(location, scaler)
 {
     if (!visible)
     {
@@ -18,7 +16,7 @@ Bomb::Bomb(const sf::Vector2f& location, float scaler, bool visible)
     }
 }
 
-void Bomb::act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc)
+void Bomb::act(const sf::Time &deltaTime, const sf::Vector2f &playerLoc)
 {
 
     m_timer -= deltaTime;
@@ -45,7 +43,7 @@ void Bomb::act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc)
     }
 }
 
-void Bomb::collide(GameObject& other)
+void Bomb::collide(GameObject &other)
 {
     if (m_stateBomb == DANGER)
     {
@@ -53,15 +51,16 @@ void Bomb::collide(GameObject& other)
     }
 }
 
-void Bomb::update(const sf::Time& deltaTime)
-{}
+void Bomb::update(const sf::Time &deltaTime)
+{
+}
 
 void Bomb::explode()
 {
-    if (m_stateBomb != SAFE) return;
+    if (m_stateBomb != SAFE)
+        return;
     m_sprite.setTexture(DataLoader::getP2Texture(EXPLODED));
     m_sprite.setColor(sf::Color(255, 255, 255, 255));
-    m_stateBomb = DANGER;    
+    m_stateBomb = DANGER;
     SoundHandle::getInstance().playSound(S_EXPLODE);
 }
-
