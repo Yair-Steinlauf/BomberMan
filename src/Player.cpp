@@ -19,10 +19,13 @@ Player::Player(const sf::Vector2f& location, float scaler)
 
 void Player::update(const sf::Time& deltaTime)
 {
-	if (m_collidWithBomb) {
-		m_life--;
-		m_collidWithBomb = false;
-	}
+	//if (m_collidWithBomb) {
+	//	m_life--;
+	//	m_collidWithBomb = false;
+	//}if (m_collidWithGuard) {
+	//	m_life--;
+	//	m_collidWithGuard = false;
+	//}
 	if (m_life <= 0)
 		m_win = false;
 }
@@ -112,7 +115,18 @@ bool Player::gotExtraTimeGift()
 bool Player::gotCollidWithGuard()
 {
 	if (m_collidWithGuard) {
+		m_life--;
 		m_collidWithGuard = false;
+		return true;
+	}
+	return false;
+}
+
+bool Player::gotCollidWithBomb()
+{
+	if (m_collidWithBomb) {
+		m_life--;
+		m_collidWithBomb = false;
 		return true;
 	}
 	return false;

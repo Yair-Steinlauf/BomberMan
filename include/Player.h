@@ -19,6 +19,7 @@ public:
 	bool gotGuardGift();
 	bool gotExtraTimeGift();
 	bool gotCollidWithGuard();
+	bool gotCollidWithBomb();
 	sf::Time gotFreezGift(sf::Time& deltaTime);
 	bool won()const;
 	bool gotKey()const;

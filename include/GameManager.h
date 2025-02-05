@@ -20,6 +20,7 @@ public:
 		
 private:
 	//void playerEvent(sf::Event& event, const sf::Time& deltaTime);
+	void placeBomb();
 	bool loadNextLevel();
 	void restartLevel();
 	void update(sf::Time& deltaTime, GameState &status);

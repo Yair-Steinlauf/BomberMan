@@ -130,10 +130,10 @@ void GameManager::update(sf::Time& deltaTime, GameState& status)
 	if (m_player->gotExtraTimeGift()) {
 		m_timer += sf::seconds(15);
 	}
-	if (m_player->gotCollidWithGuard())
+	if (m_player->gotCollidWithGuard() || m_player->gotCollidWithBomb())
 	{
 		m_board.tryAgain();
-	}
+	}	
 	m_guardFreeze = m_player->gotFreezGift(deltaTime) > sf::seconds(0);
 	if (m_player->gotGuardGift()) {
 		m_removeGuardGift = true;
