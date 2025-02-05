@@ -2,13 +2,23 @@
 #include "Bomb.h"
 
 
-Bomb::Bomb(const sf::Vector2f& location)
-    : StaticObject(location), m_stateBomb(SAFE) // מוסיפים אתחול למצב
+Bomb::Bomb(const sf::Vector2f& location, float scaler)
+    : StaticObject(location, scaler), m_stateBomb(SAFE) // מוסיפים אתחול למצב
 {
     m_sprite.setTexture(DataLoader::getP2Texture(BOMB));
+    //m_sprite.setScale(scaler, scaler);
 }
 
-void Bomb::act(const sf::Time& deltaTime)
+Bomb::Bomb(const sf::Vector2f& location, float scaler, bool visible)
+    :Bomb(location, scaler)
+{
+    if (!visible)
+    {
+        m_sprite.setColor(sf::Color(255, 255, 255, 0));
+    }
+}
+
+void Bomb::act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc)
 {
 
     m_timer -= deltaTime;
@@ -16,7 +26,7 @@ void Bomb::act(const sf::Time& deltaTime)
     switch (m_stateBomb)
     {
     case SAFE:
-        if (m_timer <= sf::seconds(1))
+        if (m_timer <= sf::seconds(0.5))
         {
             explode();
         }
@@ -49,33 +59,9 @@ void Bomb::update(const sf::Time& deltaTime)
 void Bomb::explode()
 {
     if (m_stateBomb != SAFE) return;
-
-    m_sprite.setTexture(DataLoader::getP2Texture(EXPLODE));
-
-    m_stateBomb = DANGER;
-    // אפשר להוסיף כאן אפקט קול או אנימציה
-    //playExplosionSound();
+    m_sprite.setTexture(DataLoader::getP2Texture(EXPLODED));
+    m_sprite.setColor(sf::Color(255, 255, 255, 255));
+    m_stateBomb = DANGER;    
+    SoundHandle::getInstance().playSound(S_EXPLODE);
 }
 
-//void Bomb::updateAnimation(const sf::Time& deltaTime)
-//{
-//    // עדכון אנימציה בהתאם למצב
-//    switch (m_stateBomb)
-//    {
-//    case SAFE:
-//        // אנימציה של פצצה רגילה
-//        break;
-//    case DANGER:
-//        // אנימציה של פיצוץ
-//        break;
-//    case AFTER_EXPLOAD:
-//        // אנימציה של אחרי הפיצוץ
-//        break;
-//    }
-//}
-
-//void Bomb::playExplosionSound()
-//{
-//    // הוספת אפקט קול לפיצוץ
-//    // DataLoader::playSound(EXPLOSION_SOUND);
-//}

@@ -1,14 +1,13 @@
 #pragma once
-#include "SFML/Graphics.hpp"
 #include "Screens.h"
-#include <SFML/Audio/Music.hpp>
 
-class PauseScreen : public Screens {
+class HelpScreen :public Screens {
 public:
-	PauseScreen();
-	void pauseClicked(int score);
+	HelpScreen();
 	void eventHandler(sf::Event& event, sf::RenderWindow& window, GameState& status);
 private:
+	void loadButtomsVector() override;
 	void handleClick(sf::Vector2f& mousePos, GameState& status) override;
-	
+
+
 };

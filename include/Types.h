@@ -5,16 +5,17 @@
 
 
 enum ObjectType {
+	BOMB,
+	EXPLODED,
+	VICTORY,
+	DEFEAT,
 	PLAYER = '/',
 	GUARD = '!',
 	DOOR = 'D',
 	WALL = '#',
 	STONE = '@',
-	LIFEGIFT = 'G',
-	BOMB,
-	EXPLODE,
+	LIFEGIFT = 'G',	
 	KEY = 'K',
-	SLOWER = 's',
 	GUARDGIFT = 'X',
 	FREEZGIFT = 'F',
 	EXTRATIMEGIFT = 'E'
@@ -29,11 +30,13 @@ enum GameState {
 	PLAYING,
 	GAMEOVER,
 	REMATCH,
-	PAUSE
+	PAUSE,
+	HELP,
+	RETURN
 };
 
-static const float DefaultSpeed = 1.0f;
 static const int WINDOW_WIDTH = 800;
 static const int WINDOW_HIGTH = 600;
 
 static const sf::Vector2f ImageDimension = sf::Vector2f(256.0f , 256.0f );
+static const float scoreBoardPadding = 110.f;

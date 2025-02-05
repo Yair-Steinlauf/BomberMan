@@ -24,6 +24,8 @@ sf::Font& DataLoader::getP2Font()
 
 DataLoader::DataLoader()
 {
+
+
     if (!m_font.loadFromFile("font.ttf")) {
         std::cerr << "Failed to load font!" << std::endl;
     }
@@ -36,11 +38,13 @@ DataLoader::DataLoader()
         { STONE, "STONE" },
         { KEY, "KEY"},
         {BOMB, "BOMB"},
-        {EXPLODE, "EXPLODE"},
+        {EXPLODED, "EXPLODED"},
         {LIFEGIFT , "LIFEGIFT"},		
 		{GUARDGIFT , "GUARDGIFT"},
 		{FREEZGIFT , "FREEZGIFT"},
 		{EXTRATIMEGIFT , "EXTRATIMEGIFT"},
+		{VICTORY , "VICTORY"},
+		{DEFEAT , "DEFEAT"},
     };
 
     for (const auto& [type, name] : objectNames) {

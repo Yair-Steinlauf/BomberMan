@@ -24,7 +24,7 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 	sf::Vector2f getLocation()const;
 	virtual void update(const sf::Time& deltaTime) = 0;
-	virtual void act(const sf::Time& deltaTime) = 0;
+	virtual void act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc) = 0;
 	bool intersect(GameObject& other);
 	virtual void moveToStartPos() {};
 	virtual void collide(GameObject& other) =0;
@@ -42,16 +42,17 @@ public:
 	virtual void collideWithBomb(Bomb& key) {};
 	sf::Vector2f getBottomRight() const;
 	sf::Vector2f getTopLeft() const;
+	sf::Vector2f getSize() const;
 	bool isActive() const;
 	void setNoActive();
 	virtual ~GameObject();
-	void setScale(float factor);
+	
 protected:
 	bool m_isActive = true;
 	GameObject(const GameObject&) = default;
 	GameObject& operator=(const GameObject&) = default;
 	GameObject();
-	GameObject(const sf::Vector2f& location);
+	GameObject(const sf::Vector2f& location, float scaler);
 	void setLocation(const sf::Vector2f& newLocation);
 	sf::Sprite m_sprite;
 	bool isHigherThan(const GameObject& other) const;

@@ -6,8 +6,8 @@ Stone::Stone()
 {
 }
 
-Stone::Stone(const sf::Vector2f& location)
-	:StaticObject(location)
+Stone::Stone(const sf::Vector2f& location, float scaler)
+	:StaticObject(location, scaler)
 {
 	m_sprite.setTexture(DataLoader::getP2Texture(STONE));
 }

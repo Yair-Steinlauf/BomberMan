@@ -15,6 +15,6 @@ public:
     static sf::Font& getP2Font();
 private:
     DataLoader();
-    std::map<ObjectType, sf::Texture> m_textures;  // ����� �map
+    std::map<ObjectType, sf::Texture> m_textures;  
     sf::Font m_font;
 };

@@ -4,10 +4,10 @@
 class Player : public MovingObject {
 public:
 	Player();
-	Player(const sf::Vector2f& location);
+	Player(const sf::Vector2f& location, float scaler);
 	void update(const sf::Time& deltaTime) override;
 	void collide(GameObject& other) override;
-	void act(const sf::Time& deltaTime) override;
+	void act(const sf::Time& deltaTime , const sf::Vector2f& playerLoc) override;
 	void collideWithDoor(Door& door) override;
 	void collideWithGuard(Guard& guard) override;
 	void collideWithKey(Key& key) override;
@@ -15,9 +15,11 @@ public:
 	void collideWithGuardGift(GuardGift& guardGift) override;
 	void collideWithFreezGift(FreezGift& freezGift) override;
 	void collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift) override;
+	void collideWithBomb(Bomb& bomb) override;
 	bool gotGuardGift();
 	bool gotExtraTimeGift();
 	bool gotCollidWithGuard();
+	bool gotCollidWithBomb();
 	sf::Time gotFreezGift(sf::Time& deltaTime);
 	bool won()const;
 	bool gotKey()const;
@@ -35,5 +37,6 @@ private:
 	sf::Time m_freezGiftTime;
 	bool m_isGotExtraTimeGift = false;
 	bool m_collidWithGuard = false;
+	bool m_collidWithBomb = false;
 
 };

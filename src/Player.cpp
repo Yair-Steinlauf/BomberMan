@@ -1,15 +1,16 @@
 #include "Player.h"
 
 Player::Player()
-	:Player(sf::Vector2f(0,0))
+	:Player(sf::Vector2f(0,0), 1)
 {
 }
 
-Player::Player(const sf::Vector2f& location)
-	:MovingObject(location)
+Player::Player(const sf::Vector2f& location, float scaler)
+	:MovingObject(location, scaler)
 {
-	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));
-	m_speed = 100.0f;
+	m_sprite.setTexture(DataLoader::getP2Texture(PLAYER));	
+	m_speed = 700.0f * scaler; 
+
 	m_life = 3;
 	m_freezGiftTime = sf::seconds(0);
 }
@@ -18,8 +19,15 @@ Player::Player(const sf::Vector2f& location)
 
 void Player::update(const sf::Time& deltaTime)
 {
-	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x * deltaTime.asSeconds(),
-		getLocation().y + m_direction.y * deltaTime.asSeconds()));
+	//if (m_collidWithBomb) {
+	//	m_life--;
+	//	m_collidWithBomb = false;
+	//}if (m_collidWithGuard) {
+	//	m_life--;
+	//	m_collidWithGuard = false;
+	//}
+	if (m_life <= 0)
+		m_win = false;
 }
 
 void Player::collide(GameObject& other)
@@ -27,10 +35,13 @@ void Player::collide(GameObject& other)
 	other.collideWithPlayer(*this); //TODO: after set all classes
 }
 
-void Player::act( const sf::Time& deltaTime)
+void Player::act(const sf::Time& deltaTime, const sf::Vector2f& playerLoc)
 {
-	if (m_life <= 0)
-		m_win = false;
+
+	m_direction.x = m_direction.x * deltaTime.asSeconds();
+	m_direction.y = m_direction.y * deltaTime.asSeconds();
+	this->setLocation(sf::Vector2f(getLocation().x + m_direction.x,
+		getLocation().y + m_direction.y));
 }
 
 void Player::collideWithDoor(Door& door)
@@ -45,7 +56,6 @@ void Player::collideWithGuard(Guard& guard)
 {
 	SoundHandle::getInstance().playSound(S_COLLID_GUARD);
 	m_collidWithGuard = true;
-	m_life--;
 }
 
 void Player::collideWithKey(Key& key)
@@ -70,6 +80,11 @@ void Player::collideWithExtraTimeGift(ExtraTimeGift& extraTimeGift)
 {
 	SoundHandle::getInstance().playSound(S_GIFT);
 	m_isGotExtraTimeGift = true;
+}
+
+void Player::collideWithBomb(Bomb& bomb)
+{
+	m_collidWithBomb = true;
 }
 
 void Player::collideWithGuardGift(GuardGift& guardGift)
@@ -100,7 +115,18 @@ bool Player::gotExtraTimeGift()
 bool Player::gotCollidWithGuard()
 {
 	if (m_collidWithGuard) {
+		m_life--;
 		m_collidWithGuard = false;
+		return true;
+	}
+	return false;
+}
+
+bool Player::gotCollidWithBomb()
+{
+	if (m_collidWithBomb) {
+		m_life--;
+		m_collidWithBomb = false;
 		return true;
 	}
 	return false;

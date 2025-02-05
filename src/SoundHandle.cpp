@@ -23,9 +23,17 @@ bool SoundHandle::getIsSoundOn()
 	return m_isSoundOn;
 }
 
+
+
 SoundHandle::SoundHandle() {
 
-
+	if (!m_backgroundMusic.openFromFile("background-music.ogg")) {
+		std::cerr << "Error loading music!" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	m_backgroundMusic.setLoop(true);
+	m_backgroundMusic.setVolume(100);
+	m_backgroundMusic.play();
 
 	const std::vector<std::pair<enum Sound_Type, std::string>> soundNames =
 	{ { S_START_GAME, "S_START_GAME" } ,
@@ -35,6 +43,9 @@ SoundHandle::SoundHandle() {
 		{ S_DEFEAT, "S_DEFEAT" },
 		{S_COLLID_GUARD , "S_COLLID_GUARD"},
 		{S_LEVEL_UP, "S_LEVEL_UP"},
+		{S_EXPLODE, "S_EXPLODE"},
+		{S_GUARDBOMBED, "S_GUARDBOMBED"},
+
 	};
 	int i = 0;
 	for (const auto& object : soundNames)

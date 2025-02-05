@@ -3,15 +3,11 @@
 GameObject::GameObject()
 {
 }
-GameObject::GameObject(const sf::Vector2f& location)
+GameObject::GameObject(const sf::Vector2f& location, float scaler)
 	:GameObject()
 {
 	m_sprite.setPosition(location);
-}
-
-void GameObject::setScale(float factor)
-{
-	m_sprite.setScale(factor, factor);
+	m_sprite.setScale(scaler, scaler);
 }
 
 void GameObject::draw(sf::RenderWindow& window)
@@ -74,11 +70,29 @@ GameObject::~GameObject()
 
 void GameObject::setLocation(const sf::Vector2f& newLocation)
 {
-	m_sprite.setPosition(newLocation); //TODO: bound check
+	sf::FloatRect screenBounds(0, 0, WINDOW_WIDTH, WINDOW_HIGTH);
+
+
+	auto newSprite = m_sprite;
+	newSprite.setPosition(newLocation);
+
+
+	sf::FloatRect newBounds = newSprite.getGlobalBounds();
+	if (screenBounds.contains(newBounds.left, newBounds.top) &&
+		screenBounds.contains(newBounds.left + newBounds.width, newBounds.top + newBounds.height)) {
+		m_sprite.setPosition(newLocation);
+	}
+
+
 }
 sf::Vector2f GameObject::getTopLeft() const
 {
 	return m_sprite.getPosition(); // returns the top-left position
+}
+
+sf::Vector2f GameObject::getSize() const
+{
+	return sf::Vector2f(m_sprite.getGlobalBounds().width, m_sprite.getGlobalBounds().height);
 }
 
 bool GameObject::isActive() const

@@ -8,22 +8,26 @@
 class GameManager : public Screens{
 public:
 	GameManager();
-	void drawNDisplay(sf::RenderWindow& window, sf::Time& deltaTime);
+	void drawNDisplay(sf::RenderWindow& window, sf::Time& deltaTime, GameState& status);
 	void eventHandler(sf::Event& event, GameState& status);
 	static bool m_removeGuardGift;
 	static bool m_guardFreeze;
+	static bool m_guardBombed;
 	int getPlayerScore() const;
 	bool isWon();
+	void updatePlayer(sf::Event& event);
+	
 		
 private:
 	//void playerEvent(sf::Event& event, const sf::Time& deltaTime);
+	void placeBomb();
 	bool loadNextLevel();
-	void restartGame();
-	void update(sf::Time& deltaTime);
+	void restartLevel();
+	void update(sf::Time& deltaTime, GameState &status);
 	Board m_board;
 	Player* m_player;
 	int m_currLevel = 0;
-	
+	int m_startLevelScore = 0;
 	
 	std::vector<std::string> m_levels;
 	std::vector<std::string> getLevels();
@@ -34,6 +38,6 @@ private:
 	sf::Time m_timer;
 	
 	
+	
 };
 
-const sf::Vector2f scoreDetailsSize(0, 100.0f);
