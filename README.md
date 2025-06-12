@@ -42,10 +42,3 @@ This project is a C++ implementation of a classic BomberMan-style 2D game using 
   * 📁 `DataLoader`, 🔊 `SoundHandle` – singleton resource loaders
   * 🔣 `Types` – enums and constants used throughout the game
 
-## ⚠️ Known Issues
-
-* 🖱️ Hovering mouse in top-right corner during gameplay causes level skipping.
-
----
-
-אפשר גם להוסיף אייקונים מותאמים יותר או לשנות את הסגנון אם תרצה!
