@@ -1,7 +1,3 @@
-בשמחה! הנה הגרסה עם אייקונים (באופן שמתאים ל־GitHub markdown):
-
----
-
 # 🚀 BomberMan Game
 
 This project is a C++ implementation of a classic BomberMan-style 2D game using SFML. It features inheritance, polymorphism, and a modular design.
